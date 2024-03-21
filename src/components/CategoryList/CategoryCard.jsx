@@ -1,3 +1,5 @@
+import proptypes from "prop-types";
+
 function CategoryCard({ name, faicon, color, jobs }) {
     const jobsCount = jobs.toLocaleString();
     return (
@@ -7,7 +9,7 @@ function CategoryCard({ name, faicon, color, jobs }) {
             >
                 <i className={`${faicon}`}></i>
             </div>
-            <div className="text-justify">
+            <div className="text-justify sm:text-center">
                 <h3 className="sm:mt-3 text-lg font-semibold text-black">
                     {name}
                 </h3>
@@ -20,3 +22,10 @@ function CategoryCard({ name, faicon, color, jobs }) {
 }
 
 export default CategoryCard;
+
+CategoryCard.propTypes = {
+    name: proptypes.string.isRequired,
+    faicon: proptypes.string.isRequired,
+    color: proptypes.string.isRequired,
+    jobs: proptypes.number.isRequired,
+};
