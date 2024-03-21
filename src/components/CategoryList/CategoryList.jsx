@@ -14,7 +14,7 @@ function CategoryList({sectionId}) {
                 </div>
                 <div className="mt-8">
                     <div className="mx-auto max-w-7xl px-2 lg:px-8">
-                        <div className="grid grid-cols-1 gap-y-8 text-center sm:grid-cols-2 sm:gap-12 lg:grid-cols-4">
+                        <div className="grid grid-cols-1 gap-y-6 text-center sm:grid-cols-2 sm:gap-12 lg:grid-cols-4">
                             {catogoryListItems.map((item, index) => {
                                 return (
                                     <CategoryCard

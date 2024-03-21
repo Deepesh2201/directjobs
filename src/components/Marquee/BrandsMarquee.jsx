@@ -19,10 +19,10 @@ function BrandsMarquee({scrollToSection}) {
                         </Marquee>
                     </div>
                     <div className="text-xl lg:text-4xl my-2 lg:my-4 font-medium text-[color:var(--primary-color)]">80+ brands are hiring here</div>
-                    <div className="mt-8 delay-100 animate-bounce">
+                    <a href={scrollToSection} className="block mt-8 delay-100 animate-bounce">
                         <span className="block">Expore Jobs</span>
-                        <a href={scrollToSection} className="block fa-solid fa-angles-down"></a>
-                    </div>
+                        <i className="block fa-solid fa-angles-down"></i>
+                    </a>
                 </div>
             </div>
         </div>
