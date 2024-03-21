@@ -1,7 +1,7 @@
 import Marquee from "react-fast-marquee";
 import brandLogos from "../../assets/brand_logos";
 
-function BrandsMarquee() {
+function BrandsMarquee({scrollToSection}) {
     return (
         <div className="relative isolate z-0 bg-white lg:px-8 my-8 sm:my-14">
             <div className="relative mx-auto ">
@@ -21,7 +21,7 @@ function BrandsMarquee() {
                     <div className="text-xl lg:text-4xl my-2 lg:my-4 font-medium text-[color:var(--primary-color)]">80+ brands are hiring here</div>
                     <div className="mt-8 delay-100 animate-bounce">
                         <span className="block">Expore Jobs</span>
-                        <i className="block fa-solid fa-angles-down"></i>
+                        <a href={scrollToSection} className="block fa-solid fa-angles-down"></a>
                     </div>
                 </div>
             </div>

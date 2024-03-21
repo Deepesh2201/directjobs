@@ -1,9 +1,9 @@
 import CategoryCard from "./CategoryCard";
 import { catogoryListItems } from "./category";
 
-function CategoryList() {
+function CategoryList({sectionId}) {
     return (
-            <div className="max-w-7xl m-auto px-8 my-8 sm:my-14">
+            <div id={sectionId} className="max-w-7xl m-auto px-8 my-8 sm:my-14">
                 <div className="space-y-2 sm:space-y-4">
                     <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
                         Jobs by Category

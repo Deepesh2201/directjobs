@@ -8,9 +8,9 @@ function Home() {
     return (
         <div className="-mt-[150px]">
             <Hero />
-            <BrandsMarquee/>
+            <BrandsMarquee scrollToSection="#categorySection"/>
             <Hero2/>
-            <CategoryList/>
+            <CategoryList sectionId="categorySection"/>
             <TestimonicalMarquee/>
         </div>
     );
