@@ -1,9 +1,8 @@
 import CategoryCard from "./CategoryCard";
-import {catogoryListItems} from "./category";
+import { catogoryListItems } from "./category";
 
 function CategoryList() {
     return (
-        <div>
             <div className="max-w-7xl m-auto px-8 my-8 sm:my-14">
                 <div className="space-y-2 sm:space-y-4">
                     <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
@@ -31,7 +30,6 @@ function CategoryList() {
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 

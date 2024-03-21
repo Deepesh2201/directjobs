@@ -48,10 +48,10 @@ function Hero() {
                             Directly In Top Companies Without Paying Anything.
                         </p>
                         <div className="flex justify-evenly">
-                            <PrimaryButton className="py-2 px-2 whitespace-nowrap">
+                            <PrimaryButton className="!py-2 !px-2.5 whitespace-nowrap">
                                 Download App
                             </PrimaryButton>
-                            <SecondaryButton className="py-2 px-2 whitespace-nowrap">
+                            <SecondaryButton className="!py-2 !px-2.5 whitespace-nowrap">
                                 Create Account
                             </SecondaryButton>
                         </div>

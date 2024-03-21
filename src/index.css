@@ -4,8 +4,9 @@
 
 body {
     background-color: #ffffff;
-    font-family: "Rubik";
+    font-family: "Rubik", 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #17171d;
+    font-display: swap;
 }
 :root {
     --primary-color: #891b81;
