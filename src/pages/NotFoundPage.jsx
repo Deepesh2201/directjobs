@@ -1,12 +1,27 @@
+import image from "../assets/images/sadAstronaut.png";
+import logo from "../assets/images/mobileLogo.png";
 const NotFoundPage = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-primary">
-            <h1 className="text-4xl font-bold text-white">
-                404 - Page Not Found
-            </h1>
-            <p className="text-white">
-                Oops! The page you are looking for does not exist.
-            </p>
+        <div className="flex relative justify-around items-center h-screen w-full bg-[#efefed] px-8 overflow-hidden">
+            <div className="flex flex-col items-center justify-center h-screen bg-primary">
+                <h1 className="text-[10rem] font-semibold text-zinc-700 leading-none">
+                    404
+                </h1>
+                <h1 className="text-5xl font-medium">Nothing Found Here</h1>
+                <p className="">
+                    Oops! The page you are looking for does not exist.
+                </p>
+            </div>
+            <div>
+                <img className="max-w-[600px]" src={image} alt="" />
+            </div>
+            <div className="absolute bottom-5 left-5 flex gap-2 items-center">
+                <img className="w-5 sm:w-8" src={logo} width={"50"} alt="" />
+                <span className="font-medium text-zinc-700 leading-none">
+                    <p>Direct Jobs</p>
+                    <p className="text-xs font-normal">Ab direct job lega India</p>
+                </span>
+            </div>
         </div>
     );
 };
