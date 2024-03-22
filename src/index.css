@@ -19,9 +19,9 @@ body {
     --hover-primary-color: #f07ee9;
 }
 
-*{
+/* *{
     cursor: url("./assets/images/cursor.png"), default;
-}
+} */
 
 /* Thin Scrollbar */
 ::-webkit-scrollbar {
