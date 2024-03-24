@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import BrandLogo from "../components/SharedComponents/BrandLogo";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Signup() {
     const [mobileNumbers, setMobileNumbers] = useState(Array(10).fill(""));
 
     const inputRefs = useRef([]);
@@ -33,6 +33,15 @@ function Login() {
 
     return (
         <div className="grid grid-cols-5 w-full min-h-screen">
+            <div className="col-span-2 w-full hidden lg:block">
+                <img
+                    className="h-screen object-cover w-full"
+                    src={
+                        "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    }
+                    alt="cover"
+                />
+            </div>
             <div className="relative gap-1 lg:col-span-3 col-span-5">
                 <form
                     action=""
@@ -40,21 +49,17 @@ function Login() {
                 >
                     <div className="flex flex-col gap-1.5">
                         <div className="mb-8">
-                            <Link
-                                to={"/"}
-                                className="hidden md:flex absolute top-5 left-5 items-center gap-1"
-                            >
-                                <i className="fa-solid fa-arrow-left-long"></i>
+                            <Link to={"/"} className="hidden md:flex absolute top-5 left-5 items-center gap-1">
+                            <i className="fa-solid fa-arrow-left-long"></i>
                                 Back
                             </Link>
                             <BrandLogo />
                         </div>
                         <h1 className="mt-8 text-3xl font-bold text-[color:var(--primary-color)] md:text-4xl lg:text-5xl leading-tight">
-                            Welcome Back
+                            Welcome Abroad
                         </h1>
                         <p className="md:mt-2 text-sm md:text-lg text-gray-600 leading-tight">
-                            Hey there! Welcome back to Direct Jobs. Let&apos;s
-                            get you started.
+                            Get a step ahead in your career with Direct Jobs. Let&apos;s get you started.
                         </p>
                         <hr />
                         <div className="mt-8 items-start">
@@ -104,28 +109,19 @@ function Login() {
                             Request OTP
                         </button>
                         <p className="mt-5 text-sm">
-                            Don&apos;t have an account? &nbsp;
+                            Already have an account? &nbsp;
                             <Link
-                                to="/signup"
+                                to="/login"
                                 className="text-[color:var(--primary-color)] underline underline-offset-2"
                             >
-                                Signup Here
+                                Login Here
                             </Link>
                         </p>
                     </div>
                 </form>
             </div>
-            <div className="col-span-2 w-full hidden lg:block">
-                <img
-                    className="h-screen object-cover w-full"
-                    src={
-                        "https://images.unsplash.com/photo-1536300099515-6c61b290b654?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    }
-                    alt="cover"
-                />
-            </div>
         </div>
     );
 }
 
-export default Login;
+export default Signup;

@@ -70,7 +70,7 @@ function NavBar() {
                                 <PrimaryButton to={"/login"}>
                                     Log in
                                 </PrimaryButton>
-                                <SecondaryButton>Sign Up</SecondaryButton>
+                                <SecondaryButton to={"/signup"}>Sign Up</SecondaryButton>
                             </span>
                             <Link
                                 to={
