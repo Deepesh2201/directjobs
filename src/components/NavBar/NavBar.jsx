@@ -67,7 +67,9 @@ function NavBar() {
                     {!isLoggedIn && (
                         <>
                             <span className="space-x-2">
-                                <PrimaryButton>Log in</PrimaryButton>
+                                <PrimaryButton to={"/login"}>
+                                    Log in
+                                </PrimaryButton>
                                 <SecondaryButton>Sign Up</SecondaryButton>
                             </span>
                             <Link
