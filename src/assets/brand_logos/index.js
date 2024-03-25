@@ -7,3 +7,5 @@ import brand6 from "./6.webp";
 import brand7 from "./7.webp";
 
 export default [brand1, brand2, brand3, brand4, brand5, brand6, brand7];
+
+export const partnerLogos = [brand1, brand2, brand3, brand4, brand5];

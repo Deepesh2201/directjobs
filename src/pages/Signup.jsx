@@ -32,7 +32,7 @@ function Signup() {
     };
 
     return (
-        <div className="grid grid-cols-5 w-full min-h-screen">
+        <div className="grid grid-cols-5 w-full md:min-h-screen">
             <div className="col-span-2 w-full hidden lg:block">
                 <img
                     className="h-screen object-cover w-full"
@@ -43,14 +43,14 @@ function Signup() {
                 />
             </div>
             <div className="relative gap-1 lg:col-span-3 col-span-5">
-                <form
-                    action=""
-                    className="flex flex-col justify-between min-h-screen px-6 md:px-20 lg:px-24 py-16"
-                >
+                <form className="flex flex-col justify-between min-h-svh md:min-h-screen px-6 md:px-20 lg:px-24 py-8 md:py-16">
                     <div className="flex flex-col gap-1.5">
                         <div className="mb-8">
-                            <Link to={"/"} className="hidden md:flex absolute top-5 left-5 items-center gap-1">
-                            <i className="fa-solid fa-arrow-left-long"></i>
+                            <Link
+                                to={"/"}
+                                className="hidden md:flex absolute top-5 left-5 items-center gap-1"
+                            >
+                                <i className="fa-solid fa-arrow-left-long"></i>
                                 Back
                             </Link>
                             <BrandLogo />
@@ -59,7 +59,8 @@ function Signup() {
                             Welcome Abroad
                         </h1>
                         <p className="md:mt-2 text-sm md:text-lg text-gray-600 leading-tight">
-                            Get a step ahead in your career with Direct Jobs. Let&apos;s get you started.
+                            Get a step ahead in your career with Direct Jobs.
+                            Let&apos;s get you started.
                         </p>
                         <hr />
                         <div className="mt-8 items-start">

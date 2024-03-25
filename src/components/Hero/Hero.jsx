@@ -48,10 +48,19 @@ function Hero() {
                             Directly In Top Companies Without Paying Anything.
                         </p>
                         <div className="flex justify-evenly">
-                            <PrimaryButton className="!py-2 !px-2.5 whitespace-nowrap">
+                            <PrimaryButton
+                                className="!py-2 !px-2.5 whitespace-nowrap"
+                                target={"_blank"}
+                                to={
+                                    "https://play.google.com/store/apps/details?id=com.direct.jobs&hl=en-IN"
+                                }
+                            >
                                 Download App
                             </PrimaryButton>
-                            <SecondaryButton className="!py-2 !px-2.5 whitespace-nowrap">
+                            <SecondaryButton
+                                className="!py-2 !px-2.5 whitespace-nowrap"
+                                to={"/signup"}
+                            >
                                 Create Account
                             </SecondaryButton>
                         </div>
@@ -61,9 +70,14 @@ function Hero() {
                             <img className="w-full" src={QrCode} alt="" />
                         </span>
                         <span className="text-left">
-                            <h2 className="text-2xl font-semibold">Scan this QR to download Our Android App</h2>
+                            <h2 className="text-2xl font-semibold">
+                                Scan this QR to download Our Android App
+                            </h2>
                             <hr className="my-1" />
-                            <p>Always keep your portable job buddy in your pocket.</p>
+                            <p>
+                                Always keep your portable job buddy in your
+                                pocket.
+                            </p>
                         </span>
                     </div>
                 </div>

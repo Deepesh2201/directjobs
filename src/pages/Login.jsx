@@ -32,11 +32,11 @@ function Login() {
     };
 
     return (
-        <div className="grid grid-cols-5 w-full min-h-screen">
+        <div className="grid grid-cols-5 w-full md:min-h-screen">
             <div className="relative gap-1 lg:col-span-3 col-span-5">
                 <form
                     action=""
-                    className="flex flex-col justify-between min-h-screen px-6 md:px-20 lg:px-24 py-16"
+                    className="flex flex-col justify-between min-h-svh md:min-h-screen px-6 md:px-20 lg:px-24 py-8 md:py-16"
                 >
                     <div className="flex flex-col gap-1.5">
                         <div className="mb-8">

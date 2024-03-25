@@ -70,7 +70,9 @@ function NavBar() {
                                 <PrimaryButton to={"/login"}>
                                     Log in
                                 </PrimaryButton>
-                                <SecondaryButton to={"/signup"}>Sign Up</SecondaryButton>
+                                <SecondaryButton to={"/signup"}>
+                                    Sign Up
+                                </SecondaryButton>
                             </span>
                             <Link
                                 to={
@@ -79,7 +81,7 @@ function NavBar() {
                                 target="_blank"
                             >
                                 <img
-                                    className="h-10 ms-2"
+                                    className="h-10 ms-2 hover:opacity-85"
                                     src={playStoreLogo}
                                     alt="Download our App"
                                 />
@@ -151,10 +153,16 @@ function NavBar() {
                                 )}
                                 {!isLoggedIn && (
                                     <div className="flex gap-3 mt-5 px-3">
-                                        <PrimaryButton className="w-full text-center">
+                                        <PrimaryButton
+                                            className="w-full text-center"
+                                            to={"/login"}
+                                        >
                                             Log in
                                         </PrimaryButton>
-                                        <SecondaryButton className="w-full text-center">
+                                        <SecondaryButton
+                                            className="w-full text-center"
+                                            to={"/signup"}
+                                        >
                                             Sign up
                                         </SecondaryButton>
                                     </div>
