@@ -11,6 +11,7 @@ import Signup from "./pages/Signup.jsx";
 import Jobs from "./pages/Jobs.jsx";
 import Support from "./pages/Support.jsx";
 import ComfortLayout from "./ComfortLayout.jsx";
+import MobileJobListing from "./components/JobListing/MobileJobListing.jsx";
 
 const router = createBrowserRouter([
     {
@@ -32,8 +33,21 @@ const router = createBrowserRouter([
             },
         ],
     },
+    // mobile routes
     {
-        path: "/jobs",
+        path: "m",
+        element: <Layout />,
+        errorElement: <NotFoundPage />,
+        children: [
+            {
+                path: "jobs/:id",
+                element: <MobileJobListing />,
+            },
+        ],
+    },
+    // jobs route
+    {
+        path: "jobs",
         element: <ComfortLayout />,
         errorElement: <NotFoundPage />,
         children: [

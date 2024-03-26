@@ -390,5 +390,5 @@ export const jobDetails = [
 
 // function to return job details
 export const getJobDetails = (id) => {
-    return jobDetails.find((job) => job.id === id);
+    return jobDetails.find((job) => job.id == id);
 };

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { jobs as jobsData } from "./JobList";
 import { getJobDetails } from "./JobList";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
+import { Link } from "react-router-dom";
 
 function JobListing() {
     const [jobs, setJobs] = useState(jobsData);
@@ -44,7 +45,9 @@ function JobListing() {
                         defaultValue="latest"
                         required={true}
                     >
-                        <option value={undefined} selected>select</option>
+                        <option value={undefined} selected>
+                            select
+                        </option>
                         <option value="latest">Newly added</option>
                         <option value="oldest">Oldest</option>
                     </select>
@@ -53,9 +56,10 @@ function JobListing() {
             <div className="md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2">
                 {jobs?.map((job, index) => (
                     <div key={index} className="py-2">
+                        {/* for desktop */}
                         <button
                             onClick={() => setJibId(job.id)}
-                            className={`flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
+                            className={`hidden md:flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
                                 job.id === jobId
                                     ? "bg-slate-200 !text-white"
                                     : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
@@ -78,6 +82,32 @@ function JobListing() {
                                 </p>
                             </div>
                         </button>
+                        {/* for mobile */}
+                        <Link
+                            to={`/m/jobs/${job.id}`}
+                            className={`md:hidden flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
+                                job.id === jobId
+                                    ? "bg-slate-200 !text-white"
+                                    : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
+                            }`}
+                        >
+                            <div className="w-16 h-16">
+                                {job?.logo && (
+                                    <img src={job?.logo} alt={job?.company} />
+                                )}
+                            </div>
+                            <div>
+                                <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
+                                    {job.title}
+                                </h2>
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    {job.company}
+                                </p>
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    {job.location}
+                                </p>
+                            </div>
+                        </Link>
                     </div>
                 ))}
             </div>
@@ -87,7 +117,7 @@ function JobListing() {
                     <>
                         <div className="flex items-center gap-4 my-4">
                             <div className="w-full flex gap-4 items-center">
-                                <div className="w-16 h-16 bg-slate-100 p-2 rounded-full overflow-hidden">
+                                <div className="w-16 h-16">
                                     {jobDetails?.logo && (
                                         <img
                                             src={jobDetails?.logo}
