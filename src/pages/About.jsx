@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 function About() {
     return (
         <>
-            <div className="max-w-7xl m-auto px-4 md:px-8">
-                <div className="md:pt-10 grid md:grid-cols-2">
+            <div className="max-w-7xl md:pt-10 m-auto px-4 md:px-8">
+                <div className="grid md:grid-cols-2">
                     <div className="space-y-6">
                         <h1 className="text-5xl text-[color:var(--primary-color)]">
                             About Us

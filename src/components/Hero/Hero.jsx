@@ -15,7 +15,7 @@ function Hero() {
                     <div className="bg-white bg-opacity-60 rounded-lg w-fit px-4 py-2 font-medium mb-4">
                         We Have 208.000+ Live Jobs
                     </div>
-                    <div className="lg:text-8xl md:text-5xl font-semibold">
+                    <div className="lg:text-7xl md:text-5xl font-semibold">
                         Ab{" "}
                         <h1 className="inline underline text-[color:var(--primary-color)]">
                             Direct Job

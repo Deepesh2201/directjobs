@@ -5,7 +5,7 @@ import { testimonials } from "./constants";
 function TestimonicalMarquee() {
     return (
         <>
-            <div className="px-8 space-y-2 sm:space-y-4 max-w-7xl m-auto md:mb-12">
+            <div className="px-8 space-y-2 sm:space-y-4 md:max-w-7xl m-auto md:mb-12">
                 <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
                     1000+ People are already using Direct Jobs
                 </h3>
@@ -17,13 +17,13 @@ function TestimonicalMarquee() {
                     </span>
                 </h2>
             </div>
-            <div className="grid md:grid-cols-4">
-                <div className="bg-[color:var(--primary-color)] py-8 sm:py-14 hidden md:flex items-center">
-                    <div className="px-8 space-y-2 max-w-7xl m-auto">
-                        <h3 className="text-center font-medium text-lg text-white">
+            <div className="grid md:grid-cols-4 overflow-hidden">
+                <div className="bg-[color:var(--primary-color)] py-8 sm:py-14 hidden lg:flex items-center">
+                    <div className="px-2 xl:px-8 space-y-2 max-w-7xl m-auto">
+                        <h3 className="text-center font-medium text-sm xl:ltext-lg text-white">
                             What our users say about us
                         </h3>
-                        <h2 className="text-center font-medium text-3xl md:text-5xl text-white">
+                        <h2 className="text-center font-medium text-3xl md:text-4xl lg:5xl text-white">
                             Testimonials
                         </h2>
                     </div>

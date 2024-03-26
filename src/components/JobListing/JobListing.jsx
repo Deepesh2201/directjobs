@@ -1,0 +1,154 @@
+import { useEffect, useState } from "react";
+import { jobs } from "./JobList";
+import { getJobDetails } from "./JobList";
+import PrimaryButton from "../SharedComponents/PrimaryButton";
+
+function JobListing() {
+    const [jobId, setJibId] = useState(jobs[0].id);
+    const [jobsCount, setJobsCount] = useState(jobs.length);
+    const [jobDetails, setJobDetails] = useState();
+
+    useEffect(() => {
+        setJobDetails(getJobDetails(jobId));
+    }, [jobId]);
+    return (
+        <div className="grid md:grid-cols-6 h-full gap-2">
+            {/* list jobs */}
+            <div className="md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2">
+                {jobs?.map((job, index) => (
+                    <div key={index} className="py-2">
+                        <button
+                            onClick={() => setJibId(job.id)}
+                            className={`flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
+                                job.id === jobId
+                                    ? "bg-slate-200 !text-white"
+                                    : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
+                            }`}
+                        >
+                            <div className="w-16 h-16">
+                                {job?.logo && (
+                                    <img src={job?.logo} alt={job?.company} />
+                                )}
+                            </div>
+                            <div>
+                                <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
+                                    {job.title}
+                                </h2>
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    {job.company}
+                                </p>
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    {job.location}
+                                </p>
+                            </div>
+                        </button>
+                    </div>
+                ))}
+            </div>
+            {/* job details */}
+            <div className="hidden md:block col-span-4 py-2 px-8 w-full overflow-scroll border-2">
+                {jobDetails && (
+                    <>
+                        <div className="flex items-center gap-4 my-4">
+                            <div className="w-full flex gap-4 items-center">
+                                <div className="w-16 h-16 bg-slate-100 p-2 rounded-full overflow-hidden">
+                                    {jobDetails?.logo && (
+                                        <img
+                                            src={jobDetails?.logo}
+                                            alt={jobDetails?.company}
+                                        />
+                                    )}
+                                </div>
+                                <div>
+                                    <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
+                                        {jobDetails?.title}
+                                    </h2>
+                                    <p className="text-sm text-[color:var(--secondary-color)]">
+                                        {jobDetails?.company}
+                                    </p>
+                                    <p className="text-sm text-[color:var(--secondary-color)]">
+                                        {jobDetails?.location}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="text-center my-5 flex flex-col items-center justify-center">
+                                <PrimaryButton
+                                    to={jobDetails?.applyLink}
+                                    target="_blank"
+                                    className="w-fit py-2 bg-[color:var(--primary-color)] text-white rounded-md"
+                                >
+                                    Apply
+                                </PrimaryButton>
+                                <span className="text-xs whitespace-nowrap mt-1 font-medium">
+                                    100+ already applied
+                                </span>
+                            </div>
+                        </div>
+                        <div className="flex my-4 gap-4">
+                            {jobDetails?.type && (
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    <span className="font-medium">Type:</span>{" "}
+                                    {jobDetails?.type}
+                                </p>
+                            )}
+                            {jobDetails?.salary && (
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    <span className="font-medium">
+                                        Salary/Stipend:
+                                    </span>{" "}
+                                    {jobDetails?.salary}
+                                </p>
+                            )}
+                            {jobDetails?.duration && (
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    <span className="font-medium">
+                                        Duration:
+                                    </span>{" "}
+                                    {jobDetails?.duration}
+                                </p>
+                            )}
+                        </div>
+                        <div>
+                            {jobDetails?.details?.map((detail, index) => (
+                                <div key={index} className="my-4">
+                                    <h3 className="text-lg font-medium text-[color:var(--primary-color)]">
+                                        {detail.detailLabel}
+                                    </h3>
+                                    {detail.type === "Array" ? (
+                                        <ul className="list-disc ml-5">
+                                            {detail.detail.map(
+                                                (item, index) => (
+                                                    <li
+                                                        key={index}
+                                                        className="text-sm"
+                                                    >
+                                                        {item}
+                                                    </li>
+                                                )
+                                            )}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-sm">
+                                            {detail.detail}
+                                        </p>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </>
+                )}
+
+                {!jobDetails && (
+                    <div className="w-full h-full flex items-center justify-center gap-2">
+                        <i className="text-lg text-[color:var(--primary-color)] fas fa-exclamation-circle"></i>
+                        <p className="text-lg text-[color:var(--primary-color)]">
+                            Oops, no job details found!
+                        </p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+export default JobListing;
