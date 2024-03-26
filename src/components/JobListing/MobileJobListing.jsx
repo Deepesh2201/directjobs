@@ -11,6 +11,8 @@ function MobileJobListing() {
 
     useEffect(() => {
         setJobDetails(getJobDetails(jobId));
+        // scroll to top
+        window.scrollTo(0, 0);
     }, [jobId]);
 
     return (

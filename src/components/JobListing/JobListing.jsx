@@ -12,6 +12,10 @@ function JobListing() {
 
     useEffect(() => {
         setJobDetails(getJobDetails(jobId));
+
+        // scroll only jobdetails section
+        const jobDetailsSection = document.querySelector("#jobDetails");
+        jobDetailsSection.scrollTo(0, 0);
     }, [jobId]);
 
     // sort jobs by latest or oldest function by comapring postedOn date with current date
@@ -112,7 +116,10 @@ function JobListing() {
                 ))}
             </div>
             {/* job details */}
-            <div className="hidden md:block col-span-4 py-2 px-8 w-full overflow-scroll border-2">
+            <div
+                id="jobDetails"
+                className="hidden md:block col-span-4 py-2 px-8 w-full overflow-scroll border-2 scroll-smooth"
+            >
                 {jobDetails && (
                     <>
                         <div className="flex items-center gap-4 my-4">
