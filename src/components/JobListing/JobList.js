@@ -8,6 +8,7 @@ export const jobs = [
         salary: "100k",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         logo: "https://cdn-icons-png.flaticon.com/512/270/270014.png",
+        postedOn: "2022-01-01",
     },
 
     {
@@ -19,6 +20,7 @@ export const jobs = [
         salary: "120k",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         logo: "https://cdn-icons-png.flaticon.com/128/6033/6033716.png",
+        postedOn: "2022-01-02",
     },
 
     {
@@ -30,6 +32,7 @@ export const jobs = [
         salary: "150k",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         logo: "https://cdn-icons-png.flaticon.com/128/11423/11423450.png",
+        postedOn: "2022-01-03",
     },
 
     {
@@ -41,6 +44,7 @@ export const jobs = [
         salary: "130k",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         logo: "https://cdn-icons-png.flaticon.com/128/732/732221.png",
+        postedOn: "2022-01-04",
     },
 
     {
@@ -52,6 +56,19 @@ export const jobs = [
         salary: "140k",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         logo: "https://cdn-icons-png.flaticon.com/128/2504/2504929.png",
+        postedOn: "2022-01-05",
+    },
+
+    {
+        id: 6,
+        title: "Data Scientist",
+        company: "Tesla",
+        location: "Remote",
+        type: "Full Time",
+        salary: "160k",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        logo: "https://cdn-icons-png.flaticon.com/128/732/732254.png",
+        postedOn: "2022-01-06",
     },
 ];
 
@@ -63,6 +80,7 @@ export const jobDetails = [
         location: "Remote",
         type: "Full Time",
         salary: "100k",
+        postedOn: "2022-01-01",
         logo: "https://cdn-icons-png.flaticon.com/512/270/270014.png",
         applyLink: "https://www.google.com",
         details: [
@@ -114,12 +132,221 @@ export const jobDetails = [
         location: "Remote",
         type: "Full Time",
         salary: "120k",
+        postedOn: "2022-01-02",
         logo: "https://cdn-icons-png.flaticon.com/128/6033/6033716.png",
         applyLink: "https://www.meta.com",
         details: [
             {
                 detailLabel: "Job Description",
-                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            },
+            {
+                detailLabel: "Job Requirements",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Responsibilities",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Benefits",
+                type: "Array",
+                detail: [
+                    "Health Insurance",
+                    "Paid Time Off",
+                    "Flexible Work Hours",
+                    "Remote Work",
+                    "Professional Development",
+                ],
+            },
+        ],
+    },
+    {
+        id: 3,
+        title: "Full Stack Developer",
+        company: "Amazon",
+        location: "Remote",
+        type: "Full Time",
+        salary: "150k",
+        postedOn: "2022-01-03",
+        logo: "https://cdn-icons-png.flaticon.com/128/11423/11423450.png",
+        applyLink: "https://www.amazon.com",
+        details: [
+            {
+                detailLabel: "Job Description",
+                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            },
+            {
+                detailLabel: "Job Requirements",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Responsibilities",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Benefits",
+                type: "Array",
+                detail: [
+                    "Health Insurance",
+                    "Paid Time Off",
+                    "Flexible Work Hours",
+                    "Remote Work",
+                    "Professional Development",
+                ],
+            },
+        ],
+    },
+    {
+        id: 4,
+        title: "Software Engineer",
+        company: "Microsoft",
+        location: "Remote",
+        type: "Full Time",
+        salary: "130k",
+        postedOn: "2022-01-04",
+        logo: "https://cdn-icons-png.flaticon.com/128/732/732221.png",
+        applyLink: "https://www.microsoft.com",
+        details: [
+            {
+                detailLabel: "Job Description",
+                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            },
+            {
+                detailLabel: "Job Requirements",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Responsibilities",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Benefits",
+                type: "Array",
+                detail: [
+                    "Health Insurance",
+                    "Paid Time Off",
+                    "Flexible Work Hours",
+                    "Remote Work",
+                    "Professional Development",
+                ],
+            },
+        ],
+    },
+    {
+        id: 5,
+        title: "DevOps Engineer",
+        company: "Netflix",
+        location: "Remote",
+        type: "Full Time",
+        salary: "140k",
+        postedOn: "2022-01-05",
+        logo: "https://cdn-icons-png.flaticon.com/128/2504/2504929.png",
+        applyLink: "https://www.netflix.com",
+        details: [
+            {
+                detailLabel: "Job Description",
+                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            },
+            {
+                detailLabel: "Job Requirements",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Responsibilities",
+                type: "Array",
+                detail: [
+                    "Develop new user-facing features",
+                    "Build reusable code and libraries for future use",
+                    "Ensure the technical feasibility of UI/UX designs",
+                    "Optimize application for maximum speed and scalability",
+                    "Assure that all user input is validated before submitting to back-end",
+                    "Collaborate with other team members and stakeholders",
+                ],
+            },
+            {
+                detailLabel: "Job Benefits",
+                type: "Array",
+                detail: [
+                    "Health Insurance",
+                    "Paid Time Off",
+                    "Flexible Work Hours",
+                    "Remote Work",
+                    "Professional Development",
+                ],
+            },
+        ],
+    },
+    {
+        id: 6,
+        title: "Data Scientist",
+        company: "Tesla",
+        location: "Remote",
+        type: "Full Time",
+        salary: "160k",
+        postedOn: "2022-01-06",
+        logo: "https://cdn-icons-png.flaticon.com/128/732/732254.png",
+        applyLink: "https://www.tesla.com",
+        details: [
+            {
+                detailLabel: "Job Description",
+                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             },
             {
                 detailLabel: "Job Requirements",

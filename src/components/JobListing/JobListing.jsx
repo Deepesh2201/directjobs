@@ -1,19 +1,55 @@
 import { useEffect, useState } from "react";
-import { jobs } from "./JobList";
+import { jobs as jobsData } from "./JobList";
 import { getJobDetails } from "./JobList";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
 
 function JobListing() {
+    const [jobs, setJobs] = useState(jobsData);
     const [jobId, setJibId] = useState(jobs[0].id);
-    const [jobsCount, setJobsCount] = useState(jobs.length);
+    const [jobsCount] = useState(jobs.length);
     const [jobDetails, setJobDetails] = useState();
 
     useEffect(() => {
         setJobDetails(getJobDetails(jobId));
     }, [jobId]);
+
+    // sort jobs by latest or oldest function by comapring postedOn date with current date
+    const sortJobs = (sortType) => {
+        const sortedJobs = jobs.sort((a, b) => {
+            const aDate = new Date(a.postedOn);
+            const bDate = new Date(b.postedOn);
+            if (sortType === "latest") {
+                return bDate - aDate;
+            } else {
+                return aDate - bDate;
+            }
+        });
+        setJobs([...sortedJobs]);
+    };
+
     return (
-        <div className="grid md:grid-cols-6 h-full gap-2">
-            {/* list jobs */}
+        <div className="grid md:grid-cols-6 h-full gap-1">
+            {/* jobs counts */}
+            <div className="flex items-center justify-between h-fit md:col-span-6">
+                <p className="text-sm font-medium text-[color:var(--primary-color)]">
+                    {jobsCount} Jobs Found
+                </p>
+                <div className="flex items-center gap-2">
+                    <p className="text-sm text-[color:var(--secondary-color)] font-medium">
+                        Sort by:
+                    </p>
+                    <select
+                        className="text-sm py-1 outline-none"
+                        onChange={(e) => sortJobs(e.target.value)}
+                        defaultValue="latest"
+                        required={true}
+                    >
+                        <option value={undefined} selected>select</option>
+                        <option value="latest">Newly added</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+            </div>
             <div className="md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2">
                 {jobs?.map((job, index) => (
                     <div key={index} className="py-2">
@@ -105,6 +141,14 @@ function JobListing() {
                                         Duration:
                                     </span>{" "}
                                     {jobDetails?.duration}
+                                </p>
+                            )}
+                            {jobDetails?.postedOn && (
+                                <p className="text-sm text-[color:var(--secondary-color)]">
+                                    <span className="font-medium">
+                                        Posted On:
+                                    </span>{" "}
+                                    {jobDetails?.postedOn}
                                 </p>
                             )}
                         </div>

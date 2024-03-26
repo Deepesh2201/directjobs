@@ -12,8 +12,8 @@ function Jobs() {
                     <p className="text-sm md:text-base text-center mt-2 text-[color:var(--secondary-color)]">
                         Search for job title, keywords, or company name
                     </p>
-                    <JobSearch />
                 </div>
+                <JobSearch />
                 <div className="h-full overflow-hidden">
                     <JobListing />
                 </div>
