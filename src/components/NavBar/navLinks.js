@@ -20,8 +20,8 @@ export default [
         newTab: false,
     },
     {
-        label: "Contacts",
-        path: "/contact",
+        label: "Support",
+        path: "/support",
         newTab: false,
     },
 ];

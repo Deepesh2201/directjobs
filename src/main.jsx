@@ -9,6 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Jobs from "./pages/Jobs.jsx";
+import Support from "./pages/Support.jsx";
 import ComfortLayout from "./ComfortLayout.jsx";
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "about",
                 element: <About />,
+            },
+            {
+                path: "support",
+                element: <Support />,
             },
         ],
     },
