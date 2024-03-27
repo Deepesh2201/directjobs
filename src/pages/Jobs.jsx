@@ -4,7 +4,7 @@ import JobSearch from "../components/JobSearch/JobSearch";
 function Jobs() {
     return (
         <>
-            <div className="max-w-7xl w-full py-6 md:py-10 m-auto px-4 md:px-8 h-screen flex flex-col">
+            <div className="max-w-7xl w-full py-6 md:py-10 m-auto px-4 md:px-8 md:h-screen flex flex-col">
                 <div className="h-fit">
                     <h1 className="text-4xl md:text-5xl text-center text-[color:var(--primary-color)]">
                         Find your dream job

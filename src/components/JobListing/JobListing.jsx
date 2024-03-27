@@ -9,6 +9,7 @@ function JobListing() {
     const [jobId, setJibId] = useState(jobs[0].id);
     const [jobsCount] = useState(jobs.length);
     const [jobDetails, setJobDetails] = useState();
+    const [mobileView, setMobileView] = useState(false);
 
     useEffect(() => {
         setJobDetails(getJobDetails(jobId));
@@ -16,7 +17,23 @@ function JobListing() {
         // scroll only jobdetails section
         const jobDetailsSection = document.querySelector("#jobDetails");
         jobDetailsSection.scrollTo(0, 0);
-    }, [jobId]);
+
+        // mobileView at 767px
+        if (window.innerWidth <= 767) {
+            setMobileView(true);
+        } else {
+            setMobileView(false);
+        }
+    }, [jobId, mobileView]);
+
+    // on window resize set mobileView state
+    window.addEventListener("resize", () => {
+        if (window.innerWidth <= 767) {
+            setMobileView(true);
+        } else {
+            setMobileView(false);
+        }
+    });
 
     // sort jobs by latest or oldest function by comapring postedOn date with current date
     const sortJobs = (sortType) => {
@@ -61,57 +78,64 @@ function JobListing() {
                 {jobs?.map((job, index) => (
                     <div key={index} className="py-2">
                         {/* for desktop */}
-                        <button
-                            onClick={() => setJibId(job.id)}
-                            className={`hidden md:flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
-                                job.id === jobId
-                                    ? "bg-slate-200 !text-white"
-                                    : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
-                            }`}
-                        >
-                            <div className="w-16 h-16">
-                                {job?.logo && (
-                                    <img src={job?.logo} alt={job?.company} />
-                                )}
-                            </div>
-                            <div>
-                                <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
-                                    {job.title}
-                                </h2>
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    {job.company}
-                                </p>
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    {job.location}
-                                </p>
-                            </div>
-                        </button>
+                        {!mobileView && (
+                            <button
+                                onClick={() => setJibId(job.id)}
+                                className={`hidden md:flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
+                                    job.id === jobId
+                                        ? "bg-slate-200 !text-white"
+                                        : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
+                                }`}
+                            >
+                                <div className="w-16 h-16">
+                                    {job?.logo && (
+                                        <img
+                                            src={job?.logo}
+                                            alt={job?.company}
+                                        />
+                                    )}
+                                </div>
+                                <div>
+                                    <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
+                                        {job.title}
+                                    </h2>
+                                    <p className="text-sm text-[color:var(--secondary-color)]">
+                                        {job.company}
+                                    </p>
+                                    <p className="text-sm text-[color:var(--secondary-color)]">
+                                        {job.location}
+                                    </p>
+                                </div>
+                            </button>
+                        )}
                         {/* for mobile */}
-                        <Link
-                            to={`/m/jobs/${job.id}`}
-                            className={`md:hidden flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
-                                job.id === jobId
-                                    ? "bg-slate-200 !text-white"
-                                    : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
-                            }`}
-                        >
-                            <div className="w-16 h-16">
-                                {job?.logo && (
-                                    <img src={job?.logo} alt={job?.company} />
-                                )}
-                            </div>
-                            <div>
-                                <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
-                                    {job.title}
-                                </h2>
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    {job.company}
-                                </p>
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    {job.location}
-                                </p>
-                            </div>
-                        </Link>
+                        {mobileView && (
+                            <Link
+                                to={`/m/jobs/${job.id}`}
+                                className={`md:hidden flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
+                                }`}
+                            >
+                                <div className="w-16 h-16">
+                                    {job?.logo && (
+                                        <img
+                                            src={job?.logo}
+                                            alt={job?.company}
+                                        />
+                                    )}
+                                </div>
+                                <div>
+                                    <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
+                                        {job.title}
+                                    </h2>
+                                    <p className="text-sm text-[color:var(--secondary-color)]">
+                                        {job.company}
+                                    </p>
+                                    <p className="text-sm text-[color:var(--secondary-color)]">
+                                        {job.location}
+                                    </p>
+                                </div>
+                            </Link>
+                        )}
                     </div>
                 ))}
             </div>
