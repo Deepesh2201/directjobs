@@ -14,9 +14,31 @@ body {
 :root {
     --primary-color: #891b81;
     --primary-shade1: #95328e;
-    --secondary-color: #313131;
+    --secondary-color: #121420;
     --hover-btn-color: #b128a8;
     --hover-primary-color: #f07ee9;
+}
+
+
+.bg-gradient-secondary {
+    /* gradient background secondary without variable */
+    background: linear-gradient(90deg, #313131 0%, #121420 100%);
+}
+
+.bg-gradient-primary {
+    /* gradient background primary without variable */
+    background: linear-gradient(90deg, #f07ee9 0%, #b128a8 100%);
+}
+
+/* change degree for mobile device  */
+@media (max-width: 768px) {
+    .bg-gradient-secondary {
+        background: linear-gradient(180deg, #313131 0%, #121420 100%);
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(180deg, #f07ee9 0%, #b128a8 100%);
+    }
 }
 
 /* *{

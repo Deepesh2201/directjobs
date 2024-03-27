@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { getJobDetails } from "./JobList";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function MobileJobListing() {
     // get job id from url params id
     const { id } = useParams();
     const [jobId] = useState(id);
     const [jobDetails, setJobDetails] = useState();
+
+    const navigate = useNavigate();
+    const backToJobListing = () => {
+        console.log(navigate(-1));
+        // if(navigate(-1)){
+        //     navigate("/jobs");
+        // }
+    };
 
     useEffect(() => {
         setJobDetails(getJobDetails(jobId));
@@ -16,17 +24,18 @@ function MobileJobListing() {
     }, [jobId]);
 
     return (
-        <div className="block -mt-8 md:mt-0 col-span-4 py-2 px-8 w-full overflow-scroll max-w-7xl m-auto">
+        <div className="block -mt-16 md:mt-0 col-span-4 py-2 px-8 w-full overflow-scroll max-w-7xl m-auto">
             {/* Back button */}
             <button
                 className="flex gap-2 my-4 items-center text-[color:var(--primary-color)]"
-                onClick={() => window.history.back()}
+                onClick={backToJobListing}
             >
                 <i className="text-lg text-[color:var(--primary-color)] fas fa-arrow-left"></i>
                 <span className="text-lg text-[color:var(--primary-color)]">
-                    Back to job listing
+                    All Jobs
                 </span>
             </button>
+            <hr className="mb-6" />
             {jobDetails && (
                 <>
                     <div className="">

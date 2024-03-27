@@ -1,7 +1,14 @@
+import { useEffect } from "react";
 import JobListing from "../components/JobListing/JobListing";
 import JobSearch from "../components/JobSearch/JobSearch";
 
 function Jobs() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = "Jobs | Direct Jobs";
+    }
+    , []);
+
     return (
         <>
             <div className="max-w-7xl w-full py-6 md:py-10 m-auto px-4 md:px-8 md:h-screen flex flex-col">

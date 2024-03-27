@@ -8,7 +8,7 @@ import { FeaturedJobs } from "./FeaturedJobs";
 
 function Home() {
     return (
-        <div className="-mt-[150px]">
+        <div className="-mt-[150px] overflow-x-hidden">
             <Hero />
             <BrandsMarquee scrollToSection="#categorySection"/>
             <Hero2/>

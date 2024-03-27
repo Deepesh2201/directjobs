@@ -3,6 +3,7 @@ import { jobs as jobsData } from "./JobList";
 import { getJobDetails } from "./JobList";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
 import { Link } from "react-router-dom";
+import JobListCard from "./JobListCard";
 
 function JobListing() {
     const [jobs, setJobs] = useState(jobsData);
@@ -25,6 +26,11 @@ function JobListing() {
             setMobileView(false);
         }
     }, [jobId, mobileView]);
+
+    // on first load sort jobs by latest
+    useEffect(() => {
+        sortJobs("latest");
+    }, []);
 
     // on window resize set mobileView state
     window.addEventListener("resize", () => {
@@ -79,61 +85,14 @@ function JobListing() {
                     <div key={index} className="py-2">
                         {/* for desktop */}
                         {!mobileView && (
-                            <button
-                                onClick={() => setJibId(job.id)}
-                                className={`hidden md:flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
-                                    job.id === jobId
-                                        ? "bg-slate-200 !text-white"
-                                        : "hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
-                                }`}
-                            >
-                                <div className="w-16 h-16">
-                                    {job?.logo && (
-                                        <img
-                                            src={job?.logo}
-                                            alt={job?.company}
-                                        />
-                                    )}
-                                </div>
-                                <div>
-                                    <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
-                                        {job.title}
-                                    </h2>
-                                    <p className="text-sm text-[color:var(--secondary-color)]">
-                                        {job.company}
-                                    </p>
-                                    <p className="text-sm text-[color:var(--secondary-color)]">
-                                        {job.location}
-                                    </p>
-                                </div>
+                            <button className="w-full" onClick={() => setJibId(job.id)}>
+                                <JobListCard job={job} activeJob={jobId} />
                             </button>
                         )}
                         {/* for mobile */}
                         {mobileView && (
-                            <Link
-                                to={`/m/jobs/${job.id}`}
-                                className={`md:hidden flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer hover:bg-gray-100 hover:text-[color:var(--primary-color)]"
-                                }`}
-                            >
-                                <div className="w-16 h-16">
-                                    {job?.logo && (
-                                        <img
-                                            src={job?.logo}
-                                            alt={job?.company}
-                                        />
-                                    )}
-                                </div>
-                                <div>
-                                    <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
-                                        {job.title}
-                                    </h2>
-                                    <p className="text-sm text-[color:var(--secondary-color)]">
-                                        {job.company}
-                                    </p>
-                                    <p className="text-sm text-[color:var(--secondary-color)]">
-                                        {job.location}
-                                    </p>
-                                </div>
+                            <Link className="w-full" to={`/m/jobs/${job.id}`}>
+                                <JobListCard job={job} />
                             </Link>
                         )}
                     </div>

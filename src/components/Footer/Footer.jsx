@@ -1,123 +1,102 @@
-import logo from "../../assets/images/mobileLogo.png";
-import { exploreLinks } from "./constants";
+import { Link } from "react-router-dom";
+import { exploreLinks, footerLinks } from "./constants";
+import PrimaryButton from "../SharedComponents/PrimaryButton";
+import BrandLogo from "../SharedComponents/BrandLogo";
+import { useState } from "react";
 
 function Footer() {
-    {
-        /* a slick and professinal footer with small logo and links like, Support, Recruiter, Faq and other */
-    }
+    const [exploreLinksCount] = useState(window.innerWidth < 768 ? 20 : 60);
+
     return (
         <>
-            <section className="py-5 mt-5 bg-slate-50">
-                {/* a setion on footer to show different sections of links like label: Explore jobs by city, jobs in <cityname>, label:Explore jobs by experience, jobs for <profession>, label: Explore jobs by experinece, Jobs for fresher, indetmdiate...  */}
-                <div className="max-w-7xl m-auto hidden md:block">
-                    <div className="flex items-center gap-4 my-5">
-                        <hr className="w-full border-black" />
-                        <h3 className="text-lg font-medium whitespace-nowrap">
-                            Explore jobs by city
-                        </h3>
-                        <hr className="w-full border-black" />
-                    </div>
-                    <div className="md:grid lg:grid-cols-4 md:grid-cols-2 ml-5 text-sm">
-                        {exploreLinks?.citynames?.map((city, index) => (
-                            <div key={index}>
-                                <a
-                                    href="#"
-                                    className="hover:text-[color:var(--primary-color)]"
-                                >
-                                    Jobs in {city}
-                                </a>
+            <section className="py-5 md:my-5 bg-slate-50">
+                <div className="max-w-7xl m-auto md:block">
+                    {exploreLinks?.map((link, index) => (
+                        <div key={index}>
+                            <div className="flex items-center gap-4 my-5">
+                                <hr className="w-full border-slate-400" />
+                                <h3 className="text-lg font-medium whitespace-nowrap">
+                                    {link.label}
+                                </h3>
+                                <hr className="w-full border-slate-400" />
                             </div>
-                        ))}
-                    </div>
-                    <div className="flex items-center gap-4 my-5">
-                        <hr className="w-full border-black" />
-                        <h3 className="text-lg font-medium whitespace-nowrap">
-                            Explore jobs by Profession
-                        </h3>
-                        <hr className="w-full border-black" />
-                    </div>
-                    <div className="md:grid lg:grid-cols-4 md:grid-cols-2 ml-5 text-sm">
-                        {exploreLinks?.professions?.map((profession, index) => (
-                            <div key={index}>
-                                <a
-                                    href="#"
-                                    className="hover:text-[color:var(--primary-color)]"
-                                >
-                                    Job for {profession}
-                                </a>
+                            <div className="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 text-sm px-4 gap-2">
+                                {/* show only 20 items and show show more button */}
+                                {link?.data
+                                    ?.slice(0, exploreLinksCount)
+                                    .map((dataLabel, index) => (
+                                        <div key={index}>
+                                            <a
+                                                href="#"
+                                                className="text-xs md:text-sm hover:text-[color:var(--primary-color)] flex items-center h-full w-full justify-center text-center md:justify-start md:text-left"
+                                            >
+                                                {`${link?.prefix} ${dataLabel}`}
+                                            </a>
+                                        </div>
+                                    ))}
                             </div>
-                        ))}
-                    </div>
-                    <div className="flex items-center gap-4 my-5">
-                        <hr className="w-full border-black" />
-                        <h3 className="text-lg font-medium whitespace-nowrap">
-                            Popular Jobs
-                        </h3>
-                        <hr className="w-full border-black" />
-                    </div>
-                    <div className="md:grid lg:grid-cols-4 md:grid-cols-2 ml-5 text-sm">
-                        {exploreLinks?.popularJobs?.map((jobLabel, index) => (
-                            <div key={index}>
-                                <a
-                                    href="#"
-                                    className="hover:text-[color:var(--primary-color)]"
+                            {link?.data?.length > exploreLinksCount && (
+                                <Link
+                                    to={"/jobs"}
+                                    className="text-sm text-[color:var(--primary-color)] w-full text-center block my-3"
                                 >
-                                    {jobLabel}
-                                </a>
-                            </div>
-                        ))}
-                    </div>
+                                    Show All
+                                </Link>
+                            )}
+                        </div>
+                    ))}
                 </div>
             </section>
-            <section className="relative overflow-hidden text-white bg-[color:var(--secondary-color)]">
-                <div className="relative mx-auto px-8 py-4">
-                    <div className="md:flex items-center space-y-3 md:space-y-0">
-                        <div className="flex w-fit items-center gap-2">
-                            <div className="flex items-center w-12 h-12">
-                                <img className="w-12 h-12" src={logo} alt="" />
-                            </div>
-                            <div>
-                                <p className="text-base font-medium">
-                                    Direct Jobs
-                                </p>
-                                <p className="text-xs md:text-sm md:whitespace-nowrap">
-                                    Find your dream job with Direct Jobs.
-                                </p>
-                            </div>
+            <section className="relative overflow-hidden text-white bg-gradient-secondary divide-y divide-slate-500">
+                <div className="relative mx-auto px-2 md:px-8 py-8 max-w-7xl">
+                    <div className="grid md:grid-cols-10">
+                        <div className="md:col-span-3 lg:col-span-2 m-auto py-2 md:w-full">
+                            <BrandLogo className="!text-white" light={true} />
                         </div>
-                        <div className="h-full w-full flex justify-evenly">
-                            <a
-                                className=" text-base font-medium  hover:text-[color:var(--hover-primary-color)]"
-                                href="#"
-                            >
-                                About Us
-                            </a>
-                            <a
-                                className=" text-base font-medium  hover:text-[color:var(--hover-primary-color)]"
-                                href="#"
-                            >
-                                Careers
-                            </a>
-                            <a
-                                className=" text-base font-medium  hover:text-[color:var(--hover-primary-color)]"
-                                href="#"
-                            >
-                                Contact Us
-                            </a>
-                            <a
-                                className=" text-base font-medium  hover:text-[color:var(--hover-primary-color)]"
-                                href="#"
-                            >
-                                Blog
-                            </a>
+                        <div className="md:col-span-7 lg:col-span-6 w-full flex items-center justify-center md:justify-evenly divide-x">
+                            {footerLinks?.map((link, index) => (
+                                <span
+                                    key={index}
+                                    className="w-fit md:w-full text-center px-2"
+                                >
+                                    <Link
+                                        to={link?.path}
+                                        className="text-xs md:text-sm font-medium whitespace-nowrap"
+                                    >
+                                        {link?.label}
+                                    </Link>
+                                </span>
+                            ))}
+                        </div>
+                        <div className="md:hidden lg:flex lg:col-span-2 mt-5 md:py-0 w-full flex flex-col items-center">
+                            <h3 className=" font-medium whitespace-nowrap">
+                                Hire From Direct Jobs
+                            </h3>
+                            <PrimaryButton className="!px-4 block w-fit m-auto my-2 text-xs md:text-sm">
+                                Join as a Company
+                            </PrimaryButton>
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div className="text-center text-xs py-2 font-medium">
-                    <p>
-                        &copy; 2021 Direct Jobs Pvt. Ltd. All rights reserved.
-                    </p>
+                <div className="text-center md:flex py-2 justify-evenly">
+                    <div className="text-sm px-4">
+                        {`${new Date().getFullYear()} Direct Jobs © All rights reserved.`}
+                    </div>
+                    <div className="divide-x flex justify-center mb-5 sm:mb-0">
+                        <Link
+                            href="#"
+                            className="block text-sm text-center px-4"
+                        >
+                            Privacy Policy
+                        </Link>
+
+                        <Link
+                            href="#"
+                            className="block text-sm text-center px-4"
+                        >
+                            TnC
+                        </Link>
+                    </div>
                 </div>
             </section>
         </>

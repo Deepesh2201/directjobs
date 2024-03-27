@@ -4,8 +4,13 @@ import SecondaryButton from "../components/SharedComponents/SecondaryButton";
 import asset1 from "../assets/images/workingOnLaptop.png";
 import asset2 from "../assets/images/idCard.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function About() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
+
     return (
         <>
             <div className="max-w-7xl md:pt-10 m-auto px-4 md:px-8">
@@ -72,7 +77,10 @@ function About() {
                             that everyone deserves the opportunity to work in a
                             job they love and we are committed to making that
                             happen.{" "}
-                            <Link to={"/signup"} className="text-[color:var(--primary-color)] font-medium">
+                            <Link
+                                to={"/signup"}
+                                className="text-[color:var(--primary-color)] font-medium"
+                            >
                                 Sign up today and start your job search!
                             </Link>
                         </p>
@@ -131,13 +139,13 @@ function About() {
                 <div className="py-8 md:py-16 space-y-6 grid md:grid-cols-3 gap-2">
                     <div className="h-fit">
                         <img
-                            className="max-h-fit w-[80%] m-auto object-contain md:grayscale hover:grayscale-0 transition-all duration-300 ease-in-out hover:scale-105 hover:rotate-3 hover:drop-shadow-xl"
+                            className=" max-h-fit w-[80%] m-auto object-contain md:grayscale hover:grayscale-0 transition-all duration-300 ease-in-out hover:scale-105 hover:rotate-3 hover:drop-shadow-xl"
                             src={asset2}
                             alt=""
                         />
                     </div>
-                    <div className="md:col-span-2 space-y-6 px-8">
-                        <h1 className="text-5xl text-[color:var(--primary-color)]">
+                    <div className="md:col-span-2 space-y-6 md:px-8">
+                        <h1 className="text-3xl lg:text-5xl text-[color:var(--primary-color)]">
                             Join Us Today And Experience A New Way To Find Your
                             Dream Job
                         </h1>

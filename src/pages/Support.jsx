@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import PrimaryButton from "../components/SharedComponents/PrimaryButton";
 
 function Contact() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        window.document.title = "Help Center | Direct Jobs";
+    }, []);
     return (
         <div className="max-w-7xl md:pt-10 m-auto px-4 md:px-8">
             <div className="grid md:grid-cols-2 md:gap-8">

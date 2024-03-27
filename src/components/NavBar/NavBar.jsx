@@ -8,6 +8,7 @@ import { Link, NavLink } from "react-router-dom";
 import SecondaryButton from "../SharedComponents/SecondaryButton.jsx";
 import { Menu, X } from "lucide-react";
 import UserProfileLabel from "../SharedComponents/UserProfileLabel.jsx";
+import BrandLogo from "../SharedComponents/BrandLogo.jsx";
 
 const userinfo = {
     avatar: "https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg",
@@ -102,14 +103,7 @@ function NavBar() {
                             <div className="px-5 pb-6 pt-5">
                                 <div className="flex items-center justify-between">
                                     <div className="inline-flex items-center space-x-2">
-                                        <img
-                                            className="w-6 sm:w-24"
-                                            src={mobileLogo}
-                                            alt="Direct Jobs"
-                                        />
-                                        <span className="font-medium text-[color:var(--primary-color)]">
-                                            DIRECT JOBS
-                                        </span>
+                                        <BrandLogo noSocial={true} />
                                     </div>
                                     <div className="-mr-2">
                                         <button
