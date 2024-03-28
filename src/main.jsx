@@ -16,7 +16,7 @@ import MobileJobListing from "./components/JobListing/MobileJobListing.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Layout />,
+        element: <ComfortLayout />,
         errorElement: <NotFoundPage />,
         children: [
             {

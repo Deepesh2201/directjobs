@@ -26,7 +26,7 @@ function NavBar() {
 
     return (
         <nav className="lg:h-fit w-full flex fixed top-0 z-50">
-            <div className="flex flex-1 justify-between items-center bg-white bg-opacity-90 backdrop-blur-md shadow-xl px-6 py-2 my-auto sm:m-auto">
+            <div className="flex flex-1 justify-between items-center bg-white backdrop-blur-md shadow-xl px-6 py-2 my-auto sm:m-auto">
                 <div>
                     <img
                         className="w-16 sm:w-20"
