@@ -12,6 +12,7 @@ import Jobs from "./pages/Jobs.jsx";
 import Support from "./pages/Support.jsx";
 import ComfortLayout from "./ComfortLayout.jsx";
 import MobileJobListing from "./components/JobListing/MobileJobListing.jsx";
+import FAQs from "./pages/FAQs.jsx";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "support",
                 element: <Support />,
+            },
+            {
+                path: "faqs",
+                element: <FAQs />,
             },
         ],
     },

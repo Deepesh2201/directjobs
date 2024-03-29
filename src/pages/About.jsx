@@ -47,6 +47,7 @@ function About() {
                         </h2>
                     </div>
                 </div>
+                
                 <div className="py-8 md:py-16 flex justify-between">
                     {partnerLogos.map((logo, index) => (
                         <img

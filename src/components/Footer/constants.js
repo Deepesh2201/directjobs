@@ -119,7 +119,7 @@ export const footerLinks = [
     },
     {
         label: "FAQs",
-        path: "/support",
+        path: "/faqs",
         newTab: false,
     },
     {

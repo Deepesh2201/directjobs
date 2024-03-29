@@ -15,8 +15,8 @@ export default [
         newTab: false,
     },
     {
-        label: "Internships",
-        path: "/internships",
+        label: "For Recruiters",
+        path: "/recruiters",
         newTab: false,
     },
     {

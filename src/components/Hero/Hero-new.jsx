@@ -1,6 +1,5 @@
 import SlidingBrandsHero from "../Marquee/SlidingBrandsHero";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
-import SecondaryButton from "../SharedComponents/SecondaryButton";
 import skyline from "../../assets/images/skyline1.png";
 import { useEffect, useState } from "react";
 
