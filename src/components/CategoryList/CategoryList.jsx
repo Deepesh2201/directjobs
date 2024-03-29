@@ -4,7 +4,7 @@ import proptypes from "prop-types";
 
 function CategoryList({ sectionId }) {
     return (
-        <div id={sectionId} className="max-w-7xl m-auto px-8 my-8 sm:my-14">
+        <div id={sectionId} className="max-w-7xl m-auto px-8 my-8 md:my-36">
             <div className="space-y-2 sm:space-y-4">
                 <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
                     Jobs by Category

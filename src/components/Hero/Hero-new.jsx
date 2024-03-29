@@ -22,7 +22,7 @@ function Hero() {
     }, [headingIndex]);
 
     return (
-        <div className="">
+        <div className="md:-mb-10">
             <div className="pt-[180px] bg-[color:var(--primary-color)]  text-white">
                 <div className="max-w-7xl m-auto md:my-12  px-8">
                     <h2 className="text-3xl lg:text-6xl font-semibold text-center transition-all ease-linear">
@@ -68,7 +68,7 @@ function Hero() {
                 </div>
                 <SlidingBrandsHero scrollToSection={"#categorySection"} />
             </div>
-            <div className="w-full h-[200px] md:h-[250px] pb-14 overflow-hidden ">
+            <div className="w-full h-[100px] md:h-[150px] overflow-hidden">
                 <div className="rounded-bl-[50%] -mt-36 md:-mt-40 rounded-br-[50%] relative overflow-hidden w-[120%] -mb-14 left-[-10%] bg-[color:var(--primary-color)] h-[200px] md:h-[250px]"></div>
             </div>
         </div>

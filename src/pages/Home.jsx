@@ -1,21 +1,18 @@
-import BrowseJobs from "../components/BrowseJobs/BrowseJobs";
+import FeaturedJobs from "../components/FeaturedJobs/FeaturedJobs";
 import CategoryList from "../components/CategoryList/CategoryList";
-import Hero from "../components/Hero/Hero";
 import HeroNew from "../components/Hero/Hero-new";
 import Hero2 from "../components/Hero/Hero2";
-import BrandsMarquee from "../components/Marquee/BrandsMarquee";
 import TestimonicalMarquee from "../components/Marquee/TestimonicalMarquee";
-import { FeaturedJobs } from "./FeaturedJobs";
+import { jobs } from "./data/jobData";
 
 function Home() {
     return (
         <div className="-mt-[150px] overflow-x-hidden">
             <HeroNew />
-            {/* <BrandsMarquee scrollToSection="#categorySection"/> */}
-            <CategoryList sectionId="categorySection"/>
-            <Hero2/>
-            <BrowseJobs jobs={FeaturedJobs}/>
-            <TestimonicalMarquee/>
+            <CategoryList />
+            <Hero2 />
+            <FeaturedJobs jobs={jobs} sectionId="categorySection" />
+            <TestimonicalMarquee />
         </div>
     );
 }

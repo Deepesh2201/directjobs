@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-const Accordion = ({ title, children }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const Accordion = ({ title, children, open = false }) => {
+    const [isOpen, setIsOpen] = useState(open);
 
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
     };
-    
-    console.log(children)
+
+    useEffect(() => {
+        setIsOpen(open);
+    }, [open]);
+
+    console.log(children);
 
     return (
-        <div className="border border-gray-300 rounded-md">
+        <div className="border-b rounded-md">
             <div
                 className="flex items-center justify-between p-4 cursor-pointer"
                 onClick={toggleAccordion}
@@ -33,11 +37,7 @@ const Accordion = ({ title, children }) => {
                     />
                 </svg>
             </div>
-            {isOpen && (
-                <div className="p-4 border-t border-gray-300">
-                    {children}
-                </div>
-            )}
+            {isOpen && <div className="p-4 bg-slate-50">{children}</div>}
         </div>
     );
 };
@@ -45,6 +45,7 @@ const Accordion = ({ title, children }) => {
 Accordion.propTypes = {
     title: PropTypes.string,
     children: PropTypes.node,
+    open: PropTypes.bool,
 };
 
 export default Accordion;

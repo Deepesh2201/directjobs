@@ -19,7 +19,7 @@ function JobListCard({ job, activeJob }) {
 
     return (
         <div
-            className={`flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer ${
+            className={`flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer bg-transparent ${
                 job.id === activeJob
                     ? "bg-purple-200 text-[color:var(--primary-color)]"
                     : "hover:bg-gray-100"

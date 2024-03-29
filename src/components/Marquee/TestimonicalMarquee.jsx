@@ -4,7 +4,7 @@ import { testimonials } from "./constants";
 
 function TestimonicalMarquee() {
     return (
-        <>
+        <div className="mt-16 md:my-36 md:mb-16">
             <div className="px-8 space-y-2 sm:space-y-4 md:max-w-7xl m-auto md:mb-12">
                 <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
                     1000+ People are already using Direct Jobs
@@ -50,7 +50,7 @@ function TestimonicalMarquee() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

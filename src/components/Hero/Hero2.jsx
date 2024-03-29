@@ -1,6 +1,6 @@
 function Hero2() {
     return (
-        <div className="bg-[color:var(--primary-color)] py-20 w-full">
+        <div className="bg-[color:var(--primary-color)] py-20 w-full my-8 md:my-36">
             <div className="px-6 lg:px-0 max-w-7xl m-auto grid sm:grid-cols-5 gap-6">
                 <div className="flex flex-col justify-center sm:col-span-2 text-white gap-8">
                     <h2 className="text-3xl font-semibold ">
