@@ -37,7 +37,7 @@ function Testimonial({ data }) {
                                         author={testimonial.author}
                                         testimonial={testimonial.testimonial}
                                         avatar={testimonial.avatar}
-                                        profession={testimonial.profession}
+                                        profession={testimonial.position}
                                     />
                                 ))}
                             </div>
