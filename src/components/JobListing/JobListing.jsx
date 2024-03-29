@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
-import { jobs as jobsData } from "./JobList";
 import { getJobDetails } from "./JobList";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
 import { Link } from "react-router-dom";
 import JobListCard from "./JobListCard";
 
-function JobListing() {
-    const [jobs, setJobs] = useState(jobsData);
-    const [jobId, setJibId] = useState(jobs[0].id);
+function JobListing({ data }) {
+    const [jobs, setJobs] = useState(data);
+    const [selectedJobId, setSelectedJobId] = useState();
     const [jobsCount] = useState(jobs.length);
     const [jobDetails, setJobDetails] = useState();
     const [mobileView, setMobileView] = useState(false);
 
     useEffect(() => {
-        setJobDetails(getJobDetails(jobId));
+        setJobDetails(getJobDetails(selectedJobId));
 
         // scroll only jobdetails section
         const jobDetailsSection = document.querySelector("#jobDetails");
@@ -25,11 +24,12 @@ function JobListing() {
         } else {
             setMobileView(false);
         }
-    }, [jobId, mobileView]);
+    }, [selectedJobId, mobileView]);
 
     // on first load sort jobs by latest
     useEffect(() => {
         sortJobs("latest");
+        setSelectedJobId(jobs[0]?.id);
     }, []);
 
     // on window resize set mobileView state
@@ -85,8 +85,11 @@ function JobListing() {
                     <div key={index} className="py-2">
                         {/* for desktop */}
                         {!mobileView && (
-                            <button className="w-full" onClick={() => setJibId(job.id)}>
-                                <JobListCard job={job} activeJob={jobId} />
+                            <button
+                                className="w-full"
+                                onClick={() => setSelectedJobId(job.id)}
+                            >
+                                <JobListCard job={job} activeJob={selectedJobId} />
                             </button>
                         )}
                         {/* for mobile */}
@@ -202,11 +205,19 @@ function JobListing() {
                     </>
                 )}
 
-                {!jobDetails && (
+                {!jobDetails && selectedJobId && (
                     <div className="w-full h-full flex items-center justify-center gap-2">
                         <i className="text-lg text-[color:var(--primary-color)] fas fa-exclamation-circle"></i>
                         <p className="text-lg text-[color:var(--primary-color)]">
                             Oops, no job details found!
+                        </p>
+                    </div>
+                )}
+
+                {!jobDetails && !selectedJobId && (
+                    <div className="w-full h-full flex items-center justify-center gap-2">
+                        <p className="text-lg text-[color:var(--primary-color)]">
+                            Hey there,  kindly select a job to view details
                         </p>
                     </div>
                 )}

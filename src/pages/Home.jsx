@@ -2,8 +2,9 @@ import FeaturedJobs from "../components/FeaturedJobs/FeaturedJobs";
 import CategoryList from "../components/CategoryList/CategoryList";
 import HeroNew from "../components/Hero/Hero-new";
 import Hero2 from "../components/Hero/Hero2";
-import TestimonicalMarquee from "../components/Marquee/TestimonicalMarquee";
-import { jobs } from "./data/jobData";
+import Testimonial from "../components/Testimonial/Testimonial";
+import { jobData } from "./data/jobData";
+import { testimonialData } from "./data/testimonialData";
 
 function Home() {
     return (
@@ -11,8 +12,9 @@ function Home() {
             <HeroNew />
             <CategoryList />
             <Hero2 />
-            <FeaturedJobs jobs={jobs} sectionId="categorySection" />
-            <TestimonicalMarquee />
+            <FeaturedJobs jobs={jobData} sectionId="categorySection" />
+            {/* <TestimonicalMarquee /> */}
+            <Testimonial data={testimonialData} />
         </div>
     );
 }

@@ -1,28 +1,24 @@
 import { useEffect } from "react";
 import JobListing from "../components/JobListing/JobListing";
 import JobSearch from "../components/JobSearch/JobSearch";
-
+import CenterTitle from "../components/SharedComponents/CenterTitle";
+import { jobData } from "./data/jobData";
 function Jobs() {
     useEffect(() => {
         window.scrollTo(0, 0);
         document.title = "Jobs | Direct Jobs";
-    }
-    , []);
+    }, []);
 
     return (
         <>
             <div className="max-w-7xl w-full py-6 md:py-10 m-auto px-4 md:px-8 md:h-screen flex flex-col">
-                <div className="h-fit">
-                    <h1 className="text-4xl md:text-5xl text-center text-[color:var(--primary-color)]">
-                        Find your dream job
-                    </h1>
-                    <p className="text-sm md:text-base text-center mt-2 text-[color:var(--secondary-color)]">
-                        Search for job title, keywords, or company name
-                    </p>
-                </div>
+                <CenterTitle
+                    main="Find your dream job"
+                    subText="Search for job title, keywords, or company name"
+                />
                 <JobSearch />
                 <div className="h-full overflow-hidden">
-                    <JobListing />
+                    <JobListing data={jobData} />
                 </div>
             </div>
         </>

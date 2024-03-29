@@ -1,4 +1,4 @@
-export const jobs = [
+export const jobData = [
     {
         id: 1,
         title: "Frontend Developer",
@@ -70,6 +70,29 @@ export const jobs = [
         logo: "https://cdn-icons-png.flaticon.com/128/732/732254.png",
         postedOn: "2022-01-06",
     },
+
+    {
+        id: 7,
+        title: "Frontend Developer",
+        company: "Google",
+        location: "Claifornia, USA",
+        type: "Full Time",
+        salary: "100k",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        logo: "https://cdn-icons-png.flaticon.com/512/270/270014.png",
+        postedOn: "2022-01-01",
+    },
+    {
+        id: 8,
+        title: "Backend Developer",
+        company: "Shine Well",
+        location: "Remote",
+        type: "Full Time",
+        salary: "120k",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        logo: "https://play-lh.googleusercontent.com/33V-t_kz_I7jWh0iqKxueF4vXoke2R77pR4urVm-rxkPTzr1mrb30_c9bwyOUSpuc03a=w600-h300-pc0xffffff-pd",
+        postedOn: "2022-01-02",
+    }
 ];
 
 export const jobDetails = [

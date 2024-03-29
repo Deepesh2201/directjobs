@@ -1,6 +1,6 @@
 import propType from "prop-types";
 import { useEffect, useState } from "react";
-function JobListCard({ job, activeJob }) {
+function JobListCard({ job, activeJob, noImage = false }) {
     // create a use effect for featured banner like, new, 2hrs ago, 2 days ago, etc. based on postedOn
     const [featuredLabel, setFeaturedLabel] = useState("");
     useEffect(() => {
@@ -21,13 +21,21 @@ function JobListCard({ job, activeJob }) {
         <div
             className={`flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer bg-transparent ${
                 job.id === activeJob
-                    ? "bg-purple-200 text-[color:var(--primary-color)]"
+                    ? "!bg-purple-100 text-[color:var(--primary-color)]"
                     : "hover:bg-gray-100"
             }`}
         >
-            <div className="w-16 h-16">
-                {job?.logo && <img className="w-16 h-16 object-contain" src={job?.logo} alt={job?.company} />}
-            </div>
+            {!noImage && (
+                <div className="w-16 h-16">
+                    {job?.logo && (
+                        <img
+                            className="w-16 h-16 object-contain"
+                            src={job?.logo}
+                            alt={job?.company}
+                        />
+                    )}
+                </div>
+            )}
             <div className="w-full">
                 <h2 className="text-base font-medium text-[color:var(--primary-color)]">
                     {job.title}
@@ -52,4 +60,5 @@ export default JobListCard;
 JobListCard.propTypes = {
     job: propType.object.isRequired,
     activeJob: propType.number.isRequired,
+    noImage: propType.bool,
 };
