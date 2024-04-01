@@ -1,7 +1,6 @@
 import React from "react";
 import menuItems from "./navLinks.js";
 import logo from "../../assets/images/noBGlogo512x512.png";
-import mobileLogo from "../../assets/images/mobileLogo.png";
 import playStoreLogo from "../../assets/images/playstore.png";
 import PrimaryButton from "../SharedComponents/PrimaryButton.jsx";
 import { Link, NavLink } from "react-router-dom";
@@ -98,12 +97,12 @@ function NavBar() {
                 </div>
                 {/* mobile menu */}
                 {isMenuOpen && (
-                    <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
-                        <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                    <div className="absolute inset-x-0 top-0 z-50 origin-top-right bg-white h-screen transform p-2 transition lg:hidden">
+                        <div className="divide-y-2 divide-gray-50 rounded-lg bg-white">
                             <div className="px-5 pb-6 pt-5">
                                 <div className="flex items-center justify-between">
                                     <div className="inline-flex items-center space-x-2">
-                                        <BrandLogo noSocial={true} />
+                                        <BrandLogo noSocial={true} color />
                                     </div>
                                     <div className="-mr-2">
                                         <button

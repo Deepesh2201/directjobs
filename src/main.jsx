@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Layout from "./Layout.jsx";
+// import Layout from "./Layout.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     // mobile routes
     {
         path: "m",
-        element: <Layout />,
+        element: <ComfortLayout />,
         errorElement: <NotFoundPage />,
         children: [
             {

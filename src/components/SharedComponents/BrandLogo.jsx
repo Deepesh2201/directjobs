@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
 import darkLogo from "../../assets/images/darkLogo.png";
 import lightLogo from "../../assets/images/lightLogo.png";
+import colorLogo from "../../assets/images/mobileLogo.png";
 import propType from "prop-types";
 
-function BrandLogo({ className, logoClass, light = false, noSocial = false }) {
-    const logo = light ? lightLogo : darkLogo;
+function BrandLogo({
+    className,
+    logoClass,
+    light = false,
+    noSocial = false,
+    color = false,
+}) {
+    const logo = light ? lightLogo : color ? colorLogo : darkLogo;
     return (
         <div className={`text-zinc-700 ${className} w-fit`}>
             <Link to={"/"} className={`flex gap-2 items-center `}>
                 <img
-                    className={`w-8 sm:w-8 object-contain brightness-200 mix-blend-luminosity ${logoClass}`}
+                    className={`w-8 sm:w-8 object-contain ${logoClass}`}
                     src={logo}
                     width={"50"}
                     alt=""
@@ -50,4 +57,5 @@ BrandLogo.propTypes = {
     logoClass: propType.string,
     light: propType.bool,
     noSocial: propType.bool,
+    color: propType.bool,
 };
