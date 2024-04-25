@@ -1,12 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import JobListing from "../components/JobListing/JobListing";
 import JobSearch from "../components/JobSearch/JobSearch";
 import CenterTitle from "../components/SharedComponents/CenterTitle";
-import { jobData } from "./data/jobData";
+import { getLatestJobs } from "../db/latestjobs";
+// import { jobData } from "./data/jobData";
 function Jobs() {
+    const [jobData, setJobData] = useState([]);
     useEffect(() => {
         window.scrollTo(0, 0);
         document.title = "Jobs | Direct Jobs";
+    }, []);
+
+    useEffect(() => {
+        const fetchJobs = async () => {
+            const data = await getLatestJobs();
+            console.log(data.data);
+            setJobData(data.data);
+        };
+        fetchJobs();
     }, []);
 
     return (
