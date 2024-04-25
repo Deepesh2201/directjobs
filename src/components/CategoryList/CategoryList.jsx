@@ -1,10 +1,11 @@
 import CenterTitle from "../SharedComponents/CenterTitle";
 import Divider from "../SharedComponents/Divider";
 import CategoryCard from "./CategoryCard";
-import { catogoryListItems } from "./category";
+// import { catogoryListItems } from "./category";
 import proptypes from "prop-types";
 
-function CategoryList({ sectionId }) {
+function CategoryList({ categories, sectionId }) {
+    console.log(categories);
     return (
         <div id={sectionId} className="max-w-7xl m-auto px-8 my-8 md:my-36">
             <div className="space-y-2 sm:space-y-4">
@@ -19,16 +20,15 @@ function CategoryList({ sectionId }) {
                 <Divider />
             </div>
             <div className="mt-8">
-                <div className="mx-auto max-w-7xl px-2 lg:px-8">
+                <div className="mx-auto px-2 lg:px-8">
                     <div className="grid grid-cols-1 gap-y-6 text-center sm:grid-cols-2 sm:gap-12 lg:grid-cols-4">
-                        {catogoryListItems.map((item, index) => {
+                        {categories.map((item, index) => {
                             return (
                                 <CategoryCard
                                     key={index}
-                                    name={item.name}
-                                    faicon={item.faicon}
-                                    color={item.color}
-                                    jobs={item.jobs}
+                                    name={item.post_title}
+                                    image={item.post_image}
+                                    total_jobs={item.total_jobs}
                                 />
                             );
                         })}
@@ -43,4 +43,5 @@ export default CategoryList;
 
 CategoryList.propTypes = {
     sectionId: proptypes.string.isRequired,
+    categories: proptypes.array.isRequired,
 };

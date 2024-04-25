@@ -1,18 +1,32 @@
 import { useEffect, useState } from "react";
-import { getJobDetails } from "./JobList";
+// import { getJobDetails } from "./JobList";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JobListCard from "./JobListCard";
+import propType from "prop-types";
+import { getJobDetails } from "../../db/jobDetails";
+import JobDetailsCard from "./JobDetailsCard";
 
 function JobListing({ data }) {
-    const [jobs, setJobs] = useState(data);
-    const [selectedJobId, setSelectedJobId] = useState();
-    const [jobsCount] = useState(jobs.length);
+    const jobId = useParams().id;
+
+    const [jobs, setJobs] = useState([]);
+    const [selectedJobId, setSelectedJobId] = useState(jobId);
+    const [jobsCount, setJobCount] = useState();
     const [jobDetails, setJobDetails] = useState();
     const [mobileView, setMobileView] = useState(false);
 
     useEffect(() => {
-        setJobDetails(getJobDetails(selectedJobId));
+        setJobs([...data]);
+        setJobCount(data.length);
+        // setJobDetails(getJobDetails(selectedJobId));
+
+        if (selectedJobId) {
+            getJobDetails(selectedJobId).then((data) => {
+                console.log(data.data);
+                setJobDetails(data.data);
+            });
+        }
 
         // scroll only jobdetails section
         const jobDetailsSection = document.querySelector("#jobDetails");
@@ -24,13 +38,7 @@ function JobListing({ data }) {
         } else {
             setMobileView(false);
         }
-    }, [selectedJobId, mobileView]);
-
-    // on first load sort jobs by latest
-    useEffect(() => {
-        sortJobs("latest");
-        setSelectedJobId(jobs[0]?.id);
-    }, []);
+    }, [selectedJobId, mobileView, data]);
 
     // on window resize set mobileView state
     window.addEventListener("resize", () => {
@@ -85,16 +93,23 @@ function JobListing({ data }) {
                     <div key={index} className="py-2">
                         {/* for desktop */}
                         {!mobileView && (
-                            <button
+                            <Link
                                 className="w-full"
-                                onClick={() => setSelectedJobId(job.id)}
+                                to={`/jobs/${job.post_id}`}
+                                onClick={() => setSelectedJobId(job.post_id)}
                             >
-                                <JobListCard job={job} activeJob={selectedJobId} />
-                            </button>
+                                <JobListCard
+                                    job={job}
+                                    activeJob={selectedJobId}
+                                />
+                            </Link>
                         )}
                         {/* for mobile */}
                         {mobileView && (
-                            <Link className="w-full" to={`/m/jobs/${job.id}`}>
+                            <Link
+                                className="w-full"
+                                to={`/m/jobs/${job.post_id}`}
+                            >
                                 <JobListCard job={job} />
                             </Link>
                         )}
@@ -106,104 +121,7 @@ function JobListing({ data }) {
                 id="jobDetails"
                 className="hidden md:block col-span-4 py-2 px-8 w-full overflow-scroll border-2 scroll-smooth"
             >
-                {jobDetails && (
-                    <>
-                        <div className="flex items-center gap-4 my-4">
-                            <div className="w-full flex gap-4 items-center">
-                                <div className="w-16 h-16">
-                                    {jobDetails?.logo && (
-                                        <img
-                                            src={jobDetails?.logo}
-                                            alt={jobDetails?.company}
-                                        />
-                                    )}
-                                </div>
-                                <div>
-                                    <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
-                                        {jobDetails?.title}
-                                    </h2>
-                                    <p className="text-sm text-[color:var(--secondary-color)]">
-                                        {jobDetails?.company}
-                                    </p>
-                                    <p className="text-sm text-[color:var(--secondary-color)]">
-                                        {jobDetails?.location}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="text-center my-5 flex flex-col items-center justify-center">
-                                <PrimaryButton
-                                    to={jobDetails?.applyLink}
-                                    target="_blank"
-                                    className="w-fit py-2 bg-[color:var(--primary-color)] text-white rounded-md"
-                                >
-                                    Apply
-                                </PrimaryButton>
-                                <span className="text-xs whitespace-nowrap mt-1 font-medium">
-                                    100+ already applied
-                                </span>
-                            </div>
-                        </div>
-                        <div className="flex my-4 gap-4">
-                            {jobDetails?.type && (
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    <span className="font-medium">Type:</span>{" "}
-                                    {jobDetails?.type}
-                                </p>
-                            )}
-                            {jobDetails?.salary && (
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    <span className="font-medium">
-                                        Salary/Stipend:
-                                    </span>{" "}
-                                    {jobDetails?.salary}
-                                </p>
-                            )}
-                            {jobDetails?.duration && (
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    <span className="font-medium">
-                                        Duration:
-                                    </span>{" "}
-                                    {jobDetails?.duration}
-                                </p>
-                            )}
-                            {jobDetails?.postedOn && (
-                                <p className="text-sm text-[color:var(--secondary-color)]">
-                                    <span className="font-medium">
-                                        Posted On:
-                                    </span>{" "}
-                                    {jobDetails?.postedOn}
-                                </p>
-                            )}
-                        </div>
-                        <div>
-                            {jobDetails?.details?.map((detail, index) => (
-                                <div key={index} className="my-4">
-                                    <h3 className="text-lg font-medium text-[color:var(--primary-color)]">
-                                        {detail.detailLabel}
-                                    </h3>
-                                    {detail.type === "Array" ? (
-                                        <ul className="list-disc ml-5">
-                                            {detail.detail.map(
-                                                (item, index) => (
-                                                    <li
-                                                        key={index}
-                                                        className="text-sm"
-                                                    >
-                                                        {item}
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
-                                    ) : (
-                                        <p className="text-sm">
-                                            {detail.detail}
-                                        </p>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    </>
-                )}
+                {jobDetails && <JobDetailsCard jobDetails={jobDetails} />}
 
                 {!jobDetails && selectedJobId && (
                     <div className="w-full h-full flex items-center justify-center gap-2">
@@ -217,7 +135,7 @@ function JobListing({ data }) {
                 {!jobDetails && !selectedJobId && (
                     <div className="w-full h-full flex items-center justify-center gap-2">
                         <p className="text-lg text-[color:var(--primary-color)]">
-                            Hey there,  kindly select a job to view details
+                            Hey there, kindly select a job to view details
                         </p>
                     </div>
                 )}
@@ -227,3 +145,9 @@ function JobListing({ data }) {
 }
 
 export default JobListing;
+
+JobListing.propTypes = {
+    jobs: propType.array.isRequired,
+
+    data: propType.array.isRequired,
+};

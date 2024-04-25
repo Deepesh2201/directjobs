@@ -29,10 +29,10 @@ function FeaturedJobs({ jobs, sectionId }) {
             </div>
             <div className="mt-8">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                    {jobs?.map((job, index) => (
+                    {jobs?.map((job) => (
                         <Link
-                            key={index}
-                            to={`jobs/${job.id}`}
+                            key={job.post_id}
+                            to={`jobs/${job.post_id}`}
                             className="rounded-lg overflow-hidden bg-slate-100"
                         >
                             <JobListCard job={job} />

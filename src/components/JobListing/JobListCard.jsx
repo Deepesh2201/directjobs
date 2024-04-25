@@ -19,37 +19,48 @@ function JobListCard({ job, activeJob, noImage = false }) {
 
     return (
         <div
-            className={`flex w-full text-left items-center gap-4 p-4 rounded-md cursor-pointer bg-transparent ${
-                job.id === activeJob
+            className={`flex w-full text-left items-center gap-4 p-3 rounded-md cursor-pointer bg-transparent ${
+                job.post_id === activeJob
                     ? "!bg-purple-100 text-[color:var(--primary-color)]"
                     : "hover:bg-gray-100"
             }`}
         >
             {!noImage && (
-                <div className="w-16 h-16">
-                    {job?.logo && (
+                <div className="w-2/12 flex justify-between items-center">
+                    {job?.post_image && (
                         <img
-                            className="w-16 h-16 object-contain"
-                            src={job?.logo}
+                            className="object-contain rounded-full aspect-square"
+                            src={job?.post_image}
                             alt={job?.company}
                         />
                     )}
                 </div>
             )}
-            <div className="w-full">
+            <div className="w-10/12 overflow-hidden">
                 <h2 className="text-base font-medium text-[color:var(--primary-color)]">
-                    {job.title}
+                    {job.post_title}
                 </h2>
                 <p className="text-sm text-[color:var(--secondary-color)] font-medium">
                     {job.company}
                 </p>
                 <p className="text-xs text-[color:var(--secondary-color)]">
-                    {job.location}
+                    {job.designation}
                     <span>
-                        <span className="mx-1">&bull; {job.type}</span>
+                        {/* <span className="mx-1">&bull; {job.skills}</span> */}
                     </span>
                 </p>
-                <p className="text-xs text-green-500">{featuredLabel}</p>
+                {/* <p className="text-xs text-green-500">{featuredLabel}</p> */}
+
+                <p className="text-xs text-green-500 my-1">
+                    <span className="block w-fit text-ellipsis overflow-hidden whitespace-nowrap">
+                        <i className="fa-solid fa-map-marker-alt mr-2"></i>
+                        {job.address}
+                    </span>
+                    <span className="block w-fit">
+                        <i className="fa-solid fa-indian-rupee-sign mr-2"></i>
+                        {`${job.minsalary} - ${job.maxsalary}`}
+                    </span>
+                </p>
             </div>
         </div>
     );

@@ -60,6 +60,10 @@ const router = createBrowserRouter([
                 path: "",
                 element: <Jobs />,
             },
+            {
+                path: ":id",
+                element: <Jobs />,
+            }
         ],
     },
     {
