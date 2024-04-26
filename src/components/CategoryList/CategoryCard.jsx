@@ -2,14 +2,15 @@ import proptypes from "prop-types";
 
 function CategoryCard({ name, image, total_jobs }) {
     return (
-        <div className="flex gap-4 w-full h-full sm:block group p-4 sm:py-6 rounded-lg sm:w- m-auto hover:drop-shadow-2xl drop-shadow bg-white transition-all ease-linear">
-            <div
-                className={`sm:mx-auto flex h-12 w-12 sm:h-20 sm:w-20 aspect-square items-center justify-center rounded-full group-hover:text-white text-2xl sm:text-4xl group-hover:text-2xl delay-75 transition-all ease-linear`}
-            >
-                <img src={image} alt="" />
-            </div>
-            <div className="text-justify sm:text-center">
-                <h3 className="sm:mt-3 text-sm font-semibold text-black text-wrap line-clamp-2">
+        <div className="flex gap-2 w-full h-full group p-3 sm:py-4 rounded-lg sm:w- m-auto hover:drop-shadow-2xl drop-shadow bg-white transition-all ease-linear items-center">
+            <img
+                className="h-12 w-12 sm:h-14 sm:w-14 aspect-square object-contain rounded-md p-1"
+                src={image}
+                alt=""
+            />
+
+            <div className="w-full text-left text-ellipsis overflow-hidden text-wrap">
+                <h3 className="text-sm font-semibold text-black text-wrap line-clamp-2">
                     {name}
                 </h3>
                 <p className="text-xs text-gray-600">
@@ -21,11 +22,7 @@ function CategoryCard({ name, image, total_jobs }) {
                         </span>
                     )}
 
-                    {Boolean(!total_jobs) && (
-                        <span>
-                            Jobs Posting Soon
-                        </span>
-                    )}
+                    {Boolean(!total_jobs) && <span>Jobs Posting Soon</span>}
                 </p>
             </div>
         </div>

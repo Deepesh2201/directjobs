@@ -12,8 +12,6 @@ function JobDetailsCard({ jobDetails }) {
         getPostViews(jobDetails?.post_id).then((data) => {
             setViews(data.views);
         });
-
-        console.log(views);
     }, [jobDetails?.post_id]);
 
     // handle go back, if back url is of same domain then go back else go to jobs page
@@ -27,7 +25,10 @@ function JobDetailsCard({ jobDetails }) {
 
     return (
         <>
-            <div className="md:hidden text-[color:var(--primary-color)] cursor-pointer font-medium mb-4 block" onClick={goBack}>
+            <div
+                className="md:hidden text-[color:var(--primary-color)] cursor-pointer font-medium mb-4 block"
+                onClick={goBack}
+            >
                 <i className="fa-solid fa-arrow-left mr-2"></i>
                 <span>Go Back</span>
             </div>
@@ -141,26 +142,6 @@ function JobDetailsCard({ jobDetails }) {
                     </p>
                 )}
             </div>
-            {/* <div>
-                {jobDetails?.details?.map((detail, index) => (
-                    <div key={index} className="my-4">
-                        <h3 className="text-lg font-medium text-[color:var(--primary-color)]">
-                            {detail.detailLabel}
-                        </h3>
-                        {detail.type === "Array" ? (
-                            <ul className="list-disc ml-5">
-                                {detail.detail.map((item, index) => (
-                                    <li key={index} className="text-sm">
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className="text-sm">{detail.detail}</p>
-                        )}
-                    </div>
-                ))}
-            </div> */}
         </>
     );
 }

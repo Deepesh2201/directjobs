@@ -2,10 +2,10 @@ import propTypes from "prop-types";
 function CenterTitle({ main, subText, children }) {
     return (
         <div className="h-fit">
-            <h1 className="text-4xl md:text-5xl text-center text-[color:var(--primary-color)]">
+            <div className="text-4xl md:text-5xl text-center text-[color:var(--primary-color)]">
                 {main}
                 {children}
-            </h1>
+            </div>
             <p className="text-sm md:text-base text-center mt-2 text-[color:var(--secondary-color)]">
                 {subText}
             </p>

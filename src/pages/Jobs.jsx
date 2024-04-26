@@ -3,8 +3,12 @@ import JobListing from "../components/JobListing/JobListing";
 import JobSearch from "../components/JobSearch/JobSearch";
 import CenterTitle from "../components/SharedComponents/CenterTitle";
 import { getLatestJobs } from "../db/latestjobs";
-// import { jobData } from "./data/jobData";
+import { jobSearch } from "../db/jobSearch";
+import useQuery from "../utils/queryParams";
+
 function Jobs() {
+    const query = useQuery();
+
     const [jobData, setJobData] = useState([]);
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -13,12 +17,16 @@ function Jobs() {
 
     useEffect(() => {
         const fetchJobs = async () => {
-            const data = await getLatestJobs();
-            console.log(data.data);
-            setJobData(data.data);
+            if (query.get("search")) {
+                const data = await jobSearch(query.get("search"));
+                setJobData(data.data);
+            } else {
+                const data = await getLatestJobs();
+                setJobData(data.data);
+            }
         };
         fetchJobs();
-    }, []);
+    }, [query.get("search")]);
 
     return (
         <>
@@ -28,7 +36,7 @@ function Jobs() {
                     subText="Search for job title, keywords, or company name"
                 />
                 <JobSearch />
-                <div className="h-full overflow-hidden">
+                <div className="overflow-hidden">
                     <JobListing data={jobData} />
                 </div>
             </div>

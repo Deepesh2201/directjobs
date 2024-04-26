@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-// import { getJobDetails } from "./JobList";
-import PrimaryButton from "../SharedComponents/PrimaryButton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import JobListCard from "./JobListCard";
 import propType from "prop-types";
 import { getJobDetails } from "../../db/jobDetails";
 import JobDetailsCard from "./JobDetailsCard";
+import useQuery from "../../utils/queryParams";
 
 function JobListing({ data }) {
-    const jobId = useParams().id;
+    const query = useQuery();
+    const jobId = query.get("job_id");
 
     const [jobs, setJobs] = useState([]);
     const [selectedJobId, setSelectedJobId] = useState(jobId);
@@ -16,14 +16,47 @@ function JobListing({ data }) {
     const [jobDetails, setJobDetails] = useState();
     const [mobileView, setMobileView] = useState(false);
 
+    const navigate = useNavigate();
+
+    const handleJobClick = (jobId) => {
+        // navigate to job details page
+        if (query.get("search")) {
+            if (mobileView) {
+                navigate(
+                    `/m/jobs?search=${query.get("search")}&job_id=${jobId}`
+                );
+            } else {
+                navigate(`/jobs?search=${query.get("search")}&job_id=${jobId}`);
+            }
+        } else {
+            if (mobileView) {
+                navigate(`/m/jobs?job_id=${jobId}`);
+            } else {
+                navigate(`/jobs?job_id=${jobId}`);
+            }
+        }
+
+        // scroll only jobdetails section
+        const jobDetailsSection = document.querySelector("#jobDetails");
+
+        jobDetailsSection.scrollTo(0, 0);
+    };
+
+    useEffect(() => {
+        if (query.get("job_id")) {
+            setSelectedJobId(query.get("job_id"));
+        } else {
+            setSelectedJobId(null);
+            setJobDetails(null);
+        }
+    }, [query]);
+
     useEffect(() => {
         setJobs([...data]);
         setJobCount(data.length);
-        // setJobDetails(getJobDetails(selectedJobId));
 
         if (selectedJobId) {
             getJobDetails(selectedJobId).then((data) => {
-                console.log(data.data);
                 setJobDetails(data.data);
             });
         }
@@ -80,27 +113,31 @@ function JobListing({ data }) {
                         defaultValue="latest"
                         required={true}
                     >
-                        <option value={undefined} selected>
-                            select
-                        </option>
                         <option value="latest">Newly added</option>
                         <option value="oldest">Oldest</option>
                     </select>
                 </div>
             </div>
-            <div className="md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2">
+            <div
+                className={
+                    (!selectedJobId && !mobileView)
+                        ? "md:col-span-12 grid grid-cols-4 gap-2 overflow-scroll md:border-2 px-2"
+                        : "md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2"
+                }
+            >
                 {jobs?.map((job, index) => (
                     <div key={index} className="py-2">
                         {/* for desktop */}
                         {!mobileView && (
                             <Link
                                 className="w-full"
-                                to={`/jobs/${job.post_id}`}
-                                onClick={() => setSelectedJobId(job.post_id)}
+                                onClick={() => {
+                                    handleJobClick(job.post_id);
+                                }}
                             >
                                 <JobListCard
                                     job={job}
-                                    activeJob={selectedJobId}
+                                    activeJob={Number(selectedJobId)}
                                 />
                             </Link>
                         )}
@@ -119,7 +156,11 @@ function JobListing({ data }) {
             {/* job details */}
             <div
                 id="jobDetails"
-                className="hidden md:block col-span-4 py-2 px-8 w-full overflow-scroll border-2 scroll-smooth"
+                className={
+                    selectedJobId
+                        ? "hidden md:block col-span-4 py-2 px-8 w-full overflow-scroll border-2 scroll-smooth"
+                        : "hidden"
+                }
             >
                 {jobDetails && <JobDetailsCard jobDetails={jobDetails} />}
 
@@ -147,7 +188,5 @@ function JobListing({ data }) {
 export default JobListing;
 
 JobListing.propTypes = {
-    jobs: propType.array.isRequired,
-
     data: propType.array.isRequired,
 };

@@ -26,6 +26,8 @@ function Hero() {
         return () => clearInterval(interval);
     }, [headingIndex]);
 
+    
+
     // change location and job title placeholder every 5 seconds with different cities amd job titles smooth transition effect and typing effect
     useEffect(() => {
         const jobTitlePlaceholders = [
