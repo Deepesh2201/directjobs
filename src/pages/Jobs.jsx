@@ -20,7 +20,7 @@ function Jobs() {
         const fetchJobs = async () => {
             const queryObj = {};
             if (query.get("search")) {
-                queryObj.search = query.get("search");
+                queryObj.search_text = query.get("search");
             }
             if (query.get("cat")) {
                 queryObj.cat_ids = query.get("cat");
