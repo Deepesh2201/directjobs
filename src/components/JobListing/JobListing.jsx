@@ -4,7 +4,9 @@ import JobListCard from "./JobListCard";
 import propType from "prop-types";
 import { getJobDetails } from "../../db/jobDetails";
 import JobDetailsCard from "./JobDetailsCard";
-import useQuery from "../../utils/queryParams";
+import { useQuery } from "../../utils/queryParams";
+import notFound from "../../assets/img/notfound.png";
+import { getFilterProperties } from "../../db/jobFilter";
 
 function JobListing({ data }) {
     const query = useQuery();
@@ -15,6 +17,17 @@ function JobListing({ data }) {
     const [jobsCount, setJobCount] = useState();
     const [jobDetails, setJobDetails] = useState();
     const [mobileView, setMobileView] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [filterCategories, setFilterCategories] = useState([]);
+    const [filterLocations, setFilterLocations] = useState([]);
+    const [filterCompanies, setFilterCompanies] = useState([]);
+    const [filterJobTypes, setFilterJobTypes] = useState([]);
+    const [openFilterDropdown, setOpenFilterDropdown] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState([]);
+    const [selectedLocation, setSelectedLocation] = useState([]);
+    const [selectedCompany, setSelectedCompany] = useState([]);
+    const [selectedJobType, setSelectedJobType] = useState([]);
+    let filterQuery = "";
 
     const navigate = useNavigate();
 
@@ -43,6 +56,15 @@ function JobListing({ data }) {
     };
 
     useEffect(() => {
+        getFilterProperties().then((data) => {
+            setFilterCategories([...data.category_list]);
+            setFilterLocations([...data.location_list]);
+            setFilterCompanies([...data.company_list]);
+            setFilterJobTypes([...data.job_types_list]);
+        });
+    }, []);
+
+    useEffect(() => {
         if (query.get("job_id")) {
             setSelectedJobId(query.get("job_id"));
         } else {
@@ -51,13 +73,56 @@ function JobListing({ data }) {
         }
     }, [query]);
 
+    const handleFilter = () => {
+        setOpenFilterDropdown(!openFilterDropdown);
+        if (selectedCategory.length) {
+            filterQuery.length
+                ? (filterQuery += `&cat=${selectedCategory
+                      .map((category) => category.post_id)
+                      .join(",")}`)
+                : (filterQuery = `?cat=${selectedCategory
+                      .map((category) => category.post_id)
+                      .join(",")}`);
+        }
+        if (selectedLocation.length) {
+            filterQuery.length
+                ? (filterQuery += `&loc=${selectedLocation
+                      .map((location) => location.post_id)
+                      .join(",")}`)
+                : (filterQuery = `?loc=${selectedLocation
+                      .map((location) => location.post_id)
+                      .join(",")}`);
+        }
+        if (selectedCompany.length) {
+            filterQuery.length
+                ? (filterQuery += `&comp=${selectedCompany
+                      .map((company) => company.post_id)
+                      .join(",")}`)
+                : (filterQuery = `?comp=${selectedCompany
+                      .map((company) => company.post_id)
+                      .join(",")}`);
+        }
+        if (selectedJobType.length) {
+            filterQuery.length
+                ? (filterQuery += `&job_type=${selectedJobType
+                      .map((jobType) => jobType.post_title)
+                      .join(",")}`)
+                : (filterQuery = `?job_type=${selectedJobType
+                      .map((jobType) => jobType.post_title)
+                      .join(",")}`);
+        }
+
+        navigate(`/jobs${filterQuery}`);
+    };
+
     useEffect(() => {
         setJobs([...data]);
-        setJobCount(data.length);
+        setJobCount(data?.length);
 
         if (selectedJobId) {
             getJobDetails(selectedJobId).then((data) => {
-                setJobDetails(data.data);
+                setJobDetails(data?.data);
+                // if (selectedCategory)
             });
         }
 
@@ -98,60 +163,424 @@ function JobListing({ data }) {
 
     return (
         <div className="grid md:grid-cols-6 h-full gap-1">
-            {/* jobs counts */}
-            <div className="flex items-center justify-between h-fit md:col-span-6">
-                <p className="text-sm font-medium text-[color:var(--primary-color)]">
-                    {jobsCount} Jobs Found
+            <div className="md:col-span-6">
+                <p className="text-gray-600 text-sm">
+                    {query.get("search") ? (
+                        <span>
+                            showing results for{" "}
+                            <span className="text-[color:var(--primary-color)]">
+                                {query.get("search")}
+                            </span>
+                        </span>
+                    ) : (
+                        "Showing Latest Jobs"
+                    )}
                 </p>
+            </div>
+
+            <div className="relative flex items-center justify-between h-fit md:col-span-6">
                 <div className="flex items-center gap-2">
-                    <p className="text-sm text-[color:var(--secondary-color)] font-medium">
-                        Sort by:
-                    </p>
-                    <select
-                        className="text-sm py-1 outline-none"
-                        onChange={(e) => sortJobs(e.target.value)}
-                        defaultValue="latest"
-                        required={true}
-                    >
-                        <option value="latest">Newly added</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
+                    <div className="relative flex items-center">
+                        {(
+                            <p className="text-xs text-[color:var(--secondary-color)] font-medium">
+                                <i className="fas fa-filter text-xs"></i>
+                                <span>Filter</span>
+                                <i
+                                    className="fas fa-chevron-down text-xs cursor-pointer ml-1"
+                                    onClick={() =>
+                                        setOpenFilterDropdown(
+                                            !openFilterDropdown
+                                        )
+                                    }
+                                ></i>
+                            </p>
+                        )}
+
+                        {openFilterDropdown && (
+                            <div className="h-[100vh] w-[100vw] fixed left-0 bottom-0 z-50 flex justify-center items-end pb-24 bg-white bg-opacity-80">
+                                <div className="bottom-2 max-w-7xl w-[80%] left-2 z-10 bg-white p-2 border-2 border-[color:var(--primary-color)] rounded-md drop-shadow-lg h-[70vh] max-h-[70%] flex flex-col">
+                                    <div className="relative overflow-y-auto flex-1">
+                                        <div className="">
+                                            <p className="text-[color:var(--primary-color)] font-semibold border-b-4 mb-3 pb-3">
+                                                Categories
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {filterCategories
+                                                    .filter(
+                                                        (category) =>
+                                                            !selectedCategory.some(
+                                                                (selected) =>
+                                                                    selected.post_id ===
+                                                                    category.post_id
+                                                            )
+                                                    )
+                                                    .map((category) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedCategory(
+                                                                    (prev) => [
+                                                                        ...prev,
+                                                                        {
+                                                                            post_id:
+                                                                                category.post_id,
+                                                                            post_title:
+                                                                                category.post_title,
+                                                                        },
+                                                                    ]
+                                                                );
+                                                            }}
+                                                            key={
+                                                                category.post_id
+                                                            }
+                                                            className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {
+                                                                category.post_title
+                                                            }
+                                                        </button>
+                                                    ))}
+
+                                                {selectedCategory.map(
+                                                    (category) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedCategory(
+                                                                    (prev) => {
+                                                                        return prev.filter(
+                                                                            (
+                                                                                item
+                                                                            ) =>
+                                                                                item.post_id !==
+                                                                                category.post_id
+                                                                        );
+                                                                    }
+                                                                );
+                                                            }}
+                                                            key={
+                                                                category.post_id
+                                                            }
+                                                            className="bg-[color:var(--primary-color)] text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {
+                                                                category.post_title
+                                                            }
+                                                            <i className="fas fa-times ml-1"></i>
+                                                        </button>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-4">
+                                            <p className="text-[color:var(--primary-color)] font-semibold border-b-4 mb-3 pb-3">
+                                                Locations
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {filterLocations
+                                                    .filter(
+                                                        (location) =>
+                                                            !selectedLocation.some(
+                                                                (selected) =>
+                                                                    selected.post_id ===
+                                                                    location.post_id
+                                                            )
+                                                    )
+                                                    .map((location) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedLocation(
+                                                                    (prev) => [
+                                                                        ...prev,
+                                                                        {
+                                                                            post_id:
+                                                                                location.post_id,
+                                                                            post_title:
+                                                                                location.post_title,
+                                                                        },
+                                                                    ]
+                                                                );
+                                                            }}
+                                                            key={
+                                                                location.post_id
+                                                            }
+                                                            className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {
+                                                                location.post_title
+                                                            }
+                                                        </button>
+                                                    ))}
+
+                                                {selectedLocation.map(
+                                                    (location) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedLocation(
+                                                                    (prev) => {
+                                                                        return prev.filter(
+                                                                            (
+                                                                                item
+                                                                            ) =>
+                                                                                item.post_id !==
+                                                                                location.post_id
+                                                                        );
+                                                                    }
+                                                                );
+                                                            }}
+                                                            key={
+                                                                location.post_id
+                                                            }
+                                                            className="bg-[color:var(--primary-color)] text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {
+                                                                location.post_title
+                                                            }
+                                                            <i className="fas fa-times ml-1"></i>
+                                                        </button>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-4">
+                                            <p className="text-[color:var(--primary-color)] font-semibold border-b-4 mb-3 pb-3">
+                                                Companies
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {filterCompanies
+                                                    .filter(
+                                                        (company) =>
+                                                            !selectedCompany.some(
+                                                                (selected) =>
+                                                                    selected.post_id ===
+                                                                    company.post_id
+                                                            )
+                                                    )
+                                                    .map((company) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedCompany(
+                                                                    (prev) => [
+                                                                        ...prev,
+                                                                        {
+                                                                            post_id:
+                                                                                company.post_id,
+                                                                            post_title:
+                                                                                company.post_title,
+                                                                        },
+                                                                    ]
+                                                                );
+                                                            }}
+                                                            key={
+                                                                company.post_id
+                                                            }
+                                                            className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {company.post_title}
+                                                        </button>
+                                                    ))}
+
+                                                {selectedCompany.map(
+                                                    (company) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedCompany(
+                                                                    (prev) => {
+                                                                        return prev.filter(
+                                                                            (
+                                                                                item
+                                                                            ) =>
+                                                                                item.post_id !==
+                                                                                company.post_id
+                                                                        );
+                                                                    }
+                                                                );
+                                                            }}
+                                                            key={
+                                                                company.post_id
+                                                            }
+                                                            className="bg-[color:var(--primary-color)] text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {company.post_title}
+                                                            <i className="fas fa-times ml-1"></i>
+                                                        </button>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="my-4">
+                                            <p className="text-[color:var(--primary-color)] font-semibold border-b-4 mb-3 pb-3">
+                                                Job Types
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {filterJobTypes
+                                                    .filter(
+                                                        (category) =>
+                                                            !selectedJobType.some(
+                                                                (selected) =>
+                                                                    selected.post_title ===
+                                                                    category.post_title
+                                                            )
+                                                    )
+                                                    .map((jobType, index) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedJobType(
+                                                                    (prev) => [
+                                                                        ...prev,
+                                                                        {
+                                                                            post_title:
+                                                                                jobType.post_title,
+                                                                        },
+                                                                    ]
+                                                                );
+                                                            }}
+                                                            key={index}
+                                                            className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {jobType.post_title}
+                                                        </button>
+                                                    ))}
+                                                {selectedJobType.map(
+                                                    (jobType, index) => (
+                                                        <button
+                                                            onClick={() => {
+                                                                setSelectedJobType(
+                                                                    (prev) => {
+                                                                        return prev.filter(
+                                                                            (
+                                                                                item
+                                                                            ) =>
+                                                                                item.post_title !==
+                                                                                jobType.post_title
+                                                                        );
+                                                                    }
+                                                                );
+                                                            }}
+                                                            key={index}
+                                                            className="bg-[color:var(--primary-color)] text-white px-2 py-1 rounded-md text-xs"
+                                                        >
+                                                            {jobType.post_title}
+                                                            <i className="fas fa-times ml-1"></i>
+                                                        </button>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-end items-center my-1 mr-5">
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedCategory([]);
+                                                        setSelectedLocation([]);
+                                                        setSelectedCompany([]);
+                                                        setSelectedJobType([]);
+                                                    }}
+                                                    className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs mr-2"
+                                                >
+                                                    Clear All
+                                                </button>
+                                        <button
+                                            onClick={handleFilter}
+                                            className="bg-[color:var(--primary-color)] text-white px-2 py-1 rounded-md text-xs"
+                                        >
+                                            Apply Filters
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* <div className="flex items-center">
+                        <p className="text-sm text-[color:var(--secondary-color)] font-medium">
+                            <i className="fas fa-sort text-xs"></i>
+                        </p>
+                        <select
+                            className="text-sm py-1 outline-none"
+                            onChange={(e) => sortJobs(e.target.value)}
+                            defaultValue="latest"
+                            required={true}
+                        >
+                            <option value="latest">Newly added</option>
+                            <option value="oldest">Oldest</option>
+                        </select>
+                    </div> */}
                 </div>
+                <p className="text-sm font-medium text-[color:var(--primary-color)]">
+                    {jobsCount === 0
+                        ? "No Jobs Found!"
+                        : `${jobsCount} Jobs Found`}
+                </p>
             </div>
             <div
                 className={
-                    (!selectedJobId && !mobileView)
-                        ? "md:col-span-12 grid grid-cols-4 gap-2 overflow-scroll md:border-2 px-2"
-                        : "md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2"
+                    !selectedJobId && !mobileView
+                        ? `relative md:col-span-6 md:border-2 px-2 ${
+                              jobsCount === 0
+                                  ? "h-full"
+                                  : "grid grid-cols-4 gap-2 overflow-scroll relative"
+                          }`
+                        : "md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2 relative "
                 }
             >
-                {jobs?.map((job, index) => (
-                    <div key={index} className="py-2">
-                        {/* for desktop */}
-                        {!mobileView && (
-                            <Link
-                                className="w-full"
-                                onClick={() => {
-                                    handleJobClick(job.post_id);
-                                }}
-                            >
-                                <JobListCard
-                                    job={job}
-                                    activeJob={Number(selectedJobId)}
-                                />
-                            </Link>
-                        )}
-                        {/* for mobile */}
-                        {mobileView && (
-                            <Link
-                                className="w-full"
-                                to={`/m/jobs/${job.post_id}`}
-                            >
-                                <JobListCard job={job} />
-                            </Link>
-                        )}
+                {!loading &&
+                    Boolean(jobsCount) &&
+                    jobs?.map((job, index) => (
+                        <div key={index} className="py-2">
+                            {
+                                <Link
+                                    className="w-full"
+                                    onClick={() => {
+                                        handleJobClick(job.post_id);
+                                    }}
+                                >
+                                    <JobListCard
+                                        job={job}
+                                        activeJob={Number(selectedJobId)}
+                                    />
+                                </Link>
+                            }
+                        </div>
+                    ))}
+
+                {!loading && !jobsCount && (
+                    <div className="w-full h-full flex items-center justify-center gap-2">
+                        <img src={notFound} className="max-w-40 m-10" alt="" />
+                        <div className="text-[color:var(--primary-color)]">
+                            <p className="text-3xl">
+                                {query.get("search") ? (
+                                    <span>
+                                        Oops, no jobs found for{" "}
+                                        <span className="text-[color:var(--primary-color)]">
+                                            {query.get("search")}
+                                        </span>
+                                    </span>
+                                ) : (
+                                    "Oops, no jobs found!"
+                                )}
+                            </p>
+                            <p>
+                                Kindly try with different search keyword, or
+                                check back later.
+                            </p>
+                            <p className="text-sm text-gray-700">
+                                <i className="fas fa-search mr-2"></i>
+                                we are constantly updating our job listings.
+                            </p>
+                        </div>
                     </div>
-                ))}
+                )}
+
+                {loading && (
+                    <div className="w-full h-full flex items-center justify-center gap-2 p-10 col-span-4">
+                        <div className="animate-spin rounded-full h-10 w-10 border-2 border-b-0 border-l-0 border-[color:var(--primary-color)]"></div>
+                        <p className="text-[color:var(--primary-color)] text-lg ml-3">
+                            Fetching Data...
+                        </p>
+                    </div>
+                )}
             </div>
             {/* job details */}
             <div
@@ -166,7 +595,7 @@ function JobListing({ data }) {
 
                 {!jobDetails && selectedJobId && (
                     <div className="w-full h-full flex items-center justify-center gap-2">
-                        <i className="text-lg text-[color:var(--primary-color)] fas fa-exclamation-circle"></i>
+                        <img src={notFound} alt="" />
                         <p className="text-lg text-[color:var(--primary-color)]">
                             Oops, no job details found!
                         </p>

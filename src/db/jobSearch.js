@@ -1,15 +1,17 @@
 import { baseUrl } from "./config";
 import axios from "axios";
 
-const apiEndpoint = "/api/web/jobs_search";
+const apiEndpoint = "/api/web/jobs_filter";
+const urlParams = new URLSearchParams(window.location.search);
 
-const jobSearch = async (search_text) => {
+const jobSearch = async (headerObj) => {
     try {
         const response = await axios.get(`${baseUrl}${apiEndpoint}`, {
-            headers: {
-                search_text: search_text,
-            },
+            headers: headerObj,
         });
+        
+        console.log(headerObj);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error);

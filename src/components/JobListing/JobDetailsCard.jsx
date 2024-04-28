@@ -4,9 +4,13 @@ import PropTypes from "prop-types";
 import { getPostViews } from "../../db/postviews";
 import { useEffect, useState } from "react";
 import formatAmount from "../../utils/formatAmount";
+import { useQuery } from "../../utils/queryParams";
+import { useNavigate } from "react-router-dom";
 
 function JobDetailsCard({ jobDetails }) {
     const [views, setViews] = useState(0);
+    const query = useQuery();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getPostViews(jobDetails?.post_id).then((data) => {
@@ -16,11 +20,10 @@ function JobDetailsCard({ jobDetails }) {
 
     // handle go back, if back url is of same domain then go back else go to jobs page
     const goBack = () => {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "/jobs";
+        if (query.get("search")) {
+            navigate(`/jobs?search=${query.get("search")}`);
         }
+        window.history.back();
     };
 
     return (

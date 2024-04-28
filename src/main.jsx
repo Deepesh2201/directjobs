@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         errorElement: <NotFoundPage />,
         children: [
             {
-                path: "jobs/:id",
+                path: "jobs",
                 element: <MobileJobListing />,
             },
         ],
