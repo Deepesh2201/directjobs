@@ -1,14 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
 import { useState } from "react";
+import { useQuery } from "../../utils/queryParams";
 
 function JobSearch() {
     const [search, setSearch] = useState("");
+    const query = useQuery();
 
     const navigate = useNavigate();
 
     const handleSearch = (e) => {
         e.preventDefault();
+
+        if (query.entries) {
+            console.log(query.keys().next().value);
+        }
 
         navigate(`/jobs?search=${search.trim().replace(/\s/g, "+")}`);
     };
@@ -35,9 +41,7 @@ function JobSearch() {
                     className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-md"
                 />
             </div> */}
-            <PrimaryButton onClick={handleSearch}>
-                Search
-            </PrimaryButton>
+            <PrimaryButton onClick={handleSearch}>Search</PrimaryButton>
         </form>
     );
 }
