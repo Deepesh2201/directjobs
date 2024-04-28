@@ -4,9 +4,10 @@ import JobSearch from "../components/JobSearch/JobSearch";
 import CenterTitle from "../components/SharedComponents/CenterTitle";
 import { getLatestJobs } from "../db/latestjobs";
 import { jobSearch } from "../db/jobSearch";
-import useQuery from "../utils/queryParams";
+import { useQuery } from "../utils/queryParams";
 
 function Jobs() {
+    const [url, setUrl] = useState(window.location.href);
     const query = useQuery();
 
     const [jobData, setJobData] = useState([]);
@@ -17,16 +18,35 @@ function Jobs() {
 
     useEffect(() => {
         const fetchJobs = async () => {
+            const queryObj = {};
             if (query.get("search")) {
-                const data = await jobSearch(query.get("search"));
+                queryObj.search = query.get("search");
+            }
+            if (query.get("cat")) {
+                queryObj.cat_ids = query.get("cat");
+                console.log(queryObj);
+            }
+            if (query.get("loc")) {
+                queryObj.location_ids = query.get("loc");
+            }
+            if (query.get("comp")) {
+                queryObj.company_ids = query.get("comp");
+            }
+            if(query.get("job_type")) {
+                queryObj.job_type = query.get("job_type");
+            }
+
+            if (queryObj) {
+                const data = await jobSearch(queryObj);
                 setJobData(data.data);
             } else {
-                const data = await getLatestJobs();
+                const data = await jobSearch();
                 setJobData(data.data);
             }
         };
-        fetchJobs();
-    }, [query.get("search")]);
+
+        console.log(fetchJobs(), "fetchJobs");
+    }, [window.location.href]);
 
     return (
         <>

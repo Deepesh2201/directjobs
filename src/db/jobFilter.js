@@ -23,14 +23,14 @@ const getCategories = async () => {
     }
 };
 
-const filterProperties = async (data) => {
+const getFilterProperties = async (data) => {
     const apiEndpoint = "/api/web/cat_loc_comp_list";
     try {
-        const response = await axios.post(`${baseUrl}${apiEndpoint}`, data);
+        const response = await axios.get(`${baseUrl}${apiEndpoint}`, data);
         return response.data;
     } catch (error) {
         console.error(error);
         return Error("An error occurred while fetching categories");
     }
 };
-export { getCompanies, getCategories, filterProperties };
+export { getCompanies, getCategories, getFilterProperties };

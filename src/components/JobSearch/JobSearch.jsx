@@ -10,10 +10,13 @@ function JobSearch() {
     const handleSearch = (e) => {
         e.preventDefault();
 
-        navigate(`/jobs?search=${search}`);
+        navigate(`/jobs?search=${search.trim().replace(/\s/g, "+")}`);
     };
     return (
-        <div className="flex flex-col md:flex-row justify-center items-center gap-2 my-4">
+        <form
+            className="flex flex-col md:flex-row justify-center items-center gap-2 my-4"
+            onSubmit={handleSearch}
+        >
             <div className="relative flex items-center justify-center w-full">
                 <i className="absolute left-3 text-gray-400 fas fa-search -mr-7 z-10"></i>
                 <input
@@ -32,10 +35,10 @@ function JobSearch() {
                     className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-md"
                 />
             </div> */}
-            <PrimaryButton type="submit" onClick={handleSearch} className="">
+            <PrimaryButton onClick={handleSearch}>
                 Search
             </PrimaryButton>
-        </div>
+        </form>
     );
 }
 

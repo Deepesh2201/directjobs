@@ -74,7 +74,7 @@ function Hero() {
     return (
         <div className="md:-mb-10">
             <div className="w-full h-[full] pb-16 overflow-hidden">
-                <div className="relative rounded-bl-[50%] rounded-br-[50%] overflow-hidden w-[240%] md:w-[140%] md:left-[-20%] left-[-70%] bg-[url('https://images.unsplash.com/photo-1619252584172-a83a949b6efd?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-blend-soft-light bg-center border-b border-[color:var(--primary-color)] z-0">
+                <div className="relative rounded-bl-[50%] rounded-br-[50%] overflow-hidden w-[240%] md:w-[140%] md:left-[-20%] left-[-70%] bg-[url('https://images.unsplash.com/photo-1619252584172-a83a949b6efd?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-blend-soft-light bg-cover border-b border-[color:var(--primary-color)] z-0">
                     <div className="pt-[180px] m-auto max-w-[100vw] md:max-w-7xl text-black mb-12 md:mb-16">
                         <div className="max-w-7xl md:mt-8 m-auto px-8">
                             <h2 className="text-3xl lg:text-6xl font-semibold text-center transition-all ease-linear text-[color:var(--primary-color)]">
