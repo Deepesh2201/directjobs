@@ -8,6 +8,7 @@ import { testimonialData } from "./data/testimonialData";
 import { getLatestJobs } from "../db/latestjobs";
 import { useEffect, useState } from "react";
 import { getCategories } from "../db/categories";
+import HeroSection from "../components/Hero/HeroSection";
 
 function Home() {
     const [latestJobs, setLatestJobs] = useState([]);
@@ -24,8 +25,8 @@ function Home() {
     }, []);
 
     return (
-        <div className="-mt-[150px] overflow-x-hidden">
-            <HeroNew />
+        <div className="overflow-x-hidden">
+            <HeroSection />
             <CategoryList categories={categoriesData} />
             <Hero2 />
             <FeaturedJobs jobs={latestJobs} sectionId="categorySection" />

@@ -6,7 +6,7 @@ function ComfortLayout() {
     return (
         <>
             <NavBar />
-            <div className="mt-[110px]">
+            <div className="">
                 <Outlet />
             </div>
             <Footer />

@@ -5,7 +5,7 @@ import propType from "prop-types";
 import { getJobDetails } from "../../db/jobDetails";
 import JobDetailsCard from "./JobDetailsCard";
 import { useQuery } from "../../utils/queryParams";
-import notFound from "../../assets/img/notfound.png";
+import notFound from "../../assets/abstracts/notfound.png";
 import { getFilterProperties } from "../../db/jobFilter";
 
 function JobListing({ data }) {
