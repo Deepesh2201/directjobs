@@ -9,6 +9,9 @@ import { getLatestJobs } from "../db/latestjobs";
 import { useEffect, useState } from "react";
 import { getCategories } from "../db/categories";
 import HeroSection from "../components/Hero/HeroSection";
+import JobSearch from "../components/JobSearch/JobSearch";
+import BrandsMarquee from "../components/Marquee/BrandsMarquee";
+import TrendingJobs from "../components/TrendingJobs/TrendingJobs";
 
 function Home() {
     const [latestJobs, setLatestJobs] = useState([]);
@@ -27,9 +30,18 @@ function Home() {
     return (
         <div className="overflow-x-hidden">
             <HeroSection />
+            <div className="max-w-7xl lg:m-auto lg:px-8 px-4 mt-6">
+                <div className="px-8 bg-slate-200 py-3 rounded-md">
+                    <JobSearch />
+                </div>
+            </div>
+            <div className="max-w-7xl m-auto">
+                <BrandsMarquee />
+            </div>
+            <TrendingJobs />
             <CategoryList categories={categoriesData} />
-            <Hero2 />
             <FeaturedJobs jobs={latestJobs} sectionId="categorySection" />
+            <Hero2 />
             {/* <TestimonicalMarquee /> */}
             <Testimonial data={testimonialData} />
         </div>
