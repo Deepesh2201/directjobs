@@ -24,7 +24,7 @@ function SlidingBrandsHero({ scrollToSection }) {
                         </Marquee>
                     </div>
                     <div className="text-xl lg:text-4xl my-2 lg:my-4 font-medium text-black">
-                        80+ brands are hiring here
+                        80+ Brands Are Hiring Here
                     </div>
                     <div className="block mt-12 delay-100 animate-bounce text-[color:var(--primary-color)]">
                         <a

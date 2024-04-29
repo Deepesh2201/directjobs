@@ -1,27 +1,32 @@
-export default [
+const menuItems = [
     {
         label: "Home",
         path: "/",
+        icon: "fas fa-home",
         newTab: false,
     },
     {
-        label: "About",
+        label: "About Us",
         path: "/about",
+        icon: "fas fa-users",
         newTab: false,
     },
+];
+
+const mobileMenuItems = [
+    ...menuItems,
     {
-        label: "Jobs",
-        path: "/jobs",
-        newTab: false,
-    },
-    {
-        label: "For Recruiters",
-        path: "/recruiters",
+        label: "Explore Categories",
+        path: "/categories",
+        icon: "fas fa-th-list",
         newTab: false,
     },
     {
         label: "Support",
         path: "/support",
+        icon: "fas fa-phone",
         newTab: false,
     },
 ];
+
+export { menuItems, mobileMenuItems };
