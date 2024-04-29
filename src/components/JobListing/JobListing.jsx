@@ -5,7 +5,7 @@ import propType from "prop-types";
 import { getJobDetails } from "../../db/jobDetails";
 import JobDetailsCard from "./JobDetailsCard";
 import { useQuery } from "../../utils/queryParams";
-import notFound from "../../assets/img/notfound.png";
+import notFound from "../../assets/abstracts/notfound.png";
 import { getFilterProperties } from "../../db/jobFilter";
 
 function JobListing({ data }) {
@@ -111,7 +111,10 @@ function JobListing({ data }) {
                       .map((jobType) => jobType.post_title)
                       .join(",")}`);
         }
-
+        const keys = query.keys();
+        for (const key of keys) {
+            console.log(key);
+        }
         navigate(`/jobs${filterQuery}`);
     };
 
@@ -517,10 +520,10 @@ function JobListing({ data }) {
             <div
                 className={
                     !selectedJobId && !mobileView
-                        ? `relative md:col-span-6 md:border-2 px-2 ${
+                        ? `relative md:col-span-6 px-2 ${
                               jobsCount === 0
                                   ? "h-full"
-                                  : "grid grid-cols-4 gap-2 overflow-scroll relative"
+                                  : "grid grid-cols-4 gap-2 overflow-scroll relative md:border-2"
                           }`
                         : "md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2 relative "
                 }
@@ -546,7 +549,7 @@ function JobListing({ data }) {
                     ))}
 
                 {!loading && !jobsCount && (
-                    <div className="w-full h-full flex items-center justify-center gap-2">
+                    <div className="w-full h-full flex md:flex-row flex-col items-center justify-center gap-2">
                         <img src={notFound} className="max-w-40 m-10" alt="" />
                         <div className="text-[color:var(--primary-color)]">
                             <p className="text-3xl">

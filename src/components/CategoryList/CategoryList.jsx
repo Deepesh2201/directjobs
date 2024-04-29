@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
 import CenterTitle from "../SharedComponents/CenterTitle";
 import Divider from "../SharedComponents/Divider";
 import CategoryCard from "./CategoryCard";
 // import { catogoryListItems } from "./category";
 import proptypes from "prop-types";
+import checkIsMobile from "../../utils/checkIsMobile";
 
 function CategoryList({ categories, sectionId }) {
+    const isMobile = checkIsMobile();
+    const maxCount = isMobile ? 6 : 12;
     return (
         <div id={sectionId} className="max-w-7xl m-auto px-8 my-8 md:my-36">
             <div className="space-y-2 sm:space-y-4">
@@ -21,7 +25,7 @@ function CategoryList({ categories, sectionId }) {
             <div className="mt-8">
                 <div className="mx-auto px-2 lg:px-8">
                     <div className="grid grid-cols-1 gap-y-2 text-center sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-                        {categories.map((item, index) => {
+                        {categories.slice(0, maxCount).map((item, index) => {
                             return (
                                 <CategoryCard
                                     key={index}
@@ -33,6 +37,11 @@ function CategoryList({ categories, sectionId }) {
                         })}
                     </div>
                 </div>
+            </div>
+            <div className="flex justify-center mt-8">
+                <Link>
+                    <button className="">Expore More Categories</button>
+                </Link>
             </div>
         </div>
     );
