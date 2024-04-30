@@ -16,7 +16,7 @@ function HeroSection() {
                         <p>Jobseeker</p>
                     </div>
                     <h1 className="text-xl lg:text-3xl">
-                        We Have 208.000+ Live Jobs. <br />
+                        We Have 2,08,000+ Live Jobs. <br />
                         Get Hired Now.
                     </h1>
                     <p className="text-xs lg:text-sm">
