@@ -52,7 +52,7 @@ function NavBar() {
         >
             <div className="flex w-full justify-between items-center max-w-7xl mx-auto">
                 <div className="flex items-center">
-                    <Link to={"/"} className="w-10 md:w-14">
+                    <Link to={"/"} className="w-14 md:w-14">
                         <img src={logo} alt="Direct Jobs" />
                     </Link>
                     <div className="hidden sm:block space-x-6 font-medium">
