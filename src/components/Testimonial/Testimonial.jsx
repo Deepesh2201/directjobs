@@ -4,7 +4,6 @@ import TestimonialCard from "./TestimonialCard";
 import PropTypes from "prop-types";
 import { chunkArray } from "../../utils/chunckArray";
 function Testimonial({ data }) {
-
     const chunkedTestimonials = chunkArray(data, data?.length / 3).reverse();
 
     return (
@@ -13,9 +12,6 @@ function Testimonial({ data }) {
                 <div className="w-full max-w-7xl mx-auto">
                     <div className="text-center mx-auto">
                         <CenterTitle>
-                            <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
-                                1000+ People are already using Direct Jobs
-                            </h3>
                             <h2 className="text-center font-medium text-3xl md:text-4xl lg:text-5xl text-black">
                                 Why Jobseekers Love{" "}
                                 <span className="text-[color:var(--primary-color)]">

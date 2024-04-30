@@ -47,8 +47,8 @@ function FeaturedJobs({ jobs, sectionId }) {
                 to={"/jobs"}
                 className="block mt-8 text-center px-8 space-x-2"
             >
-                <span className="text-center">Expore 10K+ Jobs</span>
-                <i className="fa-solid fa-angles-right"></i>
+                <span className="text-center">Explore 10K+ Jobs</span>
+                <i className="fa-solid fa-angles-right animate-bounce"></i>
             </Link>
         </div>
     );

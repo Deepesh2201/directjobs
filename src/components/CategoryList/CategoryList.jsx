@@ -17,7 +17,7 @@ function CategoryList({ categories, sectionId }) {
                         Jobs by Category
                     </h3>
                     <h2 className="text-center font-medium text-3xl md:text-4xl lg:text-5xl text-black">
-                        Choose Your Desire Category
+                        Trending Categories
                     </h2>
                 </CenterTitle>
                 <Divider />
@@ -40,7 +40,9 @@ function CategoryList({ categories, sectionId }) {
             </div>
             <div className="flex justify-center mt-8">
                 <Link>
-                    <button className="">Expore More Categories</button>
+                    <button className="">Explore More Categories
+                    
+                    </button>
                 </Link>
             </div>
         </div>
