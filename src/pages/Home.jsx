@@ -31,7 +31,7 @@ function Home() {
         <div className="overflow-x-hidden">
             <HeroSection />
             <div className="max-w-7xl lg:m-auto lg:px-8 px-4 mt-6">
-                <div className="px-8 bg-slate-200 py-3 rounded-md">
+                <div className="px-8 bg-slate-50 py-3 rounded-lg backdrop-blur-sm shadow border">
                     <JobSearch />
                 </div>
             </div>
