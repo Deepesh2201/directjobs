@@ -17,19 +17,19 @@ const data = [
     {
         title: "Work From Home",
         subtitle: "Remote Jobs",
-        image: partTime,
+        image: workFromHome,
         totalJobs: 100,
     },
     {
         title: "Part Time",
         subtitle: "Part Time Jobs",
-        image: freelancer,
+        image: partTime,
         totalJobs: 100,
     },
     {
         title: "Freelancer",
         subtitle: "Work As Freelancer",
-        image: workFromHome,
+        image: freelancer,
         totalJobs: 100,
     },
     {
@@ -42,7 +42,7 @@ const data = [
 
 function TrendingJobs() {
     return (
-        <>
+        <div className="px-4 lg:px-8">
             <CenterTitle>
                 <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
                     Explore Jobs Trending Around You
@@ -52,7 +52,7 @@ function TrendingJobs() {
                 </h2>
             </CenterTitle>
             <Divider />
-            <div className="grid md:grid-cols-3 gap-4 max-w-7xl px-8 m-auto">
+            <div className="grid md:grid-cols-3 gap-4 max-w-7xl m-auto">
                 {data.map((item, index) => {
                     return (
                         <Card
@@ -65,17 +65,17 @@ function TrendingJobs() {
                     );
                 })}
 
-                <div className="border-2 border-transparent overflow-hidden">
+                <div className="border-2 border-transparent overflow-hidden hidden md:block">
                     <div className="flex justify-between md:h-40 items-center group-hover:bg-slate-300 bg-cover bg-center relative">
                         <div className="p-5">
                             <p className="text-2xl lg:text-3xl font-medium text-center md:text-left">
-                                100+ More Categories To Explore
+                                50+ More Categories To Explore
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

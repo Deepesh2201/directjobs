@@ -1,6 +1,5 @@
 import FeaturedJobs from "../components/FeaturedJobs/FeaturedJobs";
 import CategoryList from "../components/CategoryList/CategoryList";
-import HeroNew from "../components/Hero/Hero-new";
 import Hero2 from "../components/Hero/Hero2";
 import Testimonial from "../components/Testimonial/Testimonial";
 // import { jobData } from "./data/jobData";
@@ -31,7 +30,7 @@ function Home() {
         <div className="overflow-x-hidden">
             <HeroSection />
             <div className="max-w-7xl lg:m-auto lg:px-8 px-4 mt-6">
-                <div className="px-8 bg-slate-200 py-3 rounded-md">
+                <div className="px-8 bg-slate-50 py-3 rounded-lg backdrop-blur-sm shadow border">
                     <JobSearch />
                 </div>
             </div>
@@ -42,7 +41,6 @@ function Home() {
             <CategoryList categories={categoriesData} />
             <FeaturedJobs jobs={latestJobs} sectionId="categorySection" />
             <Hero2 />
-            {/* <TestimonicalMarquee /> */}
             <Testimonial data={testimonialData} />
         </div>
     );

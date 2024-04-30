@@ -5,7 +5,7 @@ import checkIsMobile from "../../utils/checkIsMobile";
 function BrandsMarquee() {
     const isMobile = checkIsMobile();
     return (
-        <div className="relative isolate z-0 bg-white my-8 sm:my-14">
+        <div className="relative bg-white my-8 sm:my-14 -z-10">
             <div className="relative mx-auto ">
                 <div className="text-center">
                     <div className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
