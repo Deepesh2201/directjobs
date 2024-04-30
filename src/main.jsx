@@ -13,6 +13,7 @@ import Support from "./pages/Support.jsx";
 import ComfortLayout from "./ComfortLayout.jsx";
 import MobileJobListing from "./components/JobListing/MobileJobListing.jsx";
 import FAQs from "./pages/FAQs.jsx";
+import Categories from "./pages/Categories.jsx";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
                 path: "faqs",
                 element: <FAQs />,
             },
+            {
+                path: "categories",
+                element: <Categories />,
+            }
         ],
     },
     // mobile routes
