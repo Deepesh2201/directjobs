@@ -3,49 +3,51 @@
 @tailwind utilities;
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
+
 body {
-    background-color: #ffffff;
-    font-family: "Rubik", 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #17171d;
-    font-display: swap;
+  background-color: #ffffff;
+  font-family: "Rubik", 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #17171d;
+  font-display: swap;
 }
+
 :root {
-    --primary-color: #891b81;
-    --primary-shade1: #95328e;
-    --secondary-color: #121420;
-    --hover-btn-color: #b128a8;
-    --hover-primary-color: #f07ee9;
+  --primary-color: #891b81;
+  --primary-shade1: #95328e;
+  --secondary-color: #121420;
+  --hover-btn-color: #b128a8;
+  --hover-primary-color: #f07ee9;
 }
 
 
 .bg-gradient-secondary {
-    /* gradient background secondary without variable */
-    background: linear-gradient(90deg, #313131 0%, #121420 100%);
+  /* gradient background secondary without variable */
+  background: linear-gradient(90deg, #313131 0%, #121420 100%);
 }
 
 .bg-gradient-primary {
-    /* gradient background primary without variable */
-    background: linear-gradient(90deg, #f07ee9 0%, #b128a8 100%);
+  /* gradient background primary without variable */
+  background: linear-gradient(90deg, #f07ee9 0%, #b128a8 100%);
 }
 
 /* change degree for mobile device  */
 @media (max-width: 768px) {
-    .bg-gradient-secondary {
-        background: linear-gradient(180deg, #313131 0%, #121420 100%);
-    }
+  .bg-gradient-secondary {
+    background: linear-gradient(180deg, #313131 0%, #121420 100%);
+  }
 
-    .bg-gradient-primary {
-        background: linear-gradient(180deg, #f07ee9 0%, #b128a8 100%);
-    }
+  .bg-gradient-primary {
+    background: linear-gradient(180deg, #f07ee9 0%, #b128a8 100%);
+  }
 }
 
 /* animated grid background*/
 .grid-bg {
-    background: linear-gradient(90deg, #f07ee9 0%, #b128a8 100%);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+  background: linear-gradient(90deg, #f07ee9 0%, #b128a8 100%);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
 /* *{
@@ -54,82 +56,53 @@ body {
 
 /* Thin Scrollbar */
 ::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 25px;
+  background-color: var(--primary-color);
+  border-radius: 25px;
 }
 
-/* flicker effect on text */
-.glitch {
-    position: relative;
-    display: inline-block;
-    font-size: 2em;
-    color: black; /* Dark color */
-    overflow: hidden;
+/* animate bounce right */
+.animate-bounce-right {
+  animation: bounceRight 1s infinite;
+}
+
+@keyframes bounceRight {
+  0% {
+    transform: translateX(0);
   }
-  
-  .glitch::before,
-  .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+
+  50% {
+    transform: translateX(10px);
   }
-  
-  .glitch::before {
-    animation: glitch-animation-1 2s infinite linear alternate-reverse;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    z-index: -1;
+
+  100% {
+    transform: translateX(0);
   }
-  
-  .glitch::after {
-    animation: glitch-animation-2 3s infinite linear alternate-reverse;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    z-index: -2;
+}
+
+/* animate bounce left */
+.animate-bounce-left {
+  animation: bounceLeft 1s infinite;
+}
+
+@keyframes bounceLeft {
+  0% {
+    transform: translateX(0);
   }
-  
-  @keyframes glitch-animation-1 {
-    0% {
-      transform: translate(0);
-    }
-    25% {
-      transform: translate(-5px, 5px);
-    }
-    50% {
-      transform: translate(5px, -5px);
-    }
-    75% {
-      transform: translate(-5px, 5px);
-    }
-    100% {
-      transform: translate(0);
-    }
+
+  50% {
+    transform: translateX(-10px);
   }
-  
-  @keyframes glitch-animation-2 {
-    0% {
-      transform: translate(0);
-    }
-    25% {
-      transform: translate(5px, -5px);
-    }
-    50% {
-      transform: translate(-5px, 5px);
-    }
-    75% {
-      transform: translate(5px, -5px);
-    }
-    100% {
-      transform: translate(0);
-    }
+
+  100% {
+    transform: translateX(0);
   }
-  
+}
+

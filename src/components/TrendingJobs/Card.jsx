@@ -4,10 +4,10 @@ import background from "../../assets/images/hero_background.png";
 function Card({ title, subtitle, image, totalJobs, onClick }) {
     return (
         <div className="border-2 group border-slate-200 hover:border-slate-300 w-full rounded-lg cursor-pointer overflow-hidden">
-            <div className="flex justify-between h-40 items-end group-hover:bg-slate-300 bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${background})` }}
+            <div
+                className={`flex justify-between h-40 items-end group-hover:bg-[#ffd302] bg-cover bg-right-bottom relative`}
+                style={{ backgroundImage: `url(${background})` }}
             >
-
                 <div className="p-5">
                     <p className="text-2xl lg:text-3xl font-medium">{title}</p>
                     <p className="text-sm">{subtitle}</p>

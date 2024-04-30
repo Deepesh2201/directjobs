@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import checkIsMobile from "../../utils/checkIsMobile";
 function FeaturedJobs({ jobs, sectionId }) {
     const isMobile = checkIsMobile();
-    const maxCount = isMobile ? 4 : 9;
+    const maxCount = isMobile ? 10 : 9;
     return (
         <div
             className="px-4 lg:px-8 max-w-7xl m-auto my-16 md:my-36"
@@ -32,24 +32,25 @@ function FeaturedJobs({ jobs, sectionId }) {
             </div>
             <div className="mt-8">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                    {jobs?.slice(0, maxCount).map((job) => (
-                        <Link
-                            key={job.post_id}
-                            to={`jobs/${job.post_id}`}
-                            className="rounded-lg overflow-hidden bg-slate-100"
-                        >
-                            <JobListCard job={job} />
-                        </Link>
-                    ))}
+                    {jobs
+                        ?.sort(() => Math.random() - 0.5)
+                        .slice(0, maxCount)
+                        .map((job) => (
+                            <Link key={job.post_id} to={`jobs/${job.post_id}`}>
+                                <JobListCard job={job} />
+                            </Link>
+                        ))}
                 </div>
             </div>
-            <Link
-                to={"/jobs"}
-                className="block mt-8 text-center px-8 space-x-2"
-            >
-                <span className="text-center">Explore 10K+ Jobs</span>
-                <i className="fa-solid fa-angles-right animate-bounce"></i>
-            </Link>
+
+            <div className="flex justify-center mt-8">
+                <Link to={"/jobs"}>
+                    <button className="">
+                        Explore 10K+ Jobs
+                        <i className="fa-solid fa-angles-right animate-bounce-right ml-2"></i>
+                    </button>
+                </Link>
+            </div>
         </div>
     );
 }
