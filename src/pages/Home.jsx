@@ -1,6 +1,5 @@
 import FeaturedJobs from "../components/FeaturedJobs/FeaturedJobs";
 import CategoryList from "../components/CategoryList/CategoryList";
-import HeroNew from "../components/Hero/Hero-new";
 import Hero2 from "../components/Hero/Hero2";
 import Testimonial from "../components/Testimonial/Testimonial";
 // import { jobData } from "./data/jobData";
@@ -42,7 +41,6 @@ function Home() {
             <CategoryList categories={categoriesData} />
             <FeaturedJobs jobs={latestJobs} sectionId="categorySection" />
             <Hero2 />
-            {/* <TestimonicalMarquee /> */}
             <Testimonial data={testimonialData} />
         </div>
     );

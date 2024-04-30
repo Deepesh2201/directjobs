@@ -43,7 +43,7 @@ function Testimonial({ data }) {
                         modules={[Autoplay, Pagination]}
                     >
                         {data.map((testimonial, index) => (
-                            <SwiperSlide key={index}>
+                            <SwiperSlide key={index} className="lg:px-2">
                                 <TestimonialCard
                                     author={testimonial.author}
                                     testimonial={testimonial.testimonial}

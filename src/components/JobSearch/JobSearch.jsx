@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getFilterProperties } from "../../db/jobFilter";
 import SearchableDropdown from "../SharedComponents/SearchableDropdown";
 import { Input } from "semantic-ui-react";
+import "semantic-ui-css/components/dropdown.min.css";
+import "semantic-ui-css/components/input.min.css";
 
 function JobSearch() {
     const [search, setSearch] = useState("");
