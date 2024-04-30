@@ -26,8 +26,8 @@ function CategoryList({ categories, sectionId }) {
                 <Divider />
             </div>
             <div className="mt-8">
-                <div className="mx-auto px-2 lg:px-8">
-                    <div className="grid grid-cols-1 gap-y-2 text-center sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+                <div className="mx-auto">
+                    <div className="grid grid-cols-1 gap-y-4 text-center sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
                         {categories
                             .sort(
                                 (cat1, cat2) =>
