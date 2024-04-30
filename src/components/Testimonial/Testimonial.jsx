@@ -40,6 +40,7 @@ function Testimonial({ data }) {
                             disableOnInteraction: true,
                             pauseOnMouseEnter: true,
                         }}
+                        loop={true}
                         modules={[Autoplay, Pagination]}
                     >
                         {data.map((testimonial, index) => (
