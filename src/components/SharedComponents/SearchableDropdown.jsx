@@ -19,6 +19,7 @@ const SearchableDropdown = ({
         <Dropdown
             className="w-full"
             selection
+            fluid
             placeholder={placeholder}
             search={search}
             options={options}

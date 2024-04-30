@@ -1,17 +1,79 @@
 import { Link } from "react-router-dom";
-import { exploreLinks, footerLinks } from "./constants";
+import { footerLinks } from "./constants";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
 import BrandLogo from "../SharedComponents/BrandLogo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getFilterProperties } from "../../db/jobFilter";
 
 function Footer() {
-    const [exploreLinksCount] = useState(window.innerWidth < 768 ? 20 : 60);
+    const [displayCount, setDisplayCount] = useState(20);
+    const [exploreLinksCount, setExploreLinksCount] = useState(displayCount);
+    const [displayText, setDisplayText] = useState("Show More");
+    const [exploreLinksData, setExploreLinksData] = useState([]);
+
+    const handleShowMoreClick = () => {
+        if (exploreLinksCount === displayCount) {
+            setExploreLinksCount(exploreLinksData[0]?.data?.length);
+            setDisplayText("Show Less");
+        }
+        if (exploreLinksCount === exploreLinksData[0]?.data?.length) {
+            setExploreLinksCount(displayCount);
+            setDisplayText("Show More");
+        }
+    };
+
+    useEffect(() => {
+        setExploreLinksCount(displayCount);
+    }, [displayCount]);
+
+    useEffect(() => {
+        getFilterProperties().then((data) => {
+            let cities = [];
+            data.location_list.map((city) => cities.push(city.post_title));
+            let profession = [];
+            data.category_list.map((prof) => profession.push(prof.post_title));
+
+            setExploreLinksData([
+                {
+                    label: "Explore Jobs in cities",
+                    prefix: "Jobs in",
+                    data: cities,
+                },
+                {
+                    label: "Explore Jobs by Profession",
+                    prefix: "Job for",
+                    data: profession,
+                },
+                {
+                    label: "Popular Jobs",
+                    prefix: "",
+                    data: [
+                        "Accounts / Finance Jobs",
+                        "Sales (Field Work)",
+                        "Human Resource",
+                        "Backoffice Jobs",
+                        "Business Development",
+                        "Telecaller / BPO",
+                        "Work from Home Jobs",
+                        "Part Time Jobs",
+                        "Full Time Jobs",
+                        "Night Shift Jobs",
+                        "Freshers Jobs",
+                        "Internship Jobs",
+                        "Online Jobs",
+                        "Freelance Jobs",
+                        "Remote Jobs",
+                    ],
+                },
+            ]);
+        });
+    }, []);
 
     return (
         <>
             <section className="py-5 md:my-5 bg-slate-50">
                 <div className="max-w-7xl m-auto md:block">
-                    {exploreLinks?.map((link, index) => (
+                    {exploreLinksData?.map((link, index) => (
                         <div key={index}>
                             <div className="flex items-center gap-4 my-5">
                                 <hr className="w-full border-slate-400" />
@@ -21,7 +83,6 @@ function Footer() {
                                 <hr className="w-full border-slate-400" />
                             </div>
                             <div className="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 text-sm px-4 gap-2">
-                                {/* show only 20 items and show show more button */}
                                 {link?.data
                                     ?.slice(0, exploreLinksCount)
                                     .map((dataLabel, index) => (
@@ -35,13 +96,13 @@ function Footer() {
                                         </div>
                                     ))}
                             </div>
-                            {link?.data?.length > exploreLinksCount && (
-                                <Link
-                                    to={"/jobs"}
+                            {link?.data?.length > 20 && (
+                                <button
+                                    onClick={handleShowMoreClick}
                                     className="text-sm text-[color:var(--primary-color)] w-full text-center block my-3"
                                 >
-                                    Show All
-                                </Link>
+                                    {displayText}
+                                </button>
                             )}
                         </div>
                     ))}

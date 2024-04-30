@@ -129,7 +129,7 @@ function Categories() {
                             );
                         })}
 
-                {!categoriesData.length && !loading && (
+                {!filteredCategories.length && !loading && (
                     <div className="text-center w-full col-span-3 my-14">
                         <i className="fas fa-exclamation-triangle text-3xl text-red-500"></i>
                         <p>No categories found for {search}</p>
