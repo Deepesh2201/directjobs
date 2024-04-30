@@ -1,13 +1,17 @@
 import CenterTitle from "../SharedComponents/CenterTitle";
 import Divider from "../SharedComponents/Divider";
-import TestimonialCard from "./TestimonialCard";
 import PropTypes from "prop-types";
-import { chunkArray } from "../../utils/chunckArray";
-function Testimonial({ data }) {
-    const chunkedTestimonials = chunkArray(data, data?.length / 3).reverse();
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
+import TestimonialCard from "./TestimonialCard";
+import checkIsMobile from "../../utils/checkIsMobile";
 
+function Testimonial({ data }) {
+    const isMobile = checkIsMobile();
     return (
-        <div className="min-w-screen min-h-screen flex items-center justify-center">
+        <div className="w-full flex items-center justify-center px-4 lg:px-8">
             <div className="w-full bg-white px-5 text-gray-800">
                 <div className="w-full max-w-7xl mx-auto">
                     <div className="text-center mx-auto">
@@ -22,23 +26,33 @@ function Testimonial({ data }) {
                         </CenterTitle>
                         <Divider />
                     </div>
-                    <div className="-mx-3 md:flex items-start">
-                        {/* <div key={index} className="px-3 md:w-1/3"></div> */}
-                        {/*  */}
-                        {chunkedTestimonials.map((testimonial, index) => (
-                            <div key={index} className="px-3 md:w-1/3">
-                                {testimonial.map((testimonial, index) => (
-                                    <TestimonialCard
-                                        key={index}
-                                        author={testimonial.author}
-                                        testimonial={testimonial.testimonial}
-                                        avatar={testimonial.avatar}
-                                        profession={testimonial.position}
-                                    />
-                                ))}
-                            </div>
+
+                    <Swiper
+                        slidesPerView={isMobile ? 1 : 3}
+                        spaceBetween={20}
+                        about="Testimonials"
+                        pagination={{
+                            dynamicBullets: true,
+                        }}
+                        autoplay={{
+                            Autoplay: true,
+                            delay: 2500,
+                            disableOnInteraction: true,
+                            pauseOnMouseEnter: true,
+                        }}
+                        modules={[Autoplay, Pagination]}
+                    >
+                        {data.map((testimonial, index) => (
+                            <SwiperSlide key={index}>
+                                <TestimonialCard
+                                    author={testimonial.author}
+                                    testimonial={testimonial.testimonial}
+                                    avatar={testimonial.avatar}
+                                    profession={testimonial.position}
+                                />
+                            </SwiperSlide>
                         ))}
-                    </div>
+                    </Swiper>
                 </div>
             </div>
         </div>

@@ -42,7 +42,7 @@ const data = [
 
 function TrendingJobs() {
     return (
-        <>
+        <div className="px-4 lg:px-8">
             <CenterTitle>
                 <h3 className="text-center font-medium text-lg text-[color:var(--primary-color)]">
                     Explore Jobs Trending Around You
@@ -52,7 +52,7 @@ function TrendingJobs() {
                 </h2>
             </CenterTitle>
             <Divider />
-            <div className="grid md:grid-cols-3 gap-4 max-w-7xl px-8 m-auto">
+            <div className="grid md:grid-cols-3 gap-4 max-w-7xl m-auto">
                 {data.map((item, index) => {
                     return (
                         <Card
@@ -75,7 +75,7 @@ function TrendingJobs() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

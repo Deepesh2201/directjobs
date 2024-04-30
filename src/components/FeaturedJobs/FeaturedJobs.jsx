@@ -8,7 +8,7 @@ function FeaturedJobs({ jobs, sectionId }) {
     const maxCount = isMobile ? 4 : 9;
     return (
         <div
-            className="px-4 md:px-8 max-w-7xl m-auto my-16 md:my-36"
+            className="px-4 lg:px-8 max-w-7xl m-auto my-16 md:my-36"
             id={sectionId}
         >
             <div className="flex gap-5 justify-between">
