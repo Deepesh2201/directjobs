@@ -14,11 +14,19 @@ function JobSearch() {
     const [locationValue, setLocationValue] = useState("");
     const [category, setCategory] = useState([]);
     const [location, setLocation] = useState([]);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
     const handleSearch = (e) => {
         e.preventDefault();
+        // if (!categoryValue && !locationValue && !search) {
+        //     setError(
+        //         "Please select a category, location, or enter a search term."
+        //     );
+        //     setTimeout(() => setError(null), 5000);
+        //     return;
+        // }
         let urlparams = "";
         if (categoryValue) {
             urlparams += `&cat=${categoryValue}`;
@@ -63,49 +71,63 @@ function JobSearch() {
     }, []);
 
     return (
-        <form
-            className="flex flex-col md:flex-row justify-center items-center gap-2 my-4"
-            onSubmit={handleSearch}
-        >
-            <div className="flex items-center justify-between w-full rounded-md p-0.5 lg:p-[2.5px]">
-                <div className="text-black w-10 flex justify-center items-center h-full">
-                    <i className={`fas fa-search text-sm `}></i>
-                </div>
-
-                <Input
-                    type="text"
-                    placeholder="Search for job title/keywords"
-                    className="w-full outline-none"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </div>
-            <div className="relative flex items-center justify-center w-full">
-                <SearchableDropdown
-                    placeholder={"Select Category"}
-                    options={category}
-                    icon="fas fa-table"
-                    value={categoryValue}
-                    setValue={setCategoryValue}
-                />
-            </div>
-            <div className="relative flex items-center justify-center w-full">
-                <SearchableDropdown
-                    placeholder={"Select Location"}
-                    options={location}
-                    icon="fas fa-map-marker-alt"
-                    value={locationValue}
-                    setValue={setLocationValue}
-                />
-            </div>
-            <PrimaryButton
-                className={"!text-lg w-full lg:w-fit"}
-                onClick={handleSearch}
+        <>
+            <form
+                className="flex flex-col md:flex-row justify-center items-center gap-2 my-4"
+                onSubmit={handleSearch}
             >
-                <i className="fas fa-search mr-2 text-base"></i>
-                Search
-            </PrimaryButton>
-        </form>
+                <div className="flex items-center justify-between w-full rounded-md p-0.5 lg:p-[2.5px] overflow-clip">
+                    <div className="text-black min-w-6 justify-center flex items-center h-full">
+                        <i className={`fas fa-search text-base mr-2`}></i>
+                    </div>
+
+                    <div className="flex-1 w-[70%]">
+                        <Input
+                            type="text"
+                            placeholder="Type a job title or keyword"
+                            value={search}
+                            className="w-[100%]"
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="relative flex items-center justify-center w-full">
+                    <SearchableDropdown
+                        placeholder={"Select Category"}
+                        options={category}
+                        icon="fas fa-table"
+                        value={categoryValue}
+                        setValue={setCategoryValue}
+                    />
+                </div>
+                <div className="relative flex items-center justify-center w-full">
+                    <SearchableDropdown
+                        placeholder={"Select Location"}
+                        options={location}
+                        icon="fas fa-map-marker-alt"
+                        value={locationValue}
+                        setValue={setLocationValue}
+                    />
+                </div>
+                <PrimaryButton
+                    className={"px-8 !py-1.5 text-base"}
+                    onClick={handleSearch}
+                >
+                    <i className="fas fa-search mr-2 text-base hidden md:inline"></i>
+                    Find Jobs
+                    <span className="md:hidden">
+                        <i className="fas fa-angle-right ml-2"></i>
+                    </span>
+                </PrimaryButton>
+            </form>
+            {error && (
+                <div className="w-full mb-4">
+                    <h2 className="text-sm text-red-600 text-center">
+                        {error}
+                    </h2>
+                </div>
+            )}
+        </>
     );
 }
 

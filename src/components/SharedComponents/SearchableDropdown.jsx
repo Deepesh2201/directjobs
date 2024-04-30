@@ -12,8 +12,8 @@ const SearchableDropdown = ({
 }) => (
     <div className="flex items-center justify-between w-full rounded-md p-0.5 lg:p-[2.5px]">
         {Boolean(icon) && (
-            <div className="w-10 flex justify-center items-center bg--50 h-full">
-                <i className={`${icon} text-base`}></i>
+            <div className="min-w-6 flex justify-center items-center h-full">
+                <i className={`${icon} text-base mr-2`}></i>
             </div>
         )}
         <Dropdown
