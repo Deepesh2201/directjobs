@@ -27,33 +27,35 @@ function Testimonial({ data }) {
                         <Divider />
                     </div>
 
-                    <Swiper
-                        slidesPerView={isMobile ? 1 : 3}
-                        spaceBetween={20}
-                        about="Testimonials"
-                        pagination={{
-                            dynamicBullets: true,
-                        }}
-                        autoplay={{
-                            Autoplay: true,
-                            delay: 2500,
-                            disableOnInteraction: true,
-                            pauseOnMouseEnter: true,
-                        }}
-                        loop={true}
-                        modules={[Autoplay, Pagination]}
-                    >
-                        {data.map((testimonial, index) => (
-                            <SwiperSlide key={index} className="lg:px-2">
-                                <TestimonialCard
-                                    author={testimonial.author}
-                                    testimonial={testimonial.testimonial}
-                                    avatar={testimonial.avatar}
-                                    profession={testimonial.position}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    <div className="mb-12">
+                        <Swiper
+                            slidesPerView={isMobile ? 1 : 3}
+                            spaceBetween={20}
+                            about="Testimonials"
+                            pagination={{
+                                dynamicBullets: true,
+                            }}
+                            autoplay={{
+                                Autoplay: true,
+                                delay: 2500,
+                                disableOnInteraction: true,
+                                pauseOnMouseEnter: true,
+                            }}
+                            loop={true}
+                            modules={[Autoplay, Pagination]}
+                        >
+                            {data.map((testimonial, index) => (
+                                <SwiperSlide key={index} className="mb-12">
+                                    <TestimonialCard
+                                        author={testimonial.author}
+                                        testimonial={testimonial.testimonial}
+                                        avatar={testimonial.avatar}
+                                        profession={testimonial.position}
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
                 </div>
             </div>
         </div>

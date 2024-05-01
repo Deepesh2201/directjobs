@@ -6,65 +6,53 @@ import { useEffect, useState } from "react";
 import { getFilterProperties } from "../../db/jobFilter";
 
 function Footer() {
-    const [displayCount, setDisplayCount] = useState(20);
-    const [exploreLinksCount, setExploreLinksCount] = useState(displayCount);
-    const [displayText, setDisplayText] = useState("Show More");
+    const [exploreLinksCount, setExploreLinksCount] = useState(24);
     const [exploreLinksData, setExploreLinksData] = useState([]);
-
-    const handleShowMoreClick = () => {
-        if (exploreLinksCount === displayCount) {
-            setExploreLinksCount(exploreLinksData[0]?.data?.length);
-            setDisplayText("Show Less");
-        }
-        if (exploreLinksCount === exploreLinksData[0]?.data?.length) {
-            setExploreLinksCount(displayCount);
-            setDisplayText("Show More");
-        }
-    };
-
-    useEffect(() => {
-        setExploreLinksCount(displayCount);
-    }, [displayCount]);
 
     useEffect(() => {
         getFilterProperties().then((data) => {
             let cities = [];
-            data.location_list.map((city) => cities.push(city.post_title));
+            data.location_list.map((city) => cities.push(city));
             let profession = [];
-            data.category_list.map((prof) => profession.push(prof.post_title));
+            data.category_list.map((prof) => profession.push(prof));
 
             setExploreLinksData([
                 {
                     label: "Explore Jobs in cities",
                     prefix: "Jobs in",
+                    query: "loc",
                     data: cities,
+                    showMoreLink: "/locations",
                 },
                 {
-                    label: "Explore Jobs by Profession",
+                    label: "Explore Jobs by Categories",
                     prefix: "Job for",
+                    query: "cat",
                     data: profession,
+                    showMoreLink: "/categories",
                 },
-                {
-                    label: "Popular Jobs",
-                    prefix: "",
-                    data: [
-                        "Accounts / Finance Jobs",
-                        "Sales (Field Work)",
-                        "Human Resource",
-                        "Backoffice Jobs",
-                        "Business Development",
-                        "Telecaller / BPO",
-                        "Work from Home Jobs",
-                        "Part Time Jobs",
-                        "Full Time Jobs",
-                        "Night Shift Jobs",
-                        "Freshers Jobs",
-                        "Internship Jobs",
-                        "Online Jobs",
-                        "Freelance Jobs",
-                        "Remote Jobs",
-                    ],
-                },
+                // {
+                //     label: "Popular Jobs",
+                //     prefix: "",
+                //     query: "cat",
+                //     data: [
+                //         "Accounts / Finance Jobs",
+                //         "Sales (Field Work)",
+                //         "Human Resource",
+                //         "Backoffice Jobs",
+                //         "Business Development",
+                //         "Telecaller / BPO",
+                //         "Work from Home Jobs",
+                //         "Part Time Jobs",
+                //         "Full Time Jobs",
+                //         "Night Shift Jobs",
+                //         "Freshers Jobs",
+                //         "Internship Jobs",
+                //         "Online Jobs",
+                //         "Freelance Jobs",
+                //         "Remote Jobs",
+                //     ],
+                // },
             ]);
         });
     }, []);
@@ -87,22 +75,22 @@ function Footer() {
                                     ?.slice(0, exploreLinksCount)
                                     .map((dataLabel, index) => (
                                         <div key={index}>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to={`/jobs?${link?.query}=${dataLabel?.post_id}`}
                                                 className="text-xs md:text-sm hover:text-[color:var(--primary-color)] flex items-center h-full w-full justify-center text-center md:justify-start md:text-left"
                                             >
-                                                {`${link?.prefix} ${dataLabel}`}
-                                            </a>
+                                                {`${link?.prefix} ${dataLabel?.post_title}`}
+                                            </Link>
                                         </div>
                                     ))}
                             </div>
                             {link?.data?.length > 20 && (
-                                <button
-                                    onClick={handleShowMoreClick}
+                                <Link
+                                    to={link?.showMoreLink}
                                     className="text-sm text-[color:var(--primary-color)] w-full text-center block my-3"
                                 >
-                                    {displayText}
-                                </button>
+                                    Show All
+                                </Link>
                             )}
                         </div>
                     ))}
