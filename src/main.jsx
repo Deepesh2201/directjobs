@@ -14,6 +14,7 @@ import ComfortLayout from "./ComfortLayout.jsx";
 import MobileJobListing from "./components/JobListing/MobileJobListing.jsx";
 import FAQs from "./pages/FAQs.jsx";
 import Categories from "./pages/Categories.jsx";
+import Location from "./pages/Location.jsx";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: "categories",
                 element: <Categories />,
+            },
+            {
+                path: "locations",
+                element: <Location />,
             }
         ],
     },
