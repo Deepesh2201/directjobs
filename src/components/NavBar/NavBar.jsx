@@ -46,8 +46,8 @@ function NavBar() {
 
     return (
         <nav
-            className={`h-fit w-full flex  top-0 z-50 px-4 lg:px-8 py-2.5 transition-colors ease-in-out ${
-                pageScrolled && "shadow-md bg-white fixed"
+            className={`h-fit w-full flex  top-0 z-50 px-4 lg:px-8 py-2.5 transition-colors ease-in-out bg-white ${
+                pageScrolled && "shadow-md  fixed"
             }`}
         >
             <div className="flex w-full justify-between items-center max-w-7xl mx-auto">

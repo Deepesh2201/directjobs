@@ -1,5 +1,4 @@
 import { Dropdown, Input } from "semantic-ui-react";
-import { getUnsplashImage } from "../utils/UnsplashImage";
 import PrimaryButton from "../components/SharedComponents/PrimaryButton";
 import CenterTitle from "../components/SharedComponents/CenterTitle";
 import { useEffect, useState } from "react";

@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #f4f2f6;
   font-family: "Rubik", 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #17171d;
   font-display: swap;
@@ -17,6 +17,7 @@ body {
   --primary-color: #891b81;
   --primary-shade1: #95328e;
   --secondary-color: #121420;
+  --secondary-color-gray: #6b6b6b;
   --hover-btn-color: #b128a8;
   --hover-primary-color: #f07ee9;
 }

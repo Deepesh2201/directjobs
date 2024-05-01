@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import JobListCard from "./JobListCard";
+import JobCard from "./JobCard";
 import propType from "prop-types";
 import { getJobDetails } from "../../db/jobDetails";
 import JobDetailsCard from "./JobDetailsCard";
@@ -165,7 +165,7 @@ function JobListing({ data }) {
     };
 
     return (
-        <div className="grid md:grid-cols-6 h-full gap-1">
+        <div className="">
             <div className="md:col-span-6">
                 <p className="text-gray-600 text-sm">
                     {query.get("search") ? (
@@ -184,7 +184,7 @@ function JobListing({ data }) {
             <div className="relative flex items-center justify-between h-fit md:col-span-6">
                 <div className="flex items-center gap-2">
                     <div className="relative flex items-center">
-                        {(
+                        {
                             <p className="text-xs text-[color:var(--secondary-color)] font-medium">
                                 <i className="fas fa-filter text-xs"></i>
                                 <span>Filter</span>
@@ -197,7 +197,7 @@ function JobListing({ data }) {
                                     }
                                 ></i>
                             </p>
-                        )}
+                        }
 
                         {openFilterDropdown && (
                             <div className="h-[100vh] w-[100vw] fixed left-0 bottom-0 z-50 flex justify-center items-end pb-24 bg-white bg-opacity-80">
@@ -473,17 +473,17 @@ function JobListing({ data }) {
                                         </div>
                                     </div>
                                     <div className="flex justify-end items-center my-1 mr-5">
-                                                <button
-                                                    onClick={() => {
-                                                        setSelectedCategory([]);
-                                                        setSelectedLocation([]);
-                                                        setSelectedCompany([]);
-                                                        setSelectedJobType([]);
-                                                    }}
-                                                    className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs mr-2"
-                                                >
-                                                    Clear All
-                                                </button>
+                                        <button
+                                            onClick={() => {
+                                                setSelectedCategory([]);
+                                                setSelectedLocation([]);
+                                                setSelectedCompany([]);
+                                                setSelectedJobType([]);
+                                            }}
+                                            className="bg-gray-600 text-white px-2 py-1 rounded-md text-xs mr-2"
+                                        >
+                                            Clear All
+                                        </button>
                                         <button
                                             onClick={handleFilter}
                                             className="bg-[color:var(--primary-color)] text-white px-2 py-1 rounded-md text-xs"
@@ -495,21 +495,6 @@ function JobListing({ data }) {
                             </div>
                         )}
                     </div>
-
-                    {/* <div className="flex items-center">
-                        <p className="text-sm text-[color:var(--secondary-color)] font-medium">
-                            <i className="fas fa-sort text-xs"></i>
-                        </p>
-                        <select
-                            className="text-sm py-1 outline-none"
-                            onChange={(e) => sortJobs(e.target.value)}
-                            defaultValue="latest"
-                            required={true}
-                        >
-                            <option value="latest">Newly added</option>
-                            <option value="oldest">Oldest</option>
-                        </select>
-                    </div> */}
                 </div>
                 <p className="text-sm font-medium text-[color:var(--primary-color)]">
                     {jobsCount === 0
@@ -517,17 +502,7 @@ function JobListing({ data }) {
                         : `${jobsCount} Jobs Found`}
                 </p>
             </div>
-            <div
-                className={
-                    !selectedJobId && !mobileView
-                        ? `relative md:col-span-6 px-2 ${
-                              jobsCount === 0
-                                  ? "h-full"
-                                  : "grid grid-cols-4 gap-2 overflow-scroll relative md:border-2"
-                          }`
-                        : "md:col-span-2 overflow-scroll md:border-2 px-2 divide-y-2 relative "
-                }
-            >
+            <div className="grid grid-cols-4 w-full col-span-6 gap-2" >
                 {!loading &&
                     Boolean(jobsCount) &&
                     jobs?.map((job, index) => (
@@ -539,7 +514,7 @@ function JobListing({ data }) {
                                         handleJobClick(job.post_id);
                                     }}
                                 >
-                                    <JobListCard
+                                    <JobCard
                                         job={job}
                                         activeJob={Number(selectedJobId)}
                                     />

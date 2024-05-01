@@ -59,7 +59,7 @@ function Footer() {
 
     return (
         <>
-            <section className="py-5 md:my-5 bg-slate-50">
+            <section className="py-5 md:py-5 bg-slate-50">
                 <div className="max-w-7xl m-auto md:block">
                     {exploreLinksData?.map((link, index) => (
                         <div key={index}>

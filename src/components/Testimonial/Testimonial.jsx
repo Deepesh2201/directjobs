@@ -12,7 +12,7 @@ function Testimonial({ data }) {
     const isMobile = checkIsMobile();
     return (
         <div className="w-full flex items-center justify-center px-4 lg:px-8">
-            <div className="w-full bg-white px-5 text-gray-800">
+            <div className="w-full px-5 text-gray-800">
                 <div className="w-full max-w-7xl mx-auto">
                     <div className="text-center mx-auto">
                         <CenterTitle>
