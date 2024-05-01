@@ -5,7 +5,7 @@ function Card({ title, subtitle, image, totalJobs, onClick }) {
     return (
         <div className="border-2 group border-slate-200 hover:border-slate-300 w-full rounded-lg cursor-pointer overflow-hidden">
             <div
-                className={`flex justify-between h-40 items-end group-hover:bg-[#ffd302] bg-cover bg-right-bottom relative`}
+                className={`flex bg-white justify-between h-40 items-end group-hover:bg-[#ffd302] bg-cover bg-right-bottom relative`}
                 style={{ backgroundImage: `url(${background})` }}
             >
                 <div className="p-5">

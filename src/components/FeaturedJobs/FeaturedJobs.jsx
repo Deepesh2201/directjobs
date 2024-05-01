@@ -1,11 +1,12 @@
 import PrimaryButton from "../SharedComponents/PrimaryButton";
-import JobListCard from "../JobListing/JobListCard";
+import JobCard from "../JobListing/JobCard";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import checkIsMobile from "../../utils/checkIsMobile";
+import JobListingCard from "../JobListing/JobListingCard";
 function FeaturedJobs({ jobs, sectionId }) {
     const isMobile = checkIsMobile();
-    const maxCount = isMobile ? 10 : 9;
+    const maxCount = isMobile ? 12 : 9;
     return (
         <div
             className="px-4 lg:px-8 max-w-7xl m-auto my-16 md:my-36"
@@ -31,14 +32,14 @@ function FeaturedJobs({ jobs, sectionId }) {
                 </div>
             </div>
             <div className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {jobs
                         ?.sort(() => Math.random() - 0.5)
                         .slice(0, maxCount)
                         .map((job) => (
-                            <Link key={job.post_id} to={`jobs/${job.post_id}`}>
-                                <JobListCard job={job} />
-                            </Link>
+                            <div key={job.post_id} className="flex items-center w-full">
+                                <JobListingCard job={job} />
+                            </div>
                         ))}
                 </div>
             </div>

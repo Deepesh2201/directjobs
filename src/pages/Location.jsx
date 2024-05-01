@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
-import CenterTitle from "../components/SharedComponents/CenterTitle";
-import { getCategories } from "../db/categories";
-import CategoryCard from "../components/CategoryList/CategoryCard";
 import { Dropdown, Input } from "semantic-ui-react";
 import PrimaryButton from "../components/SharedComponents/PrimaryButton";
-import { CategoriesLoader } from "../components/SharedComponents/Loader";
+import CenterTitle from "../components/SharedComponents/CenterTitle";
+import { useEffect, useState } from "react";
+import { getFilterProperties } from "../db/jobFilter";
+import LocationCard from "../components/Location/LocationCard";
+import { LocationCardLoader } from "../components/SharedComponents/Loader";
 
-function Categories() {
-    const [categoriesData, setCategoriesData] = useState([]);
+function Location() {
+    // getUnsplashImage("office").then((data) => console.log(data));
+
+    const [locationsData, setLocationsData] = useState([]);
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("asc");
-    const [filteredCategories, setFilteredCategories] = useState([]);
+    const [filteredLocations, setFilteredLocations] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -18,8 +20,8 @@ function Categories() {
         // scroll to top
         window.scrollTo(0, 0);
 
-        getCategories()
-            .then((data) => setCategoriesData(data))
+        getFilterProperties()
+            .then((data) => setLocationsData([...data.location_list]))
             .catch((error) => console.error(error));
 
         setTimeout(() => {
@@ -28,12 +30,12 @@ function Categories() {
     }, []);
 
     useEffect(() => {
-        setFilteredCategories(
-            categoriesData.filter((item) =>
+        setFilteredLocations(
+            locationsData.filter((item) =>
                 item.post_title.toLowerCase().includes(search.toLowerCase())
             )
         );
-    }, [search, categoriesData]);
+    }, [search, locationsData]);
 
     const sortFunc = (a, b) => {
         if (sort === "asc") {
@@ -50,13 +52,13 @@ function Categories() {
         <div className="max-w-7xl m-auto lg:px-8 px-4 py-14">
             <CenterTitle>
                 <h2 className="text-center font-medium text-3xl md:text-4xl lg:text-5xl text-black">
-                    Job Categories
+                    Jobs by Location
                 </h2>
             </CenterTitle>
 
             <div>
                 <p className="text-center">
-                    Explore jobs by category and find the perfect job for you.
+                    Find jobs in your location. Search by cities.
                 </p>
             </div>
 
@@ -64,7 +66,7 @@ function Categories() {
                 <div className="flex gap-2 w-full">
                     <Input
                         type="text"
-                        placeholder="Type to search categories"
+                        placeholder="Type to search location"
                         className="w-full outline-none"
                         value={search}
                         onChange={(e, { value }) => setSearch(value)}
@@ -102,32 +104,29 @@ function Categories() {
                             },
                         ]}
                         className="m-auto w-fit lg:w-1/3 right-0"
-                        value={sort}
-                        onChange={(e, { value }) => {
-                            setSort(value);
-                        }}
+                        onChange={(e, { value }) => setSort(value)}
+
                     />
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-between mt-10">
                 {!loading &&
-                    filteredCategories
+                    filteredLocations.length > 0 &&
+                    filteredLocations
                         .sort((a, b) => sortFunc(a, b))
                         .map((item, index) => {
                             return (
                                 <div key={index} className="w-full">
-                                    <CategoryCard
+                                    <LocationCard
                                         name={item.post_title}
-                                        image={item.post_image}
-                                        total_jobs={item.total_jobs}
-                                        cat_id={item.post_id}
+                                        loc_id={item.post_id}
                                     />
                                 </div>
                             );
                         })}
 
-                {!filteredCategories.length && !loading && (
+                {!filteredLocations.length && !loading && (
                     <div className="text-center w-full col-span-3 my-14">
                         <i className="fas fa-exclamation-triangle text-3xl text-red-500"></i>
                         <p>No categories found for {search}</p>
@@ -137,7 +136,7 @@ function Categories() {
                 {loading &&
                     [...Array(6).keys()].map((item, index) => (
                         <div key={index} className="w-full">
-                            <CategoriesLoader />
+                            <LocationCardLoader />
                         </div>
                     ))}
             </div>
@@ -145,4 +144,4 @@ function Categories() {
     );
 }
 
-export default Categories;
+export default Location;

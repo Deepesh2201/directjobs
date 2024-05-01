@@ -2,7 +2,7 @@ import propTypes from "prop-types";
 
 function TestimonialCard({ author, profession, testimonial, avatar }) {
     return (
-        <div className="w-full mx-auto rounded-xl lg:hover:drop-shadow-lg cursor-default bg-white border border-gray-200 p-5 text-gray-800 mb-6">
+        <div className="w-full mx-auto rounded-xl lg:hover:drop-shadow-lg cursor-default bg-white border border-gray-200 p-5 text-gray-800">
             <div className="w-full">
                 <p className="text-sm font-normal">
                     <span className="text-xl leading-none font-bold text-[color:var(--primary-color)] mr-1">
