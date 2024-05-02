@@ -3,7 +3,7 @@ import formatAmount from "../../utils/formatAmount";
 import { Link } from "react-router-dom";
 function JobCard({ job, noImage = false }) {
     return (
-        <Link to={`/m/jobs?job_id=${job.post_id}`} className="w-full cursor-pointer bg-transparent px-2 py-4">
+        <Link to={`/jobs/details?job_id=${job.post_id}`} className="w-full cursor-pointer bg-transparent px-2 py-4">
             <div className="overflow-hidden">
                 <div className="flex gap-2 items-center">
                     {!noImage && (

@@ -36,14 +36,14 @@ function JobListing({ data }) {
         if (query.get("search")) {
             if (mobileView) {
                 navigate(
-                    `/m/jobs?search=${query.get("search")}&job_id=${jobId}`
+                    `/jobs/details?search=${query.get("search")}&job_id=${jobId}`
                 );
             } else {
                 navigate(`/jobs?search=${query.get("search")}&job_id=${jobId}`);
             }
         } else {
             if (mobileView) {
-                navigate(`/m/jobs?job_id=${jobId}`);
+                navigate(`/jobs/details?job_id=${jobId}`);
             } else {
                 navigate(`/jobs?job_id=${jobId}`);
             }
@@ -110,10 +110,6 @@ function JobListing({ data }) {
                 : (filterQuery = `?job_type=${selectedJobType
                       .map((jobType) => jobType.post_title)
                       .join(",")}`);
-        }
-        const keys = query.keys();
-        for (const key of keys) {
-            console.log(key);
         }
         navigate(`/jobs${filterQuery}`);
     };
@@ -502,7 +498,7 @@ function JobListing({ data }) {
                         : `${jobsCount} Jobs Found`}
                 </p>
             </div>
-            <div className="grid grid-cols-4 w-full col-span-6 gap-2" >
+            <div className="grid grid-cols-4 w-full col-span-6 gap-2">
                 {!loading &&
                     Boolean(jobsCount) &&
                     jobs?.map((job, index) => (

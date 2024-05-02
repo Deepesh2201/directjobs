@@ -63,5 +63,24 @@ function JobListingCardLoader() {
     );
 }
 
-export { CategoriesLoader, LocationCardLoader, JobListingCardLoader };
+function JobCardLoader() {
+    return (
+        <div className="animate-pulse mb-4">
+            <div className="rounded-md bg-gray-300 h-12 w-full"></div>
+            <div className="space-y-1 py-1">
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                <div>
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export {
+    CategoriesLoader,
+    LocationCardLoader,
+    JobListingCardLoader,
+    JobCardLoader,
+};
 export default Loader;

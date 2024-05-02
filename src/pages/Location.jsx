@@ -7,8 +7,6 @@ import LocationCard from "../components/Location/LocationCard";
 import { LocationCardLoader } from "../components/SharedComponents/Loader";
 
 function Location() {
-    // getUnsplashImage("office").then((data) => console.log(data));
-
     const [locationsData, setLocationsData] = useState([]);
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("asc");

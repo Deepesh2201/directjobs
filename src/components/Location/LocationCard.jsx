@@ -11,7 +11,6 @@ function LocationCard({ name, total_jobs, loc_id }) {
         getUnsplashImage(name).then((data) => {
             setImage(data?.urls?.small || defaultImage);
         });
-        console.log(image);
     }, [name, image]);
 
     return (

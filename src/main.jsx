@@ -11,10 +11,10 @@ import Signup from "./pages/Signup.jsx";
 import Jobs from "./pages/Jobs.jsx";
 import Support from "./pages/Support.jsx";
 import ComfortLayout from "./ComfortLayout.jsx";
-import MobileJobListing from "./components/JobListing/MobileJobListing.jsx";
 import FAQs from "./pages/FAQs.jsx";
 import Categories from "./pages/Categories.jsx";
 import Location from "./pages/Location.jsx";
+import JobDetails from "./components/JobListing/JobDetails.jsx";
 
 const router = createBrowserRouter([
     {
@@ -45,18 +45,6 @@ const router = createBrowserRouter([
             {
                 path: "locations",
                 element: <Location />,
-            }
-        ],
-    },
-    // mobile routes
-    {
-        path: "m",
-        element: <ComfortLayout />,
-        errorElement: <NotFoundPage />,
-        children: [
-            {
-                path: "jobs",
-                element: <MobileJobListing />,
             },
         ],
     },
@@ -71,9 +59,9 @@ const router = createBrowserRouter([
                 element: <Jobs />,
             },
             {
-                path: ":id",
-                element: <Jobs />,
-            }
+                path: "details",
+                element: <JobDetails />,
+            },
         ],
     },
     {

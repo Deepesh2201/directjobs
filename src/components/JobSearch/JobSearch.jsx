@@ -81,7 +81,7 @@ function JobSearch() {
                         <i className={`fas fa-search text-base mr-2`}></i>
                     </div>
 
-                    <div className="flex-1 w-[70%]">
+                    <div className="relative flex-1 w-[70%]">
                         <Input
                             type="text"
                             placeholder="Type a job title or keyword"
@@ -89,6 +89,14 @@ function JobSearch() {
                             className="w-[100%]"
                             onChange={(e) => setSearch(e.target.value)}
                         />
+                        {search && (
+                            <button
+                                className="absolute right-1 top-0 h-full p-2"
+                                onClick={() => setSearch("")}
+                            >
+                                <i className="fas fa-times text-gray-500"></i>
+                            </button>
+                        )}
                     </div>
                 </div>
                 <div className="relative flex items-center justify-center w-full">

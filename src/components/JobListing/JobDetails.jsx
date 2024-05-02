@@ -3,7 +3,7 @@ import JobDetailsCard from "./JobDetailsCard";
 import { getJobDetails } from "../../db/jobDetails";
 import { useQuery } from "../../utils/queryParams";
 
-function MobileJobListing() {
+function JobDetails() {
     // get job id from url params id
     const query = useQuery();
     const id = query.get("job_id");
@@ -19,10 +19,12 @@ function MobileJobListing() {
     }, []);
 
     return (
-        <div className="p-5 max-w-7xl m-auto">
-            {jobDetails && <JobDetailsCard jobDetails={jobDetails} />}
+        <div className="bg-white">
+            <div className="p-5 max-w-7xl m-auto px-4 lg:px-8">
+                {jobDetails && <JobDetailsCard jobDetails={jobDetails} />}
+            </div>
         </div>
     );
 }
 
-export default MobileJobListing;
+export default JobDetails;
