@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getUnsplashImage } from "../../utils/UnsplashImage";
 import PrimaryButton from "../SharedComponents/PrimaryButton";
 import defaultImage from "../../assets/images/location_card_default.png";
 import PropTypes from "prop-types";
 
 function LocationCard({ name, total_jobs, loc_id }) {
-    const [image, setImage] = useState("");
-    getUnsplashImage(name).then((data) => setImage(data));
-    
-    
+    const [image, setImage] = useState(defaultImage);
+
+    useEffect(() => {
+        getUnsplashImage(name).then((data) => {
+            setImage(data?.urls?.small || defaultImage);
+        });
+        console.log(image);
+    }, [name, image]);
+
     return (
         <div>
             <div className="bg-white shadow-md rounded-md overflow-hidden">
                 <img
-                    src={image || defaultImage}
+                    src={image}
                     alt={name}
                     className="w-full h-48 object-cover object-center"
                 />

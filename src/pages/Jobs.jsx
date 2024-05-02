@@ -7,6 +7,7 @@ import { useQuery } from "../utils/queryParams";
 import JobListingCard from "../components/JobListing/JobListingCard";
 import JobCard from "../components/JobListing/JobCard";
 import JobFilter from "../components/JobListing/JobFilter";
+import { JobListingCardLoader } from "../components/SharedComponents/Loader";
 
 function Jobs() {
     const [url, setUrl] = useState(window.location.href);
@@ -14,6 +15,7 @@ function Jobs() {
 
     const [jobData, setJobData] = useState([]);
     const [latestJobs, setLatestJobs] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -53,8 +55,10 @@ function Jobs() {
 
     useEffect(() => {
         const fetchLatestJobs = async () => {
-            const data = await getLatestJobs();
-            setLatestJobs(data.data);
+            getLatestJobs().then((data) => {
+                setLatestJobs(data.data);
+                setLoading(false);
+            });
         };
         fetchLatestJobs();
     }, []);
@@ -79,9 +83,16 @@ function Jobs() {
                         </span>
                     </div>
                     <div className="grid grid-cols-1 gap-4 md:col-span-2 h-fit">
-                        {jobData.map((job) => (
-                            <JobListingCard key={job.post_id} job={job} />
-                        ))}
+                        {!loading &&
+                            jobData.map((job) => (
+                                <JobListingCard key={job.post_id} job={job} />
+                            ))}
+                        {loading &&
+                            Array(4)
+                                .fill(0)
+                                .map((_, index) => (
+                                    <JobListingCardLoader key={index} />
+                                ))}
                     </div>
                     <div>
                         <div className=" grid-cols-1 gap-4 hidden lg:grid bg-white p-5 rounded-lg border shadow-sm">

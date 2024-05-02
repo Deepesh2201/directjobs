@@ -19,12 +19,12 @@ function Categories() {
         window.scrollTo(0, 0);
 
         getCategories()
-            .then((data) => setCategoriesData(data))
-            .catch((error) => console.error(error));
+            .then((data) => {
+                setCategoriesData(data);
 
-        setTimeout(() => {
-            setLoading(false);
-        }, 500);
+                setLoading(false);
+            })
+            .catch((error) => console.error(error));
     }, []);
 
     useEffect(() => {
