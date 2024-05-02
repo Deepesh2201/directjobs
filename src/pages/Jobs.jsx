@@ -12,10 +12,11 @@ import {
     JobListingCardLoader,
 } from "../components/SharedComponents/Loader";
 import NoJobsCard from "../components/JobListing/NoJobsCard";
+import { useNavigate } from "react-router-dom";
 
 function Jobs() {
-    const [url, setUrl] = useState(window.location.href);
     const query = useQuery();
+    const navigate = useNavigate();
 
     const [jobData, setJobData] = useState([]);
     const [latestJobs, setLatestJobs] = useState([]);
@@ -28,6 +29,8 @@ function Jobs() {
         comps: query.get("comp")?.split(",").map(Number),
         job_types: query.get("job_type"),
     });
+
+    const [dataToSendInParams, setDataToSendInParams] = useState({});
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -75,7 +78,7 @@ function Jobs() {
             job_types: query.get("job_type"),
         });
     }, [window.location.href]);
-
+ 
     useEffect(() => {
         setLoadingLatestJobs(true);
         const fetchLatestJobs = async () => {
@@ -86,6 +89,28 @@ function Jobs() {
         };
         fetchLatestJobs();
     }, []);
+
+    useEffect(() => {
+        console.log("Data to send in params: ", dataToSendInParams);
+        let urlparams = "";
+        if (dataToSendInParams.cats) {
+            urlparams += `&cat=${dataToSendInParams.cats.join(",")}`;
+        }
+        if (dataToSendInParams.locs) {
+            urlparams += `&loc=${dataToSendInParams.locs.join(",")}`;
+        }
+        if (dataToSendInParams.comps) {
+            urlparams += `&comp=${dataToSendInParams.comps.join(",")}`;
+        }
+        if (dataToSendInParams.job_types) {
+            urlparams += `&job_type=${dataToSendInParams.job_types}`;
+        }
+        if (dataToSendInParams.search) {
+            urlparams += `&search=${dataToSendInParams.search}`;
+        }
+        navigate(`/jobs?${urlparams}`);
+
+    }, [dataToSendInParams]);
 
     return (
         <>
@@ -103,7 +128,7 @@ function Jobs() {
                             TODO: Mobile Filter is under construction
                         </p>
                         <span className="md:block hidden">
-                            <JobFilter dataInParams={dataInParams} />
+                            <JobFilter dataInParams={dataInParams} setDataToSendInParams={setDataToSendInParams} />
                         </span>
                     </div>
                     <div className="grid grid-cols-1 gap-4 md:col-span-2 h-fit">

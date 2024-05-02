@@ -3,7 +3,7 @@ import SortBy from "./SortBy";
 import { getFilterProperties } from "../../db/jobFilter";
 import PropTypes from "prop-types";
 
-function JobFilter({ dataInParams }) {
+function JobFilter({ dataInParams, setDataToSendInParams }) {
     const [selectedSort, setSelectedSort] = useState({});
     const [loccationFilterData, setLoccationFilterData] = useState([]);
     const [companyFilterData, setCompanyFilterData] = useState([]);
@@ -20,46 +20,85 @@ function JobFilter({ dataInParams }) {
         // set_maxValue(e.maxValue);
     };
 
-    useEffect(() => {
-        getFilterProperties()
-            .then((data) => {
-                setMinSalary(data.min_salary);
-                setMaxSalary(data.max_salary);
-                setQualificationsFilterData(data.qualification_list);
-                setJobTypeFilterData(data.job_types_list);
-                setCategoryFilterData(
-                    data?.category_list?.map((category) => ({
-                        post_id: category.post_id,
-                        post_title: category.post_title,
-                        selected: dataInParams?.cats?.includes(category.post_id)
-                            ? true
-                            : false,
-                    }))
-                );
-                setLoccationFilterData(
-                    data.location_list?.map((location) => ({
-                        post_id: location.post_id,
-                        post_title: location.post_title,
-                        selected: dataInParams?.locs?.includes(location.post_id)
-                            ? true
-                            : false,
-                    }))
-                );
-                setCompanyFilterData(
-                    data.company_list.map((company) => ({
-                        post_id: company.post_id,
-                        post_title: company.post_title,
-                        selected: dataInParams?.comps?.includes(company.post_id)
-                            ? true
-                            : false,
-                    }))
-                );
-            })
-            .then(() => {
-                console.log("Filter properties fetched successfully");
-                console.log(dataInParams);
-                console.log(categoryFilterData);
+    const handleCategoryFilter = (e) => {
+        const id = Number(e.target.id);
+        console.log(id, typeof id);
+        if (!dataInParams?.cats) {
+            console.log("no cats");
+            setDataToSendInParams({
+                ...dataInParams,
+                cats: [Number(id)],
             });
+        } else if (dataInParams?.cats?.includes(id)) {
+            console.log("there were cats");
+            setDataToSendInParams({
+                ...dataInParams,
+                cats: dataInParams?.cats?.filter((cat) => cat !== id),
+            });
+        } else {
+            console.log("there were no cats");
+            setDataToSendInParams({
+                ...dataInParams,
+                cats: [...dataInParams.cats, Number(id)],
+            });
+        }
+    };
+
+    const handleLocationFilter = (e) => {
+        const id = Number(e.target.id);
+        if (!dataInParams?.locs) {
+            setDataToSendInParams({
+                ...dataInParams,
+                locs: [Number(id)],
+            });
+        } else if (dataInParams?.locs?.includes(id)) {
+            setDataToSendInParams({
+                ...dataInParams,
+                locs: dataInParams?.locs?.filter((loc) => loc !== id),
+            });
+        } else {
+            setDataToSendInParams({
+                ...dataInParams,
+                locs: [...dataInParams.locs, Number(id)],
+            });
+        }
+    };
+    
+
+    useEffect(() => {
+        getFilterProperties().then((data) => {
+            setMinSalary(data.min_salary);
+            setMaxSalary(data.max_salary);
+            setQualificationsFilterData(data.qualification_list);
+            setJobTypeFilterData(data.job_types_list);
+            setCategoryFilterData(
+                data?.category_list?.map((category) => ({
+                    post_id: category.post_id,
+                    post_title: category.post_title,
+                    selected: dataInParams?.cats?.includes(category.post_id)
+                        ? true
+                        : false,
+                }))
+            );
+            setLoccationFilterData(
+                data.location_list?.map((location) => ({
+                    post_id: location.post_id,
+                    post_title: location.post_title,
+                    selected: dataInParams?.locs?.includes(location.post_id)
+                        ? true
+                        : false,
+                }))
+            );
+            setCompanyFilterData(
+                data.company_list.map((company) => ({
+                    post_id: company.post_id,
+                    post_title: company.post_title,
+                    selected: dataInParams?.comps?.includes(company.post_id)
+                        ? true
+                        : false,
+                }))
+            );
+        });
     }, [dataInParams]);
 
     return (
@@ -128,6 +167,7 @@ function JobFilter({ dataInParams }) {
                                             id={category.post_id}
                                             name={category.post_title}
                                             checked={category.selected}
+                                            onClick={handleCategoryFilter}
                                         />
                                         <label
                                             className="line-clamp-1"
@@ -161,6 +201,7 @@ function JobFilter({ dataInParams }) {
                                             id={location.post_id}
                                             name={location.post_title}
                                             checked={location.selected}
+                                            onChange={handleLocationFilter}
                                         />
                                         <label
                                             className="line-clamp-1"
@@ -272,4 +313,5 @@ export default JobFilter;
 
 JobFilter.propTypes = {
     dataInParams: PropTypes.object,
+    setDataToSendInParams: PropTypes.func,
 };

@@ -17,6 +17,8 @@ function Home() {
     const [categoriesData, setCategoriesData] = useState([]);
 
     useEffect(() => {
+
+        window.scrollTo(0, 0);
         getLatestJobs()
             .then((data) => setLatestJobs(data.data))
             .catch((error) => console.error(error));
