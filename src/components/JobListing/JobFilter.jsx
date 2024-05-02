@@ -3,7 +3,7 @@ import SortBy from "./SortBy";
 import { getFilterProperties } from "../../db/jobFilter";
 import PropTypes from "prop-types";
 
-function JobFilter({ dataInParams, setDataToSendInParams }) {
+function JobFilter({ dataInParams, setDataToSendInParams, setSortJobs }) {
     const [selectedSort, setSelectedSort] = useState({});
     const [loccationFilterData, setLoccationFilterData] = useState([]);
     const [companyFilterData, setCompanyFilterData] = useState([]);
@@ -14,11 +14,24 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
     );
     const [jobTypeFilterData, setJobTypeFilterData] = useState([]);
     const [categoryFilterData, setCategoryFilterData] = useState([]);
+    const tags = [
+        { id: "relevant", label: "Most Relevant", color: "#000" },
+        { id: "high", label: "Highest Salary", color: "#000" },
+        { id: "low", label: "Lowest Salary", color: "#000" },
+    ];
 
     const handleInput = (e) => {
         // set_minValue(e.minValue);
         // set_maxValue(e.maxValue);
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [dataInParams]);
+
+    useEffect(() => {
+        setSortJobs(selectedSort?.id);
+    }, [selectedSort]);
 
     const handleCategoryFilter = (e) => {
         const id = Number(e.target.id);
@@ -127,11 +140,25 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
         }
     };
 
+    const handleClearAllFilters = () => {
+        setDataToSendInParams({});
+    };
+
     useEffect(() => {
         getFilterProperties().then((data) => {
             setMinSalary(data.min_salary);
             setMaxSalary(data.max_salary);
-            setQualificationsFilterData(data.qualification_list);
+            setQualificationsFilterData(
+                data.qualification_list.map((qualification) => ({
+                    post_id: qualification.post_id,
+                    post_title: qualification.post_title,
+                    selected: dataInParams?.quals?.includes(
+                        qualification.post_id
+                    )
+                        ? true
+                        : false,
+                }))
+            );
             setJobTypeFilterData(data.job_types_list);
             setCategoryFilterData(
                 data?.category_list?.map((category) => ({
@@ -180,7 +207,10 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
                                 dataInParams.comps ||
                                 dataInParams.qualifications
                         ) && (
-                            <button className="space-x-1 text-[color:var(--primary-color)]">
+                            <button
+                                onClick={handleClearAllFilters}
+                                className="space-x-1 text-[color:var(--primary-color)]"
+                            >
                                 <i className="fa-solid fa-times"></i>
                                 <span>Clear All</span>
                             </button>
@@ -192,6 +222,8 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
                     <SortBy
                         selectedSort={selectedSort}
                         setSelectedSort={setSelectedSort}
+                        tags={tags}
+                        // handleSort={handleSort}
                     />
                 </div>
             </div>
@@ -328,6 +360,8 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
                                         type="checkbox"
                                         id={qualification.post_id}
                                         name={qualification.post_title}
+                                        onChange={handleQualificationFilter}
+                                        checked={qualification.selected}
                                     />
                                     <label
                                         className="line-clamp-1"

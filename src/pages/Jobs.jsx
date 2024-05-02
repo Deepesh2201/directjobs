@@ -78,7 +78,7 @@ function Jobs() {
             job_types: query.get("job_type"),
         });
     }, [window.location.href]);
- 
+
     useEffect(() => {
         setLoadingLatestJobs(true);
         const fetchLatestJobs = async () => {
@@ -109,8 +109,9 @@ function Jobs() {
             urlparams += `&search=${dataToSendInParams.search}`;
         }
         navigate(`/jobs?${urlparams}`);
-
     }, [dataToSendInParams]);
+
+    const [sortJobs, setSortJobs] = useState("popular");
 
     return (
         <>
@@ -128,13 +129,17 @@ function Jobs() {
                             TODO: Mobile Filter is under construction
                         </p>
                         <span className="md:block hidden">
-                            <JobFilter dataInParams={dataInParams} setDataToSendInParams={setDataToSendInParams} />
+                            <JobFilter
+                                setSortJobs={setSortJobs}
+                                dataInParams={dataInParams}
+                                setDataToSendInParams={setDataToSendInParams}
+                            />
                         </span>
                     </div>
                     <div className="grid grid-cols-1 gap-4 md:col-span-2 h-fit">
                         {!loadingSearchedJobs && (
                             <span className="-mb-3 ml-2 text-gray-500">
-                                Showing {jobData.length}{" "}
+                                Showing {jobData?.length}{" "}
                                 <>{jobData.length > 1 ? "jobs" : "job"}</>{" "}
                                 {dataInParams.search && (
                                     <span>for {dataInParams.search}</span>
@@ -142,9 +147,23 @@ function Jobs() {
                             </span>
                         )}
                         {!loadingSearchedJobs &&
-                            jobData?.map((job) => (
-                                <JobListingCard key={job.post_id} job={job} />
-                            ))}
+                            jobData
+                                ?.slice()
+                                .sort((a, b) => {
+                                    if (sortJobs === "high") {
+                                        return b.salary - a.salary;
+                                    } else if (sortJobs === "low") {
+                                        return a.salary - b.salary;
+                                    } else {
+                                        return a - b;
+                                    }
+                                })
+                                .map((job) => (
+                                    <JobListingCard
+                                        key={job.post_id}
+                                        job={job}
+                                    />
+                                ))}
                         {loadingSearchedJobs &&
                             Array(4)
                                 .fill(0)

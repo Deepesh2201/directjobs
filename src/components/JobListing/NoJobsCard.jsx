@@ -16,14 +16,14 @@ function NoJobsCard({ dataInParams, setDataInParams }) {
             ) && (
                 <>
                     <p>Filters are applied, clear to see all jobs</p>
-                    <SecondaryButton
+                    {/* <SecondaryButton
                         className="mt-4 !py-0 border-none"
                         onClick={() => {
                             // setDataInParams({});
                         }}
                     >
                         Clear Filters
-                    </SecondaryButton>
+                    </SecondaryButton> */}
                 </>
             )}
 
