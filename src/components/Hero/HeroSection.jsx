@@ -26,7 +26,7 @@ function HeroSection() {
                     </p>
 
                     <div className="my-5">
-                        <PrimaryButton to="/jobs" className="lg:py-3 bg-transparent border-white hover:bg-white hover:text-black">
+                        <PrimaryButton to="/jobs" className="lg:py-3 bg-transparent border-white hover:bg-white hover:!text-black">
                             Explore Jobs
                         </PrimaryButton>
                     </div>
