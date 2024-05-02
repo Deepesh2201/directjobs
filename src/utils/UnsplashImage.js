@@ -19,9 +19,10 @@ const getUnsplashImage = async (search) => {
     const apiEndpoint = `https://api.unsplash.com/search/photos?query=${search}&per_page=1&client_id=${
         import.meta.env.VITE_UNSPLASH_ACCESS_KEY
     }`;
+
     try {
         const response = await axios.get(apiEndpoint);
-        return response.data.results[0].urls.regular;
+        return response.data.results[0];
     } catch (error) {
         console.error(error);
         return Error("An error occurred while fetching unsplash image");

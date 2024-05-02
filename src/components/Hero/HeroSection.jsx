@@ -1,4 +1,5 @@
 import PrimaryButton from "../SharedComponents/PrimaryButton";
+import SecondaryButton from "../SharedComponents/SecondaryButton";
 import background from "../../assets/images/hero_background.png";
 import Jobseeker from "../../assets/images/hero_jobseeker.png";
 import recruters from "../../assets/images/hero_recruters.png";
@@ -25,8 +26,8 @@ function HeroSection() {
                     </p>
 
                     <div className="my-5">
-                        <PrimaryButton className="lg:py-3 bg-transparent border-white">
-                            Search Jobs
+                        <PrimaryButton to="/jobs" className="lg:py-3 bg-transparent border-white hover:bg-white hover:text-black">
+                            Explore Jobs
                         </PrimaryButton>
                     </div>
                 </div>
@@ -53,9 +54,9 @@ function HeroSection() {
                     </p>
 
                     <div className="my-5">
-                        <PrimaryButton className="lg:py-3">
+                        <SecondaryButton className="lg:py-3 border-black bg-transparent text-black hover:text-white hover:bg-black">
                             Post a Job
-                        </PrimaryButton>
+                        </SecondaryButton>
                     </div>
                 </div>
                 <div className="w-[50%] min-w-32 mx-2 max-w-[400px] flex items-end h-full">

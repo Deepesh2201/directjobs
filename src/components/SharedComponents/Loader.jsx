@@ -48,5 +48,39 @@ function LocationCardLoader() {
     );
 }
 
-export { CategoriesLoader, LocationCardLoader };
+function JobListingCardLoader() {
+    return (
+        <div className="animate-pulse">
+            <div className="rounded-md bg-gray-300 h-36 w-full"></div>
+            <div className="space-y-4 py-1">
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                <div className="space-y-2">
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                    <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function JobCardLoader() {
+    return (
+        <div className="animate-pulse mb-4">
+            <div className="rounded-md bg-gray-300 h-12 w-full"></div>
+            <div className="space-y-1 py-1">
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                <div>
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export {
+    CategoriesLoader,
+    LocationCardLoader,
+    JobListingCardLoader,
+    JobCardLoader,
+};
 export default Loader;

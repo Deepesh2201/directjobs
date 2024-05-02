@@ -12,7 +12,6 @@ const Accordion = ({ title, children, open = false }) => {
         setIsOpen(open);
     }, [open]);
 
-    console.log(children);
 
     return (
         <div className="border-b rounded-md">

@@ -11,7 +11,7 @@ function JobListingCard({ job }) {
     };
 
     return (
-        <Link to={`/m/jobs?job_id=${job.post_id}`} className="flex w-full h-full gap-4 p-3 md:p-5 rounded-md cursor-pointer bg-white border shadow-sm hover:shadow-md transition-all ease-in-out">
+        <Link to={`/jobs/details?job_id=${job.post_id}`} className="flex w-full h-full gap-4 p-3 md:p-5 rounded-md cursor-pointer bg-white border shadow-sm hover:shadow-md transition-all ease-in-out">
             <div className="overflow-clip w-full">
                 <div className="flex justify-between">
                     <div className="flex gap-4 mb-4">

@@ -7,8 +7,6 @@ import LocationCard from "../components/Location/LocationCard";
 import { LocationCardLoader } from "../components/SharedComponents/Loader";
 
 function Location() {
-    // getUnsplashImage("office").then((data) => console.log(data));
-
     const [locationsData, setLocationsData] = useState([]);
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("asc");
@@ -21,12 +19,11 @@ function Location() {
         window.scrollTo(0, 0);
 
         getFilterProperties()
-            .then((data) => setLocationsData([...data.location_list]))
+            .then((data) => {
+                setLocationsData(data.location_list);
+                setLoading(false);
+            })
             .catch((error) => console.error(error));
-
-        setTimeout(() => {
-            setLoading(false);
-        }, 500);
     }, []);
 
     useEffect(() => {
@@ -105,7 +102,6 @@ function Location() {
                         ]}
                         className="m-auto w-fit lg:w-1/3 right-0"
                         onChange={(e, { value }) => setSort(value)}
-
                     />
                 </div>
             </div>
@@ -129,7 +125,7 @@ function Location() {
                 {!filteredLocations.length && !loading && (
                     <div className="text-center w-full col-span-3 my-14">
                         <i className="fas fa-exclamation-triangle text-3xl text-red-500"></i>
-                        <p>No categories found for {search}</p>
+                        <p>No Location Found Related To {search}</p>
                     </div>
                 )}
 

@@ -12,7 +12,7 @@ function About() {
     });
 
     return (
-        <>
+        <div className="bg-white">
             <div className="max-w-7xl md:pt-10 m-auto px-4 md:px-8">
                 <div className="grid md:grid-cols-2">
                     <div className="space-y-6">
@@ -169,7 +169,7 @@ function About() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

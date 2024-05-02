@@ -25,7 +25,6 @@ const SearchableDropdown = ({
             options={options}
             value={value}
             onChange={(e, { value }) => {
-                console.log(value);
                 setValue(value);
             }}
             clearable

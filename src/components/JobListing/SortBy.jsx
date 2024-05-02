@@ -2,13 +2,7 @@ import { useEffect } from "react";
 import { Dropdown } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
-function SortBy({ selectedSort, setSelectedSort }) {
-    let tags = [
-        { id: 1, label: "Popular", color: "#000" },
-        { id: 2, label: "Newest", color: "#000" },
-        { id: 3, label: "Highest Salary", color: "#000" },
-        { id: 4, label: "Lowest Salary", color: "#000" },
-    ];
+function SortBy({ selectedSort, setSelectedSort, tags, setSort }) {
     const getOptions = () => {
         let options = [];
         for (let tag of tags || []) {

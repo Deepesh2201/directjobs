@@ -1,4 +1,3 @@
-import PrimaryButton from "../SharedComponents/PrimaryButton";
 import parse from "html-react-parser";
 import PropTypes from "prop-types";
 import { getPostViews } from "../../db/postviews";
@@ -6,6 +5,7 @@ import { useEffect, useState } from "react";
 import formatAmount from "../../utils/formatAmount";
 import { useQuery } from "../../utils/queryParams";
 import { useNavigate } from "react-router-dom";
+import SecondaryButton from "../SharedComponents/SecondaryButton";
 
 function JobDetailsCard({ jobDetails }) {
     const [views, setViews] = useState(0);
@@ -35,7 +35,7 @@ function JobDetailsCard({ jobDetails }) {
                 <i className="fa-solid fa-arrow-left mr-2"></i>
                 <span>Go Back</span>
             </div>
-            <div className="md:flex items-center gap-4 my-4">
+            <div className="my-4 space-y-3">
                 <div className="w-full flex gap-4 items-center">
                     <div className="w-16 h-16 border-2 border-[color:var(--primary-color)] rounded-full overflow-hidden">
                         {jobDetails?.post_image && (
@@ -61,15 +61,24 @@ function JobDetailsCard({ jobDetails }) {
                         )}
                     </div>
                 </div>
-                <div className="flex text-center my-5 gap-3 md:gap-1 md:flex-col items-center md:justify-center">
-                    <PrimaryButton
+                <div className="flex flex-wrap text-sm gap-2 items-center w-fit">
+                    <SecondaryButton
                         to={jobDetails?.applyLink}
                         target="_blank"
-                        className="w-fit py-2 bg-[color:var(--primary-color)] text-white rounded-md"
+                        className="!px-2.5 !py-1"
                     >
+                        <i className="fa-solid fa-arrow-right mr-1 text-xs"></i>
                         <span>Apply Now</span>
-                    </PrimaryButton>
-                    <span className="text-xs whitespace-nowrap mt-1 font-medium text-green-600">
+                    </SecondaryButton>
+                    <SecondaryButton className="!px-2.5 !py-1">
+                        <i className="fa-solid fa-phone mr-1 text-xs"></i>
+                        <span>Call The HR</span>
+                    </SecondaryButton>
+                    <SecondaryButton className="!px-2.5 !py-1">
+                        <i className="fa-solid fa-message mr-1 text-xs"></i>
+                        <span>Live Chat</span>
+                    </SecondaryButton>
+                    <span className="text-xs whitespace-nowrap font-medium text-green-600">
                         <i className="fa-solid fa-arrow-trend-up mr-1"></i>
                         {views === 0
                             ? "Be the first to apply"
