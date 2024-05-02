@@ -63,7 +63,69 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
             });
         }
     };
-    
+
+    const handleCompanyFilter = (e) => {
+        const id = Number(e.target.id);
+        if (!dataInParams?.comps) {
+            setDataToSendInParams({
+                ...dataInParams,
+                comps: [Number(id)],
+            });
+        } else if (dataInParams?.comps?.includes(id)) {
+            setDataToSendInParams({
+                ...dataInParams,
+                comps: dataInParams?.comps?.filter((comp) => comp !== id),
+            });
+        } else {
+            setDataToSendInParams({
+                ...dataInParams,
+                comps: [...dataInParams.comps, Number(id)],
+            });
+        }
+    };
+
+    const handleQualificationFilter = (e) => {
+        const id = Number(e.target.id);
+        if (!dataInParams?.quals) {
+            setDataToSendInParams({
+                ...dataInParams,
+                quals: [Number(id)],
+            });
+        } else if (dataInParams?.quals?.includes(id)) {
+            setDataToSendInParams({
+                ...dataInParams,
+                quals: dataInParams?.quals?.filter((qual) => qual !== id),
+            });
+        } else {
+            setDataToSendInParams({
+                ...dataInParams,
+
+                quals: [...dataInParams.quals, Number(id)],
+            });
+        }
+    };
+
+    const handleJobTypeFilter = (e) => {
+        const id = Number(e.target.id);
+        if (!dataInParams?.job_types) {
+            setDataToSendInParams({
+                ...dataInParams,
+                job_types: [Number(id)],
+            });
+        } else if (dataInParams?.job_types?.includes(id)) {
+            setDataToSendInParams({
+                ...dataInParams,
+                job_types: dataInParams?.job_types?.filter(
+                    (job_type) => job_type !== id
+                ),
+            });
+        } else {
+            setDataToSendInParams({
+                ...dataInParams,
+                job_types: [...dataInParams.job_types, Number(id)],
+            });
+        }
+    };
 
     useEffect(() => {
         getFilterProperties().then((data) => {
@@ -234,6 +296,7 @@ function JobFilter({ dataInParams, setDataToSendInParams }) {
                                             id={company.post_id}
                                             name={company.post_title}
                                             checked={company.selected}
+                                            onChange={handleCompanyFilter}
                                         />
                                         <label
                                             className="line-clamp-1"
