@@ -26,9 +26,9 @@ function HeroSection() {
                     </p>
 
                     <div className="my-5">
-                        <PrimaryButton to="/jobs" className="lg:py-3 bg-transparent border-white hover:bg-white hover:text-black">
+                        <SecondaryButton to="/jobs" className="lg:py-3 bg-transparent !text-white !border-white hover:bg-white hover:!text-black">
                             Explore Jobs
-                        </PrimaryButton>
+                        </SecondaryButton>
                     </div>
                 </div>
                 <div className="w-[50%] min-w-32 mx-2 max-w-[400px] flex items-end h-full">
