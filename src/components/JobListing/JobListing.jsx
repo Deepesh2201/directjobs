@@ -196,7 +196,7 @@ function JobListing({ data }) {
                         }
 
                         {openFilterDropdown && (
-                            <div className="h-[100vh] w-[100vw] fixed left-0 bottom-0 z-50 flex justify-center items-end pb-24 bg-white bg-opacity-80">
+                            <div className="h-[100vh] w-[100vw] fixed left-0 bottom-0 z-40 flex justify-center items-end pb-24 bg-white bg-opacity-80">
                                 <div className="bottom-2 max-w-7xl w-[80%] left-2 z-10 bg-white p-2 border-2 border-[color:var(--primary-color)] rounded-md drop-shadow-lg h-[70vh] max-h-[70%] flex flex-col">
                                     <div className="relative overflow-y-auto flex-1">
                                         <div className="">

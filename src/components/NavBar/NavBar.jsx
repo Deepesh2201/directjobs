@@ -46,7 +46,7 @@ function NavBar() {
 
     return (
         <nav
-            className={`h-fit w-full flex  top-0 z-50 px-4 lg:px-8 py-2.5 transition-colors ease-in-out bg-white ${
+            className={`h-fit w-full flex  top-0 z-40 px-4 lg:px-8 py-2.5 transition-colors ease-in-out bg-white ${
                 pageScrolled && "shadow-md  fixed"
             }`}
         >

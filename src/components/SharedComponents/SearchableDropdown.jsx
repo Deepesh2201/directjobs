@@ -17,7 +17,7 @@ const SearchableDropdown = ({
             </div>
         )}
         <Dropdown
-            className="w-full"
+            className="w-full !z-50"
             selection
             fluid
             placeholder={placeholder}

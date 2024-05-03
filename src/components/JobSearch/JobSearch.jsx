@@ -99,7 +99,7 @@ function JobSearch() {
                         )}
                     </div>
                 </div>
-                <div className="relative flex items-center justify-center w-full">
+                <div className="relative flex items-center justify-center w-full z-10">
                     <SearchableDropdown
                         placeholder={"Select Category"}
                         options={category}

@@ -1,4 +1,3 @@
-import PrimaryButton from "../SharedComponents/PrimaryButton";
 import SecondaryButton from "../SharedComponents/SecondaryButton";
 import background from "../../assets/images/hero_background.png";
 import Jobseeker from "../../assets/images/hero_jobseeker.png";
@@ -6,7 +5,7 @@ import recruters from "../../assets/images/hero_recruters.png";
 
 function HeroSection() {
     return (
-        <div className="grid md:grid-cols-2 relative lg:gap-2 lg:px-8 max-w-7xl m-auto lg:my-8">
+        <div className="grid md:grid-cols-2 relative lg:gap-2 lg:px-8 max-w-7xl m-auto lg:py-8">
             <div
                 style={{ backgroundImage: `url(${background})` }}
                 className="bg-[#056cb7] bg-cover bg-center bg-no-repeat flex items-center justify-around p-5 lg:p-10 text-white lg:rounded-md"

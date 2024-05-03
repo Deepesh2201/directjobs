@@ -5,12 +5,12 @@ import checkIsMobile from "../../utils/checkIsMobile";
 function BrandsMarquee() {
     const isMobile = checkIsMobile();
     return (
-        <div className="relative bg-white my-8 sm:my-14">
+        <div className="relative bg-white">
             <div className="relative mx-auto ">
                 <div className="text-center">
                     <div className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                         <Marquee
-                            className="space-x-1 lg:space-x-6"
+                            className="space-x-2 md:space-x-4 lg:space-x-8"
                             gradient={!isMobile}
                         >
                             {brandLogos?.map((brand, index) => (
@@ -18,7 +18,7 @@ function BrandsMarquee() {
                                     key={index}
                                     src={brand}
                                     alt={`Brand ${index + 1}`}
-                                    className="h-12 sm:h-20"
+                                    className="h-12 md:h-16"
                                 />
                             ))}
                         </Marquee>
