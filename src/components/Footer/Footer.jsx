@@ -132,7 +132,7 @@ function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className="text-center md:flex py-2 justify-evenly">
+                    <div className="text-center md:flex py-2 justify-between px-4">
                         <div className="text-sm px-4">
                             {`${new Date().getFullYear()} Direct Jobs © All rights reserved.`}
                         </div>

@@ -5,6 +5,7 @@ import CategoryCard from "../components/CategoryList/CategoryCard";
 import { Dropdown, Input } from "semantic-ui-react";
 import PrimaryButton from "../components/SharedComponents/PrimaryButton";
 import { CategoriesLoader } from "../components/SharedComponents/Loader";
+import abstract from "../assets/images/category.png";
 
 function Categories() {
     const [categoriesData, setCategoriesData] = useState([]);
@@ -47,66 +48,69 @@ function Categories() {
     };
 
     return (
-        <div className="max-w-7xl m-auto lg:px-8 px-4 py-14">
-            <CenterTitle>
-                <h2 className="text-center font-medium text-3xl md:text-4xl lg:text-5xl text-black">
-                    Job Categories
-                </h2>
-            </CenterTitle>
+        <div className="max-w-7xl m-auto lg:px-8 px-4 py-10 lg:py-14">
+            <div className="flex gap-4 items-center justify-around">
+                <div className="space-y-3 w-full max-w-[600px]">
+                    <div>
+                        <CenterTitle>
+                            <h2 className="text-center md:text-left font-medium text-3xl md:text-4xl lg:text-5xl text-black">
+                                Jobs by Categories
+                            </h2>
+                        </CenterTitle>
 
-            <div>
-                <p className="text-center">
-                    Explore jobs by category and find the perfect job for you.
-                </p>
-            </div>
+                        <div>
+                            <p className="text-center md:text-left">
+                                Find jobs by categories. Browse through the
+                                categories and find the job you are looking for.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex gap-4 items-center mt-5 w-full">
+                        <Input
+                            type="text"
+                            placeholder="Type to search categories"
+                            className="w-full outline-none h-fit"
+                            value={search}
+                            onChange={(e, { value }) => setSearch(value)}
+                        />
 
-            <div className="flex flex-col lg:flex-row gap-4 mt-10 items-center">
-                <div className="flex gap-2 w-full">
-                    <Input
-                        type="text"
-                        placeholder="Type to search categories"
-                        className="w-full outline-none"
-                        value={search}
-                        onChange={(e, { value }) => setSearch(value)}
-                    />
-
-                    <PrimaryButton className={"px-3 lg:!px-4"} hidden>
-                        <i className="fas fa-search text-sm "></i>
-                    </PrimaryButton>
+                        <Dropdown
+                            placeholder="Sort by"
+                            selection
+                            compact
+                            options={[
+                                {
+                                    key: "asc",
+                                    value: "asc",
+                                    text: "A-Z",
+                                },
+                                {
+                                    key: "desc",
+                                    value: "desc",
+                                    text: "Z-A",
+                                },
+                                {
+                                    key: "more",
+                                    value: "more",
+                                    text: "More Jobs First",
+                                },
+                                {
+                                    key: "less",
+                                    value: "less",
+                                    text: "Less Jobs First",
+                                },
+                            ]}
+                            className="m-auto w-full max-w-[200px]"
+                            value={sort}
+                            onChange={(e, { value }) => {
+                                setSort(value);
+                            }}
+                        />
+                    </div>
                 </div>
 
-                <div className="w-full lg:w-fit text-right">
-                    <Dropdown
-                        placeholder="Sort by"
-                        selection
-                        options={[
-                            {
-                                key: "asc",
-                                value: "asc",
-                                text: "A-Z",
-                            },
-                            {
-                                key: "desc",
-                                value: "desc",
-                                text: "Z-A",
-                            },
-                            {
-                                key: "more",
-                                value: "more",
-                                text: "More Jobs First",
-                            },
-                            {
-                                key: "less",
-                                value: "less",
-                                text: "Less Jobs First",
-                            },
-                        ]}
-                        className="m-auto w-fit lg:w-1/3 right-0"
-                        value={sort}
-                        onChange={(e, { value }) => {
-                            setSort(value);
-                        }}
-                    />
+                <div className="hidden bg-red-5 md:flex justify-center">
+                    <img className="h-72 xl:h-96" src={abstract} alt="" />
                 </div>
             </div>
 
