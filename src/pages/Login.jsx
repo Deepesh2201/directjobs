@@ -36,10 +36,10 @@ function Login() {
             <div className="relative gap-1 lg:col-span-3 col-span-5">
                 <form
                     action=""
-                    className="flex flex-col justify-between min-h-svh md:min-h-screen px-6 md:px-20 lg:px-24 py-8 md:py-16"
+                    className="flex flex-col min-h-svh md:min-h-screen px-6 md:px-20 lg:px-24 py-8 md:py-16"
                 >
                     <div className="flex flex-col gap-1.5">
-                        <div className="mb-8">
+                        <div className="">
                             <Link
                                 to={"/"}
                                 className="hidden md:flex absolute top-5 left-5 items-center gap-1"
@@ -50,7 +50,7 @@ function Login() {
                             <BrandLogo />
                         </div>
                         <h1 className="mt-8 text-3xl font-bold text-[color:var(--primary-color)] md:text-4xl lg:text-5xl leading-tight">
-                            Welcome Back
+                            Welcome
                         </h1>
                         <p className="md:mt-2 text-sm md:text-lg text-gray-600 leading-tight">
                             Hey there! Welcome back to Direct Jobs. Let&apos;s
@@ -64,7 +64,7 @@ function Login() {
                             >
                                 Enter You Mobile Number
                             </label>
-                            <div className="flex w-full mb-20 gap-2">
+                            <div className="flex w-full mb-8 gap-2">
                                 <div className="w-full grid grid-cols-10 md:grid-cols-11 gap-0.5 md:gap-2">
                                     <span className="hidden md:flex items-center justify-center text-sm md:text-lg font-semibold text-gray-700">
                                         +91
@@ -96,33 +96,13 @@ function Login() {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <button
-                            type="button"
-                            className="rounded-md bg-[color:var(--primary-color)] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                        >
-                            Request OTP
-                        </button>
-                        <p className="mt-5 text-sm">
-                            Don&apos;t have an account? &nbsp;
-                            <Link
-                                to="/signup"
-                                className="text-[color:var(--primary-color)] underline underline-offset-2"
-                            >
-                                Signup Here
-                            </Link>
-                        </p>
-                    </div>
+                    <button
+                        type="button"
+                        className="rounded-md md:w-fit bg-[color:var(--primary-color)] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    >
+                        Request OTP
+                    </button>
                 </form>
-            </div>
-            <div className="col-span-2 w-full hidden lg:block">
-                <img
-                    className="h-screen object-cover w-full"
-                    src={
-                        "https://images.unsplash.com/photo-1536300099515-6c61b290b654?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    }
-                    alt="cover"
-                />
             </div>
         </div>
     );
