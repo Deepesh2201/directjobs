@@ -1,4 +1,5 @@
 import abstract from "../../assets/abstracts/abstract_1.png";
+import PropTypes from "prop-types";
 
 function Hero2() {
     return (
@@ -91,7 +92,7 @@ function Hero2() {
 
 export default Hero2;
 
-export function Card({ className, step, title, description, icon, color }) {
+export function Card({ step, title, description, icon, color }) {
     return (
         <div className="relative bg-white hover:bg-opacity-95 p-5 rounded-lg lg:drop-shadow lg:hover:drop-shadow-xl delay-100 transition-all ease-linear">
             <div
@@ -109,3 +110,11 @@ export function Card({ className, step, title, description, icon, color }) {
         </div>
     );
 }
+
+Card.propTypes = {
+    step: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    icon: PropTypes.string,
+    color: PropTypes.string,
+};
