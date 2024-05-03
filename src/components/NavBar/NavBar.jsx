@@ -51,10 +51,11 @@ function NavBar() {
             }`}
         >
             <div className="flex w-full justify-between items-center max-w-7xl mx-auto">
-                <div className="flex items-center">
-                    <Link to={"/"} className="w-14 md:w-14">
+                <div className="flex items-center w-fit">
+                    {/* <Link to={"/"} className="w-14 md:w-14">
                         <img src={logo} alt="Direct Jobs" />
-                    </Link>
+                    </Link> */}
+                    <BrandLogo noSocial color className={"!text-slate-900"} />
                     <div className="hidden sm:block space-x-6 font-medium">
                         <div className="ml-12 flex space-x-8 items-center">
                             {menuItems.map((item) => (

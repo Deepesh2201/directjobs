@@ -14,7 +14,7 @@ function BrandLogo({
     const logo = light ? lightLogo : color ? colorLogo : darkLogo;
     return (
         <div className={`text-zinc-700 ${className} w-fit`}>
-            <Link to={"/"} className={`flex gap-2 items-center `}>
+            <Link to={"/"} className={`flex gap-1 lg:gap-2 items-center `}>
                 <img
                     className={`w-8 sm:w-8 object-contain ${logoClass}`}
                     src={logo}
@@ -23,7 +23,7 @@ function BrandLogo({
                 />
                 <span className="font-medium leading-none">
                     <p>Direct Jobs</p>
-                    <p className="text-xs font-normal whitespace-nowrap">
+                    <p className="text-[0.52rem] mt-0.5 font-normal whitespace-nowrap">
                         Ab direct job lega India
                     </p>
                 </span>
