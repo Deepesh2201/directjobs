@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 import SortBy from "./SortBy";
 import { getFilterProperties } from "../../db/jobFilter";
 import PropTypes from "prop-types";
+import SecondaryButton from "../SharedComponents/SecondaryButton";
+import PrimaryButton from "../SharedComponents/PrimaryButton";
 
-function JobFilter({ dataInParams, setDataToSendInParams, setSortJobs }) {
+function JobFilter({
+    dataInParams,
+    setDataToSendInParams,
+    setSortJobs,
+    mobileFilter = false,
+    closePopup,
+}) {
     const [selectedSort, setSelectedSort] = useState({});
     const [loccationFilterData, setLoccationFilterData] = useState([]);
     const [companyFilterData, setCompanyFilterData] = useState([]);
@@ -189,6 +197,256 @@ function JobFilter({ dataInParams, setDataToSendInParams, setSortJobs }) {
             );
         });
     }, [dataInParams]);
+
+    if (mobileFilter) {
+        return (
+            <div className="h-full flex flex-col">
+                <div className="overflow-auto no-scrollbar">
+                    <div>
+                        <div>
+                            <span className="font-medium text-sm flex justify-between">
+                                <p>
+                                    <i className="fa-solid fa-filter mr-2"></i>
+                                    Filter Jobs
+                                </p>
+
+                                {Boolean(
+                                    dataInParams.cats ||
+                                        dataInParams.job_types ||
+                                        dataInParams.locs ||
+                                        dataInParams.comps ||
+                                        dataInParams.qualifications
+                                ) && (
+                                    <button
+                                        onClick={handleClearAllFilters}
+                                        className="space-x-1 text-[color:var(--primary-color)]"
+                                    >
+                                        <i className="fa-solid fa-times"></i>
+                                        <span>Clear All</span>
+                                    </button>
+                                )}
+                            </span>
+                            <hr className="my-3" />
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                            <SortBy
+                                selectedSort={selectedSort}
+                                setSelectedSort={setSelectedSort}
+                                tags={tags}
+                                // handleSort={handleSort}
+                            />
+                        </div>
+                    </div>
+                    <div className="space-y-3">
+                        <div className="space-y-1 p-3 border rounded-md">
+                            <p className="font-medium">Salary</p>
+                            <input
+                                type="range"
+                                min={minSalary}
+                                max={maxSalary}
+                                onChange={(e) => handleInput(e.target.value)}
+                                className="w-full bg-[color:var(--primary-color)]"
+                            />
+                        </div>
+
+                        <div className="space-y-1 p-3 border rounded-md">
+                            <p className="font-medium">Category</p>
+                            <input
+                                icon="search"
+                                placeholder="Search..."
+                                className="w-full !py-1 !text-sm outline-none bg-transparent"
+                            />
+
+                            <div className="max-h-44 overflow-y-scroll">
+                                {categoryFilterData &&
+                                    categoryFilterData
+                                        .sort((a, b) => b.selected - a.selected)
+                                        .map((category) => (
+                                            <div
+                                                key={category.id}
+                                                className="gap-2 flex"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    id={category.post_id}
+                                                    name={category.post_title}
+                                                    checked={category.selected}
+                                                    onClick={
+                                                        handleCategoryFilter
+                                                    }
+                                                />
+                                                <label
+                                                    className="line-clamp-1"
+                                                    htmlFor={category.post_id}
+                                                >
+                                                    {category.post_title}
+                                                </label>
+                                            </div>
+                                        ))}
+                            </div>
+                        </div>
+                        <div className="space-y-1 p-3 border rounded-md">
+                            <p className="font-medium">Location</p>
+                            <input
+                                icon="search"
+                                placeholder="Search..."
+                                className="w-full !py-1 !text-sm outline-none bg-transparent"
+                            />
+
+                            <div className="max-h-44 h-fit overflow-y-scroll">
+                                {loccationFilterData &&
+                                    loccationFilterData
+                                        .sort((a, b) => b.selected - a.selected)
+                                        .map((location) => (
+                                            <div
+                                                key={location.id}
+                                                className="gap-2 flex"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    id={location.post_id}
+                                                    name={location.post_title}
+                                                    checked={location.selected}
+                                                    onChange={
+                                                        handleLocationFilter
+                                                    }
+                                                />
+                                                <label
+                                                    className="line-clamp-1"
+                                                    htmlFor={location.post_id}
+                                                >
+                                                    {location.post_title}
+                                                </label>
+                                            </div>
+                                        ))}
+                            </div>
+                        </div>
+                        <div className="space-y-1 p-3 border rounded-md">
+                            <p className="font-medium">Company</p>
+                            <input
+                                icon="search"
+                                placeholder="Search..."
+                                className="w-full !py-1 !text-sm outline-none bg-transparent"
+                            />
+                            <div className="max-h-44 overflow-y-scroll">
+                                {companyFilterData &&
+                                    companyFilterData
+                                        .sort((a, b) => b.selected - a.selected)
+                                        .map((company) => (
+                                            <div
+                                                key={company.id}
+                                                className="gap-2 flex"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    id={company.post_id}
+                                                    name={company.post_title}
+                                                    checked={company.selected}
+                                                    onChange={
+                                                        handleCompanyFilter
+                                                    }
+                                                />
+                                                <label
+                                                    className="line-clamp-1"
+                                                    htmlFor={company.post_id}
+                                                >
+                                                    {company.post_title}
+                                                </label>
+                                            </div>
+                                        ))}
+                            </div>
+                        </div>
+
+                        <div className="space-y-1 p-3 border rounded-md">
+                            <p className="font-medium">Qualification</p>
+                            <input
+                                icon="search"
+                                placeholder="Search..."
+                                className="w-full !py-1 !text-sm outline-none bg-transparent"
+                            />
+
+                            <div className="max-h-44 overflow-y-scroll">
+                                {qualificationsFilterData &&
+                                    qualificationsFilterData.map(
+                                        (qualification) => (
+                                            <div
+                                                key={qualification.id}
+                                                className="flex gap-2"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    id={qualification.post_id}
+                                                    name={
+                                                        qualification.post_title
+                                                    }
+                                                    onChange={
+                                                        handleQualificationFilter
+                                                    }
+                                                    checked={
+                                                        qualification.selected
+                                                    }
+                                                />
+                                                <label
+                                                    className="line-clamp-1"
+                                                    htmlFor={
+                                                        qualification.post_id
+                                                    }
+                                                >
+                                                    {qualification.post_title}
+                                                </label>
+                                            </div>
+                                        )
+                                    )}
+                            </div>
+                        </div>
+
+                        <div className="space-y-1 p-3 border rounded-md">
+                            <p className="font-medium">Job Type</p>
+                            <input
+                                icon="search"
+                                placeholder="Search..."
+                                className="w-full !py-1 !text-sm outline-none bg-transparent"
+                            />
+
+                            <div className="max-h-44 overflow-y-scroll">
+                                {jobTypeFilterData &&
+                                    jobTypeFilterData.map((jobType) => (
+                                        <div
+                                            key={jobType.id}
+                                            className="gap-2 flex"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                id={jobType.post_id}
+                                                name={jobType.post_title}
+                                            />
+                                            <label
+                                                className="line-clamp-1"
+                                                htmlFor={jobType.post_id}
+                                            >
+                                                {jobType.post_title}
+                                            </label>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex gap-2 pt-2 mt-2 border-t border-black justify-between">
+                    <SecondaryButton
+                        onClick={handleClearAllFilters}
+                        className="text-xs flex items-center border-none"
+                    >
+                        Clear All Filters
+                    </SecondaryButton>
+
+                    <PrimaryButton onClick={closePopup}>
+                        Apply Filters
+                    </PrimaryButton>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white p-5 rounded-lg border shadow-sm w-full space-y-5 text-sm">
@@ -411,4 +669,6 @@ export default JobFilter;
 JobFilter.propTypes = {
     dataInParams: PropTypes.object,
     setDataToSendInParams: PropTypes.func,
+    setSortJobs: PropTypes.func,
+    mobileFilter: PropTypes.bool,
 };

@@ -13,10 +13,16 @@ import {
 } from "../components/SharedComponents/Loader";
 import NoJobsCard from "../components/JobListing/NoJobsCard";
 import { useNavigate } from "react-router-dom";
+import PopupModal from "../components/SharedComponents/PopupModal";
+import checkIsMobile from "../utils/checkIsMobile";
 
 function Jobs() {
     const query = useQuery();
     const navigate = useNavigate();
+    const isMobile = checkIsMobile();
+
+    const [openMobileFilter, setOpenMobileFilter] = useState(false);
+    const [openFilterName, setOpenFilterName] = useState("sort");
 
     const [jobData, setJobData] = useState([]);
     const [latestJobs, setLatestJobs] = useState([]);
@@ -91,6 +97,17 @@ function Jobs() {
     }, []);
 
     useEffect(() => {
+        // stop scroll wehn popup is open
+        if (isMobile) {
+            if (openMobileFilter) {
+                document.body.style.overflow = "hidden";
+            } else {
+                document.body.style.overflow = "auto";
+            }
+        }
+    }, [openMobileFilter]);
+
+    useEffect(() => {
         console.log("Data to send in params: ", dataToSendInParams);
         let urlparams = "";
         if (dataToSendInParams.cats) {
@@ -115,18 +132,88 @@ function Jobs() {
 
     return (
         <>
-            <div className="max-w-7xl w-full py-6 md:py-10 m-auto px-4 md:px-8 space-y-5">
-                <CenterTitle
-                    main="Find Your Dream Job"
-                    subText="Search for job title, keywords, or company name"
-                />
+            <div className="max-w-7xl w-full pb-6 md:py-10 m-auto md:px-8 overflow-x-hidden md:space-y-4">
+                <div className="bg-white py-6 lg:py-10 px-4 md:p-0 md:bg-transparent">
+                    <CenterTitle
+                        main="Find Your Dream Job"
+                        subText="Search for job title, keywords, or company name"
+                    />
+                </div>
                 <div className="bg-white py-1 px-5 rounded-md shadow-sm">
                     <JobSearch dataInParams={dataInParams} />
                 </div>
-                <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 m-auto">
+                <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 m-auto px-4 md:px-0">
                     <div>
-                        <p className="md:hidden">
-                            TODO: Mobile Filter is under construction
+                        <p className="md:hidden -mx-4">
+                            <div className="relative bg-white py-3 ps-4 flex gap-2 w-screen">
+                                <button>
+                                    <i className="fas fa-filter"></i>
+                                </button>
+                                <span className="px-1 flex gap-2 overflow-auto no-scrollbar pe-8"
+                                onClick={() => setOpenMobileFilter(true)}
+                                >
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Sort</span>
+                                        <i className="fas fa-sort text-xs"></i>
+                                    </button>
+
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Category</span>
+                                        <i className="fas fa-chevron-down text-xs"></i>
+                                    </button>
+
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Location</span>
+                                        <i className="fas fa-chevron-down text-xs"></i>
+                                    </button>
+
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Company</span>
+                                        <i className="fas fa-chevron-down text-xs"></i>
+                                    </button>
+
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Job Type</span>
+                                        <i className="fas fa-chevron-down text-xs"></i>
+                                    </button>
+
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Salary</span>
+                                        <i className="fas fa-chevron-down text-xs"></i>
+                                    </button>
+
+                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
+                                        <span>Qualifications</span>
+                                        <i className="fas fa-chevron-down text-xs"></i>
+                                    </button>
+                                </span>
+                                <span className="absolute right-0 top-0 px-3 h-full bg-gradient-to-r to-white via-white from-[#ffffff7e]"></span>
+                            </div>
+                            <div>
+                                {openMobileFilter && (
+                                    <PopupModal
+                                        closePopup={() =>
+                                            setOpenMobileFilter(false)
+                                        }
+                                    >
+                                        <JobFilter
+                                            openFilterName={openFilterName}
+                                            setOpenFilterName={
+                                                setOpenFilterName
+                                            }
+                                            mobileFilter={true}
+                                            closePopup={() =>
+                                                setOpenMobileFilter(false)
+                                            }
+                                            setSortJobs={setSortJobs}
+                                            dataInParams={dataInParams}
+                                            setDataToSendInParams={
+                                                setDataToSendInParams
+                                            }
+                                        />
+                                    </PopupModal>
+                                )}
+                            </div>
                         </p>
                         <span className="md:block hidden">
                             <JobFilter

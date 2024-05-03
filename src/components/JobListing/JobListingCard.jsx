@@ -1,17 +1,13 @@
 import PropTypes from "prop-types";
 import formatAmount from "../../utils/formatAmount";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function JobListingCard({ job }) {
-    const [isFavorite, setIsFavorite] = useState(job.favorite);
-
-    const handleFavorite = () => {
-        setIsFavorite(!isFavorite);
-    };
-
     return (
-        <Link to={`/jobs/details?job_id=${job.post_id}`} className="flex w-full h-full gap-4 p-3 md:p-5 rounded-md cursor-pointer bg-white border shadow-sm hover:shadow-md transition-all ease-in-out">
+        <Link
+            to={`/jobs/details?job_id=${job.post_id}`}
+            className="flex w-full h-full gap-4 p-3 md:p-5 rounded-md cursor-pointer bg-white border shadow-sm hover:shadow-md transition-all ease-in-out"
+        >
             <div className="overflow-clip w-full">
                 <div className="flex justify-between">
                     <div className="flex gap-4 mb-4">
@@ -33,14 +29,8 @@ function JobListingCard({ job }) {
                             </p>
                         </div>
                     </div>
-                    <div className="text-[color:var(--primary-color)]">
-                        <button onClick={handleFavorite}>
-                            {isFavorite ? (
-                                <i className="fa-solid fa-bookmark"></i>
-                            ) : (
-                                <i className="fa-regular fa-bookmark"></i>
-                            )}
-                        </button>
+                    <div className="text-green-500 px-1.5 rounded py-0.5 text-xs flex items-center h-fit gap-1">
+                        <i className="fa-solid fa-arrow-trend-up"></i>0.5 K
                     </div>
                 </div>
                 <div className="space-y-[3px] w-full md:ml-2 text-xs md:text-sm">

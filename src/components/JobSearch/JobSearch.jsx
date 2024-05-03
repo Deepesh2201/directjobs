@@ -7,6 +7,7 @@ import { Input } from "semantic-ui-react";
 import "semantic-ui-css/components/dropdown.min.css";
 import "semantic-ui-css/components/transition.min.css";
 import "semantic-ui-css/components/input.min.css";
+import checkIsMobile from "../../utils/checkIsMobile";
 
 function JobSearch() {
     const [search, setSearch] = useState("");
@@ -15,6 +16,7 @@ function JobSearch() {
     const [category, setCategory] = useState([]);
     const [location, setLocation] = useState([]);
     const [error, setError] = useState(null);
+    const isMobile = checkIsMobile();
 
     const navigate = useNavigate();
 
@@ -115,6 +117,7 @@ function JobSearch() {
                         icon="fas fa-map-marker-alt"
                         value={locationValue}
                         setValue={setLocationValue}
+                        compact={isMobile ? true : false}
                     />
                 </div>
                 <PrimaryButton

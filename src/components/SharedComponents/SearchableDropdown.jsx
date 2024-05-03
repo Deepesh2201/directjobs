@@ -9,6 +9,7 @@ const SearchableDropdown = ({
     value,
     setValue,
     props,
+    compact = false,
 }) => (
     <div className="flex items-center justify-between w-full rounded-md p-0.5 lg:p-[2.5px]">
         {Boolean(icon) && (
@@ -19,6 +20,7 @@ const SearchableDropdown = ({
         <Dropdown
             className="w-full"
             selection
+            compact={compact}
             fluid
             placeholder={placeholder}
             search={search}
@@ -43,4 +45,5 @@ SearchableDropdown.propTypes = {
     value: PropTypes.string,
     setValue: PropTypes.func,
     props: PropTypes.object,
+    compact: PropTypes.bool,
 };

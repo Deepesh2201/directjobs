@@ -7,7 +7,8 @@ html {
 }
 
 body {
-  background-color: #f4f2f6;
+  background-color: #f9f9f9ee;
+  /* background-color: #f4f2f6; */
   font-family: "Rubik", 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #17171d;
   font-display: swap;
@@ -105,5 +106,15 @@ body {
   100% {
     transform: translateX(0);
   }
+}
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
