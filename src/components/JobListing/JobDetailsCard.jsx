@@ -13,9 +13,13 @@ function JobDetailsCard({ jobDetails }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getPostViews(jobDetails?.post_id).then((data) => {
-            setViews(data.views);
-        });
+        try {
+            getPostViews(jobDetails?.post_id).then((data) => {
+                setViews(data.views);
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }, [jobDetails?.post_id]);
 
     // handle go back, if back url is of same domain then go back else go to jobs page
@@ -28,13 +32,6 @@ function JobDetailsCard({ jobDetails }) {
 
     return (
         <>
-            <div
-                className="md:hidden text-[color:var(--primary-color)] cursor-pointer font-medium mb-4 block"
-                onClick={goBack}
-            >
-                <i className="fa-solid fa-arrow-left mr-2"></i>
-                <span>Go Back</span>
-            </div>
             <div className="my-4 space-y-3">
                 <div className="w-full flex gap-4 items-center">
                     <div className="w-16 h-16 border-2 border-[color:var(--primary-color)] rounded-full overflow-hidden">
@@ -46,11 +43,17 @@ function JobDetailsCard({ jobDetails }) {
                         )}
                     </div>
                     <div>
-                        <h2 className="text-lg font-medium text-[color:var(--primary-color)]">
+                        <h2 className="text-lg font-medium text-[color:var(--primary-color)] flex items-center gap-2">
                             {jobDetails?.post_title}
+                            <span className="text-xs whitespace-nowrap font-medium text-green-600">
+                                <i className="fa-solid fa-arrow-trend-up mr-1"></i>
+                                {views === 0
+                                    ? "Be the first to apply"
+                                    : `${views}`}{" "}
+                            </span>
                         </h2>
                         <p className="text-sm text-[color:var(--secondary-color)]">
-                            {jobDetails?.company_name} |{" "}
+                            <strong>{jobDetails?.company_name}</strong> |{" "}
                             {jobDetails?.designation}
                         </p>
                         {jobDetails?.location && (
@@ -60,30 +63,6 @@ function JobDetailsCard({ jobDetails }) {
                             </p>
                         )}
                     </div>
-                </div>
-                <div className="flex flex-wrap text-sm gap-2 items-center w-fit">
-                    <SecondaryButton
-                        to={jobDetails?.applyLink}
-                        target="_blank"
-                        className="!px-2.5 !py-1"
-                    >
-                        <i className="fa-solid fa-arrow-right mr-1 text-xs"></i>
-                        <span>Apply Now</span>
-                    </SecondaryButton>
-                    <SecondaryButton className="!px-2.5 !py-1">
-                        <i className="fa-solid fa-phone mr-1 text-xs"></i>
-                        <span>Call The HR</span>
-                    </SecondaryButton>
-                    <SecondaryButton className="!px-2.5 !py-1">
-                        <i className="fa-solid fa-message mr-1 text-xs"></i>
-                        <span>Live Chat</span>
-                    </SecondaryButton>
-                    <span className="text-xs whitespace-nowrap font-medium text-green-600">
-                        <i className="fa-solid fa-arrow-trend-up mr-1"></i>
-                        {views === 0
-                            ? "Be the first to apply"
-                            : `${views}`}{" "}
-                    </span>
                 </div>
             </div>
 
@@ -145,6 +124,24 @@ function JobDetailsCard({ jobDetails }) {
                     Job Description
                 </h3>
                 <div className="text-sm">{parse(jobDetails?.description)}</div>
+            </div>
+            <div className="flex flex-wrap text-sm gap-2 items-center w-fit">
+                <SecondaryButton
+                    to={jobDetails?.applyLink}
+                    target="_blank"
+                    className="!px-2.5 !py-1"
+                >
+                    <i className="fa-solid fa-arrow-right mr-1 text-xs"></i>
+                    <span>Apply Now</span>
+                </SecondaryButton>
+                <SecondaryButton className="!px-2.5 !py-1">
+                    <i className="fa-solid fa-phone mr-1 text-xs"></i>
+                    <span>Call HR</span>
+                </SecondaryButton>
+                <SecondaryButton className="!px-2.5 !py-1">
+                    <i className="fa-brands fa-whatsapp mr-1 text-xs"></i>
+                    <span>WhatsApp</span>
+                </SecondaryButton>
             </div>
             <div className="text-right mt-10 text-xs font-medium">
                 {jobDetails?.date && (
