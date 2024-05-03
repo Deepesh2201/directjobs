@@ -11,6 +11,9 @@ function JobFilter({
     setSortJobs,
     mobileFilter = false,
     closePopup,
+    openFilterName,
+    setOpenFilterName,
+    mobileFilterButtonsData,
 }) {
     const [selectedSort, setSelectedSort] = useState({});
     const [loccationFilterData, setLoccationFilterData] = useState([]);
@@ -200,235 +203,312 @@ function JobFilter({
 
     if (mobileFilter) {
         return (
-            <div className="h-full flex flex-col">
-                <div className="overflow-auto no-scrollbar">
-                    <div>
-                        <div>
-                            <span className="font-medium text-sm flex justify-between">
-                                <p>
-                                    <i className="fa-solid fa-filter mr-2"></i>
-                                    Filter Jobs
-                                </p>
+            <div className="h-full flex flex-col text-sm">
+                <div>
+                    <span className="font-medium text-sm flex justify-between">
+                        <p>
+                            <i className="fa-solid fa-filter mr-2"></i>
+                            Filter Jobs
+                        </p>
 
-                                {Boolean(
-                                    dataInParams.cats ||
-                                        dataInParams.job_types ||
-                                        dataInParams.locs ||
-                                        dataInParams.comps ||
-                                        dataInParams.qualifications
-                                ) && (
-                                    <button
-                                        onClick={handleClearAllFilters}
-                                        className="space-x-1 text-[color:var(--primary-color)]"
-                                    >
-                                        <i className="fa-solid fa-times"></i>
-                                        <span>Clear All</span>
-                                    </button>
-                                )}
-                            </span>
-                            <hr className="my-3" />
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                            <SortBy
-                                selectedSort={selectedSort}
-                                setSelectedSort={setSelectedSort}
-                                tags={tags}
-                                // handleSort={handleSort}
-                            />
-                        </div>
+                        {Boolean(
+                            dataInParams.cats ||
+                                dataInParams.job_types ||
+                                dataInParams.locs ||
+                                dataInParams.comps ||
+                                dataInParams.qualifications
+                        ) && (
+                            <button
+                                onClick={handleClearAllFilters}
+                                className="space-x-1 text-[color:var(--primary-color)]"
+                            >
+                                <i className="fa-solid fa-times"></i>
+                                <span>Clear All</span>
+                            </button>
+                        )}
+                    </span>
+                    <hr className="my-3" />
+                </div>
+                <div className="flex-1 flex overflow-hidden">
+                    <div className="w-[40%]">
+                        {mobileFilterButtonsData?.map((button) => (
+                            <button
+                                key={button?.name}
+                                onClick={() => setOpenFilterName(button?.name)}
+                                className={`w-full text-left p-2 ${
+                                    openFilterName === button?.name
+                                        ? "bg-[color:var(--primary-color)] text-white"
+                                        : ""
+                                }`}
+                            >
+                                <i className={`fa-solid fa-${button.icon}`}></i>
+                                <span>{button.name}</span>
+                            </button>
+                        ))}
                     </div>
-                    <div className="space-y-3">
-                        <div className="space-y-1 p-3 border rounded-md">
-                            <p className="font-medium">Salary</p>
-                            <input
-                                type="range"
-                                min={minSalary}
-                                max={maxSalary}
-                                onChange={(e) => handleInput(e.target.value)}
-                                className="w-full bg-[color:var(--primary-color)]"
-                            />
-                        </div>
+                    <div className="w-full overflow-auto border rounded p-4">
+                        <div className="space-y-3">
+                            {openFilterName === "Sort By" && (
+                                <div className="flex items-center gap-2">
+                                    <SortBy
+                                        selectedSort={selectedSort}
+                                        setSelectedSort={setSelectedSort}
+                                        tags={tags}
+                                        // handleSort={handleSort}
+                                    />
+                                </div>
+                            )}
+                            {openFilterName === "Salary" && (
+                                <div className="space-y-1">
+                                    <p className="font-medium">Salary</p>
+                                    <input
+                                        type="range"
+                                        min={minSalary}
+                                        max={maxSalary}
+                                        onChange={(e) =>
+                                            handleInput(e.target.value)
+                                        }
+                                        className="w-full bg-[color:var(--primary-color)]"
+                                    />
+                                </div>
+                            )}
 
-                        <div className="space-y-1 p-3 border rounded-md">
-                            <p className="font-medium">Category</p>
-                            <input
-                                icon="search"
-                                placeholder="Search..."
-                                className="w-full !py-1 !text-sm outline-none bg-transparent"
-                            />
+                            {openFilterName === "Category" && (
+                                <div className="space-y-1">
+                                    <p className="font-medium">Category</p>
+                                    <input
+                                        icon="search"
+                                        placeholder="Search..."
+                                        className="w-full !py-1 !text-sm outline-none bg-transparent"
+                                    />
 
-                            <div className="max-h-44 overflow-y-scroll">
-                                {categoryFilterData &&
-                                    categoryFilterData
-                                        .sort((a, b) => b.selected - a.selected)
-                                        .map((category) => (
-                                            <div
-                                                key={category.id}
-                                                className="gap-2 flex"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    id={category.post_id}
-                                                    name={category.post_title}
-                                                    checked={category.selected}
-                                                    onClick={
-                                                        handleCategoryFilter
-                                                    }
-                                                />
-                                                <label
-                                                    className="line-clamp-1"
-                                                    htmlFor={category.post_id}
+                                    <div className="">
+                                        {categoryFilterData &&
+                                            categoryFilterData
+                                                .sort(
+                                                    (a, b) =>
+                                                        b.selected - a.selected
+                                                )
+                                                .map((category) => (
+                                                    <div
+                                                        key={category.id}
+                                                        className="gap-2 flex"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            id={
+                                                                category.post_id
+                                                            }
+                                                            name={
+                                                                category.post_title
+                                                            }
+                                                            checked={
+                                                                category.selected
+                                                            }
+                                                            onClick={
+                                                                handleCategoryFilter
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="line-clamp-1"
+                                                            htmlFor={
+                                                                category.post_id
+                                                            }
+                                                        >
+                                                            {
+                                                                category.post_title
+                                                            }
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {openFilterName === "Location" && (
+                                <div className="space-y-1">
+                                    <p className="font-medium">Location</p>
+                                    <input
+                                        icon="search"
+                                        placeholder="Search..."
+                                        className="w-full !py-1 !text-sm outline-none bg-transparent"
+                                    />
+
+                                    <div className="h-fit overflow-y-scroll">
+                                        {loccationFilterData &&
+                                            loccationFilterData
+                                                .sort(
+                                                    (a, b) =>
+                                                        b.selected - a.selected
+                                                )
+                                                .map((location) => (
+                                                    <div
+                                                        key={location.id}
+                                                        className="gap-2 flex"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            id={
+                                                                location.post_id
+                                                            }
+                                                            name={
+                                                                location.post_title
+                                                            }
+                                                            checked={
+                                                                location.selected
+                                                            }
+                                                            onChange={
+                                                                handleLocationFilter
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="line-clamp-1"
+                                                            htmlFor={
+                                                                location.post_id
+                                                            }
+                                                        >
+                                                            {
+                                                                location.post_title
+                                                            }
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {openFilterName === "Company" && (
+                                <div className="space-y-1">
+                                    <p className="font-medium">Company</p>
+                                    <input
+                                        icon="search"
+                                        placeholder="Search..."
+                                        className="w-full !py-1 !text-sm outline-none bg-transparent"
+                                    />
+                                    <div className="overflow-y-scroll">
+                                        {companyFilterData &&
+                                            companyFilterData
+                                                .sort(
+                                                    (a, b) =>
+                                                        b.selected - a.selected
+                                                )
+                                                .map((company) => (
+                                                    <div
+                                                        key={company.id}
+                                                        className="gap-2 flex"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            id={company.post_id}
+                                                            name={
+                                                                company.post_title
+                                                            }
+                                                            checked={
+                                                                company.selected
+                                                            }
+                                                            onChange={
+                                                                handleCompanyFilter
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="line-clamp-1"
+                                                            htmlFor={
+                                                                company.post_id
+                                                            }
+                                                        >
+                                                            {company.post_title}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {openFilterName === "Qualification" && (
+                                <div className="space-y-1">
+                                    <p className="font-medium">Qualification</p>
+                                    <input
+                                        icon="search"
+                                        placeholder="Search..."
+                                        className="w-full !py-1 !text-sm outline-none bg-transparent"
+                                    />
+
+                                    <div className=" overflow-y-scroll">
+                                        {qualificationsFilterData &&
+                                            qualificationsFilterData.map(
+                                                (qualification) => (
+                                                    <div
+                                                        key={qualification.id}
+                                                        className="flex gap-2"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            id={
+                                                                qualification.post_id
+                                                            }
+                                                            name={
+                                                                qualification.post_title
+                                                            }
+                                                            onChange={
+                                                                handleQualificationFilter
+                                                            }
+                                                            checked={
+                                                                qualification.selected
+                                                            }
+                                                        />
+                                                        <label
+                                                            className="line-clamp-1"
+                                                            htmlFor={
+                                                                qualification.post_id
+                                                            }
+                                                        >
+                                                            {
+                                                                qualification.post_title
+                                                            }
+                                                        </label>
+                                                    </div>
+                                                )
+                                            )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {openFilterName === "Job Type" && (
+                                <div className="space-y-1">
+                                    <p className="font-medium">Job Type</p>
+                                    <input
+                                        icon="search"
+                                        placeholder="Search..."
+                                        className="w-full !py-1 !text-sm outline-none bg-transparent"
+                                    />
+
+                                    <div className="overflow-y-scroll">
+                                        {jobTypeFilterData &&
+                                            jobTypeFilterData.map((jobType) => (
+                                                <div
+                                                    key={jobType.id}
+                                                    className="gap-2 flex"
                                                 >
-                                                    {category.post_title}
-                                                </label>
-                                            </div>
-                                        ))}
-                            </div>
-                        </div>
-                        <div className="space-y-1 p-3 border rounded-md">
-                            <p className="font-medium">Location</p>
-                            <input
-                                icon="search"
-                                placeholder="Search..."
-                                className="w-full !py-1 !text-sm outline-none bg-transparent"
-                            />
-
-                            <div className="max-h-44 h-fit overflow-y-scroll">
-                                {loccationFilterData &&
-                                    loccationFilterData
-                                        .sort((a, b) => b.selected - a.selected)
-                                        .map((location) => (
-                                            <div
-                                                key={location.id}
-                                                className="gap-2 flex"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    id={location.post_id}
-                                                    name={location.post_title}
-                                                    checked={location.selected}
-                                                    onChange={
-                                                        handleLocationFilter
-                                                    }
-                                                />
-                                                <label
-                                                    className="line-clamp-1"
-                                                    htmlFor={location.post_id}
-                                                >
-                                                    {location.post_title}
-                                                </label>
-                                            </div>
-                                        ))}
-                            </div>
-                        </div>
-                        <div className="space-y-1 p-3 border rounded-md">
-                            <p className="font-medium">Company</p>
-                            <input
-                                icon="search"
-                                placeholder="Search..."
-                                className="w-full !py-1 !text-sm outline-none bg-transparent"
-                            />
-                            <div className="max-h-44 overflow-y-scroll">
-                                {companyFilterData &&
-                                    companyFilterData
-                                        .sort((a, b) => b.selected - a.selected)
-                                        .map((company) => (
-                                            <div
-                                                key={company.id}
-                                                className="gap-2 flex"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    id={company.post_id}
-                                                    name={company.post_title}
-                                                    checked={company.selected}
-                                                    onChange={
-                                                        handleCompanyFilter
-                                                    }
-                                                />
-                                                <label
-                                                    className="line-clamp-1"
-                                                    htmlFor={company.post_id}
-                                                >
-                                                    {company.post_title}
-                                                </label>
-                                            </div>
-                                        ))}
-                            </div>
-                        </div>
-
-                        <div className="space-y-1 p-3 border rounded-md">
-                            <p className="font-medium">Qualification</p>
-                            <input
-                                icon="search"
-                                placeholder="Search..."
-                                className="w-full !py-1 !text-sm outline-none bg-transparent"
-                            />
-
-                            <div className="max-h-44 overflow-y-scroll">
-                                {qualificationsFilterData &&
-                                    qualificationsFilterData.map(
-                                        (qualification) => (
-                                            <div
-                                                key={qualification.id}
-                                                className="flex gap-2"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    id={qualification.post_id}
-                                                    name={
-                                                        qualification.post_title
-                                                    }
-                                                    onChange={
-                                                        handleQualificationFilter
-                                                    }
-                                                    checked={
-                                                        qualification.selected
-                                                    }
-                                                />
-                                                <label
-                                                    className="line-clamp-1"
-                                                    htmlFor={
-                                                        qualification.post_id
-                                                    }
-                                                >
-                                                    {qualification.post_title}
-                                                </label>
-                                            </div>
-                                        )
-                                    )}
-                            </div>
-                        </div>
-
-                        <div className="space-y-1 p-3 border rounded-md">
-                            <p className="font-medium">Job Type</p>
-                            <input
-                                icon="search"
-                                placeholder="Search..."
-                                className="w-full !py-1 !text-sm outline-none bg-transparent"
-                            />
-
-                            <div className="max-h-44 overflow-y-scroll">
-                                {jobTypeFilterData &&
-                                    jobTypeFilterData.map((jobType) => (
-                                        <div
-                                            key={jobType.id}
-                                            className="gap-2 flex"
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                id={jobType.post_id}
-                                                name={jobType.post_title}
-                                            />
-                                            <label
-                                                className="line-clamp-1"
-                                                htmlFor={jobType.post_id}
-                                            >
-                                                {jobType.post_title}
-                                            </label>
-                                        </div>
-                                    ))}
-                            </div>
+                                                    <input
+                                                        type="checkbox"
+                                                        id={jobType.post_id}
+                                                        name={
+                                                            jobType.post_title
+                                                        }
+                                                    />
+                                                    <label
+                                                        className="line-clamp-1"
+                                                        htmlFor={
+                                                            jobType.post_id
+                                                        }
+                                                    >
+                                                        {jobType.post_title}
+                                                    </label>
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -436,9 +516,7 @@ function JobFilter({
                     <SecondaryButton
                         onClick={handleClearAllFilters}
                         className="text-xs flex items-center border-none"
-                    >
-                        Clear All Filters
-                    </SecondaryButton>
+                    ></SecondaryButton>
 
                     <PrimaryButton onClick={closePopup}>
                         Apply Filters
@@ -486,7 +564,7 @@ function JobFilter({
                 </div>
             </div>
             <div className="space-y-3">
-                <div className="space-y-1 p-3 border rounded-md">
+                <div className="space-y-1">
                     <p className="font-medium">Salary</p>
                     <input
                         type="range"
@@ -671,4 +749,8 @@ JobFilter.propTypes = {
     setDataToSendInParams: PropTypes.func,
     setSortJobs: PropTypes.func,
     mobileFilter: PropTypes.bool,
+    closePopup: PropTypes.func,
+    openFilterName: PropTypes.string,
+    setOpenFilterName: PropTypes.func,
+    mobileFilterButtonsData: PropTypes.array,
 };

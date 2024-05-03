@@ -20,9 +20,18 @@ function Jobs() {
     const query = useQuery();
     const navigate = useNavigate();
     const isMobile = checkIsMobile();
+    const mobileFilterButtonsData = [
+        { name: "Sort By", icon: "fa-sort" },
+        { name: "Salary", icon: "fa-salary" },
+        { name: "Category", icon: "fa-category" },
+        { name: "Location", icon: "fa-location" },
+        { name: "Company", icon: "fa-company" },
+        { name: "Qualification", icon: "fa-qualification" },
+        { name: "Job Type", icon: "fa-job-type" },
+    ];
 
     const [openMobileFilter, setOpenMobileFilter] = useState(false);
-    const [openFilterName, setOpenFilterName] = useState("sort");
+    const [openFilterName, setOpenFilterName] = useState("Sort By");
 
     const [jobData, setJobData] = useState([]);
     const [latestJobs, setLatestJobs] = useState([]);
@@ -149,43 +158,29 @@ function Jobs() {
                                 <button>
                                     <i className="fas fa-filter"></i>
                                 </button>
-                                <span className="px-1 flex gap-2 overflow-auto no-scrollbar pe-8"
-                                onClick={() => setOpenMobileFilter(true)}
+                                <span
+                                    className="px-1 flex gap-2 overflow-auto no-scrollbar pe-8"
+                                    // onClick={() => setOpenMobileFilter(true)}
                                 >
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Sort</span>
-                                        <i className="fas fa-sort text-xs"></i>
-                                    </button>
-
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Category</span>
-                                        <i className="fas fa-chevron-down text-xs"></i>
-                                    </button>
-
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Location</span>
-                                        <i className="fas fa-chevron-down text-xs"></i>
-                                    </button>
-
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Company</span>
-                                        <i className="fas fa-chevron-down text-xs"></i>
-                                    </button>
-
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Job Type</span>
-                                        <i className="fas fa-chevron-down text-xs"></i>
-                                    </button>
-
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Salary</span>
-                                        <i className="fas fa-chevron-down text-xs"></i>
-                                    </button>
-
-                                    <button className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50">
-                                        <span>Qualifications</span>
-                                        <i className="fas fa-chevron-down text-xs"></i>
-                                    </button>
+                                    {mobileFilterButtonsData?.map((button) => (
+                                        <button
+                                            key={button.name}
+                                            onClick={() => {
+                                                setOpenMobileFilter(true);
+                                                setOpenFilterName(button.name);
+                                            }}
+                                            className="border text-sm space-x-2 px-2 py-1 rounded whitespace-nowrap bg-gray-50"
+                                        >
+                                            <span>{button.name}</span>
+                                            <i
+                                                className={`${
+                                                    button.name == "Sort By"
+                                                        ? button.icon
+                                                        : "fa-chevron-down"
+                                                } fa-solid`}
+                                            ></i>
+                                        </button>
+                                    ))}
                                 </span>
                                 <span className="absolute right-0 top-0 px-3 h-full bg-gradient-to-r to-white via-white from-[#ffffff7e]"></span>
                             </div>
@@ -209,6 +204,9 @@ function Jobs() {
                                             dataInParams={dataInParams}
                                             setDataToSendInParams={
                                                 setDataToSendInParams
+                                            }
+                                            mobileFilterButtonsData={
+                                                mobileFilterButtonsData
                                             }
                                         />
                                     </PopupModal>
