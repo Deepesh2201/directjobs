@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { menuItems, mobileMenuItems } from "./navLinks.js";
-import logo from "../../assets/images/noBGlogo512x512.png";
 import playStoreLogo from "../../assets/images/playstore.png";
 import appStoreLogo from "../../assets/images/appstore.png";
 import PrimaryButton from "../SharedComponents/PrimaryButton.jsx";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import SecondaryButton from "../SharedComponents/SecondaryButton.jsx";
 import { Menu, X } from "lucide-react";
 import UserProfileLabel from "../SharedComponents/UserProfileLabel.jsx";
@@ -12,15 +11,19 @@ import BrandLogo from "../SharedComponents/BrandLogo.jsx";
 import checkIsMobile, { checkMobileType } from "../../utils/checkIsMobile.js";
 import PopupModal from "../SharedComponents/PopupModal.jsx";
 import Login from "../../pages/Login";
+import UserContext from "../../context/userContext.js";
+import { login } from "../../db/login.js";
 
 function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const [isLoggedIn] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
     const [pageScrolled, setPageScrolled] = React.useState(false);
     const [loginPopup, setLoginPopup] = React.useState(false);
+    const { user, setUser } = useContext(UserContext);
 
     const mobileType = checkMobileType();
+
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         setIsMobile(checkIsMobile());
@@ -49,6 +52,22 @@ function NavBar() {
 
     const toggleLogin = () => {
         setLoginPopup(true);
+    };
+
+    useEffect(() => {
+        // stop scroll wehn popup is open
+        if (loginPopup) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    }, [loginPopup]);
+
+    const handleSignout = () => {
+        setUser(null);
+        console.log("User Logged Out");
+        login.logout();
+        navigate("/");
     };
 
     return (
@@ -90,25 +109,24 @@ function NavBar() {
                         </div>
                     </div>
                     <div className="gap-2 flex items-center text-xs lg:text-base">
-                        {/* {isLoggedIn && (
-                    <span className="relative inline-block">
-                        <img
-                            className="h-10 w-10 rounded-full"
-                            src={userinfo.avatar}
-                            alt={userinfo.name}
-                        />
-                        <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-600 ring-2 ring-white"></span>
-                    </span>
-                )} */}
-                        {!isLoggedIn && (
+                        {user?.user_id && (
+                            <UserProfileLabel
+                                name={user.name}
+                                username={user.email}
+                                avatar={user.user_image}
+                                handleSignout={handleSignout}
+                            />
+                        )}
+
+                        {!user?.user_id && (
                             <>
                                 <span className="gap-2 flex items-center flex-row-reverse md:flex-row">
-                                    <div className="lg:hidden">
+                                    {/* <div className="lg:hidden">
                                         <Menu
                                             onClick={toggleMenu}
                                             className="h-7 w-7 cursor-pointer text-[color:var(--primary-color)]"
                                         />
-                                    </div>
+                                    </div> */}
                                     <PrimaryButton onClick={toggleLogin}>
                                         <span className="hidden md:block">
                                             Candidate Login
@@ -117,7 +135,7 @@ function NavBar() {
                                             Login
                                         </span>
                                     </PrimaryButton>
-                                    <SecondaryButton to={"/signup"}>
+                                    <SecondaryButton>
                                         <span className="hidden md:block">
                                             Employer Login
                                         </span>
@@ -139,6 +157,13 @@ function NavBar() {
                                 </span>
                             </>
                         )}
+
+                        <div className="lg:hidden">
+                            <Menu
+                                onClick={toggleMenu}
+                                className="h-7 w-7 cursor-pointer text-[color:var(--primary-color)]"
+                            />
+                        </div>
                     </div>
                     {/* mobile menu */}
                     {isMenuOpen && (
@@ -191,18 +216,15 @@ function NavBar() {
                                 />
                             )} */}
                                 <div className="flex flex-col gap-3 h-[20%]">
-                                    {!isLoggedIn && (
+                                    {!user?.user_id && (
                                         <div className="flex gap-2 text-xs">
                                             <PrimaryButton
                                                 className="w-full text-center h-fit"
-                                                to={"/login"}
+                                                onClick={toggleLogin}
                                             >
                                                 Candidate Login
                                             </PrimaryButton>
-                                            <SecondaryButton
-                                                className="w-full text-center h-fit"
-                                                to={"/signup"}
-                                            >
+                                            <SecondaryButton className="w-full text-center h-fit">
                                                 Employer Login
                                             </SecondaryButton>
                                         </div>
@@ -269,13 +291,11 @@ function NavBar() {
                 </div>
             </nav>
 
-            {
-                loginPopup && (
-                    <PopupModal closePopup={() => setLoginPopup(false)}>
-                        <Login />
-                    </PopupModal>
-                )
-            }
+            {loginPopup && (
+                <PopupModal closePopup={() => setLoginPopup(false)}>
+                    <Login closePopup={() => setLoginPopup(false)} />
+                </PopupModal>
+            )}
         </>
     );
 }

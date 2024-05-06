@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 // import Layout from "./Layout.jsx";
 import "./index.css";
@@ -15,6 +14,8 @@ import FAQs from "./pages/FAQs.jsx";
 import Categories from "./pages/Categories.jsx";
 import Location from "./pages/Location.jsx";
 import JobDetails from "./components/JobListing/JobDetails.jsx";
+import UserContextProvider from "./context/UserContextProvider.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
                 path: "locations",
                 element: <Location />,
             },
+            {
+                path: "user/profile",
+                element: <UserProfile />,
+            },
         ],
     },
     // jobs route
@@ -64,18 +69,18 @@ const router = createBrowserRouter([
             },
         ],
     },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/signup",
-        element: <Signup />,
-    },
+    // {
+    //     path: "/login",
+    //     element: <Login />,
+    // },
+    // {
+    //     path: "/signup",
+    //     element: <Signup />,
+    // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    <UserContextProvider>
         <RouterProvider router={router} />
-    </React.StrictMode>
+    </UserContextProvider>
 );
