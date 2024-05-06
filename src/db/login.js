@@ -19,7 +19,7 @@ class Login {
             this.userType = userType;
             // Generate OTP or get it from an API
             this.otp = await this.generateOtp();
-            console.log("OTP:", this.otp);
+            // console.log("OTP:", this.otp);
 
             // Construct data for sending OTP
             this.data = {
@@ -47,24 +47,24 @@ class Login {
             };
 
             // Send OTP using Axios
-            // const response = await axios.post(
-            //     "https://graph.facebook.com/v19.0/177060842168147/messages",
-            //     this.data,
-            //     {
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //             Authorization: `Bearer ${
-            //                 import.meta.env.VITE_META_AUTH_TOKEN
-            //             }`,
-            //         },
-            //     }
-            // );
+            const response = await axios.post(
+                "https://graph.facebook.com/v19.0/177060842168147/messages",
+                this.data,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${
+                            import.meta.env.VITE_META_AUTH_TOKEN
+                        }`,
+                    },
+                }
+            );
 
             // console.log("OTP sent:", response.data);
 
             await this.saveOtp().then((response) => {
                 if (response) {
-                    console.log(response);
+                    // console.log(response);
                     console.log("OTP saved successfully");
                 }
             });
