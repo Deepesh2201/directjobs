@@ -12,11 +12,10 @@ function UserProfileLabel({ avatar, name, username, handleSignout }) {
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="relative"
                 >
-                    <img
-                        className="inline-block h-10 w-10 rounded-full"
-                        src={avatar}
-                        alt={name}
-                    />
+                    <span
+                        className="inline-block h-9 w-9 rounded-full bg-center bg-cover bg-no-repeat"
+                        style={{ backgroundImage: `url(${avatar})` }}
+                    ></span>
                     <span className="absolute right-0 bottom-0 w-4 h-4 bg-slate-800 rounded-full flex items-center justify-center text-white">
                         <i className="fas fa-chevron-down text-[0.5rem]"></i>
                     </span>
@@ -26,11 +25,13 @@ function UserProfileLabel({ avatar, name, username, handleSignout }) {
                         <div className="absolute border right-0 mt-6 w-56 bg-white rounded-md overflow-hidden shadow-xl z-10">
                             <div className="py-1">
                                 <div className="flex gap-1.5 px-4 py-2 text-sm text-gray-700">
-                                    <img
-                                        className="inline-block h-8 w-8 rounded-full"
-                                        src={avatar}
-                                        alt={name}
-                                    />
+                                    {/* <img className="" src={avatar} alt={name} /> */}
+                                    <span
+                                        className="inline-block h-8 w-8 rounded-full bg-center bg-cover bg-no-repeat"
+                                        style={{
+                                            backgroundImage: `url(${avatar})`,
+                                        }}
+                                    ></span>
                                     <div>
                                         <span className="truncate line-clamp-1 leading-tight">
                                             {name || "Welcome User"}

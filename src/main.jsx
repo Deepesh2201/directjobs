@@ -16,6 +16,8 @@ import Location from "./pages/Location.jsx";
 import JobDetails from "./components/JobListing/JobDetails.jsx";
 import UserContextProvider from "./context/UserContextProvider.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
+import { Suspense } from "react";
+import Loader from "./components/SharedComponents/Loader.jsx";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +27,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <Home />,
+                element: (
+                    <Suspense fallback={<Loader />}>
+                        <Home />
+                    </Suspense>
+                ),
             },
             {
                 path: "about",

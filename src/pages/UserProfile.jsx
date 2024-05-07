@@ -16,11 +16,12 @@ function UserProfile() {
     const { user } = useContext(UserContext);
     const [coverImage, setCoverImage] = useState("");
     const [loading, setLoading] = useState(true);
+    // const 
 
     useEffect(() => {
         setLoading(true);
         if (user?.user_id) {
-            getUnsplashImage("cover").then((data) => {
+            getUnsplashImage(`job ${user?.user_id}`).then((data) => {
                 setCoverImage(data.urls.regular);
                 setLoading(false);
             });

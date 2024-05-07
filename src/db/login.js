@@ -14,40 +14,40 @@ class Login {
     }
 
     async sendOtp(mobile, userType) {
-        try {
-            this.mobile = Number(mobile);
-            this.userType = userType;
-            // Generate OTP or get it from an API
-            this.otp = await this.generateOtp();
-            // console.log("OTP:", this.otp);
+        this.mobile = Number(mobile);
+        this.userType = userType;
+        // Generate OTP or get it from an API
+        this.otp = await this.generateOtp();
+        console.log("OTP:", this.otp);
 
-            // Construct data for sending OTP
-            this.data = {
-                messaging_product: "whatsapp",
-                recipient_type: "individual",
-                to: `91${this.mobile}`,
-                type: "template",
-                template: {
-                    name: "directjobs",
-                    language: {
-                        code: "en",
-                    },
-                    components: [
-                        {
-                            type: "body",
-                            parameters: [
-                                {
-                                    type: "text",
-                                    text: this.otp,
-                                },
-                            ],
-                        },
-                    ],
+        // Construct data for sending OTP
+        this.data = {
+            messaging_product: "whatsapp",
+            recipient_type: "individual",
+            to: `91${this.mobile}`,
+            type: "template",
+            template: {
+                name: "directjobs",
+                language: {
+                    code: "en",
                 },
-            };
+                components: [
+                    {
+                        type: "body",
+                        parameters: [
+                            {
+                                type: "text",
+                                text: this.otp,
+                            },
+                        ],
+                    },
+                ],
+            },
+        };
 
-            // Send OTP using Axios
-            const response = await axios.post(
+        // Send OTP using Axios
+        return axios
+            .post(
                 "https://graph.facebook.com/v19.0/177060842168147/messages",
                 this.data,
                 {
@@ -58,22 +58,25 @@ class Login {
                         }`,
                     },
                 }
-            );
+            )
+            .then((response) => {
+                this.saveOtp()
+                    .then((response) => {
+                        console.log("OTP saved successfully");
+                        return response;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        throw new Error("OTP not saved");
+                    });
 
-            // console.log("OTP sent:", response.data);
+                return response;
+            })
 
-            await this.saveOtp().then((response) => {
-                if (response) {
-                    // console.log(response);
-                    console.log("OTP saved successfully");
-                }
+            .catch((error) => {
+                console.log(error);
+                throw new Error("Error occurred while sending OTP");
             });
-
-            return true; // Return true if OTP is sent successfully
-        } catch (error) {
-            console.error("Error sending OTP:", error);
-            return false; // Return false if OTP sending fails
-        }
     }
 
     async saveOtp() {

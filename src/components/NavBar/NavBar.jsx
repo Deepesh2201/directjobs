@@ -79,9 +79,6 @@ function NavBar() {
             >
                 <div className="flex w-full justify-between items-center max-w-7xl mx-auto">
                     <div className="flex items-center w-fit">
-                        {/* <Link to={"/"} className="w-14 md:w-14">
-                    <img src={logo} alt="Direct Jobs" />
-                </Link> */}
                         <BrandLogo
                             noSocial
                             color

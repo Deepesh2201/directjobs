@@ -68,12 +68,21 @@ function Login({ closePopup }) {
         e.preventDefault();
         setLoading(true);
         const mobileNumber = mobileNumbers.join("");
-        login.sendOtp(mobileNumber, "User").then((response) => {
-            if (response) {
-                setShowOtpForm(true);
+        login
+            .sendOtp(mobileNumber, "User")
+            .then((response) => {
+                if (response) {
+                    setShowOtpForm(true);
+                    setLoading(false);
+                }
+            })
+            .catch((error) => {
                 setLoading(false);
-            }
-        });
+                setError(error.message);
+                setTimeout(() => {
+                    setError(null);
+                }, 5000);
+            });
     };
 
     const handleOtpSubmit = (e) => {
@@ -89,7 +98,8 @@ function Login({ closePopup }) {
                 setUser(response);
 
                 closePopup();
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 setLoading(false);
                 setError(error.message);
                 setTimeout(() => {
