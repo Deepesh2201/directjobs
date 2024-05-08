@@ -113,18 +113,11 @@ function Login({ closePopup }) {
     }, [user]);
 
     return (
-        <div className="grid grid-cols-5 w-full md:min-h-screen">
-            <div className="relative gap-1 lg:col-span-3 col-span-5">
+        <div className="w-full md:min-h-screen">
+            <div className="relative m-auto max-w-7xl">
                 <div className="flex flex-col min-h-svh md:min-h-screen px-6 md:px-20 lg:px-24 py-8 md:py-16">
                     <div className="flex flex-col gap-1.5">
                         <div className="">
-                            <Link
-                                to={"/"}
-                                className="hidden md:flex absolute top-5 left-5 items-center gap-1"
-                            >
-                                <i className="fa-solid fa-arrow-left-long"></i>
-                                Back
-                            </Link>
                             <BrandLogo />
                         </div>
                         <h1 className="mt-8 text-3xl font-bold text-[color:var(--primary-color)] md:text-4xl lg:text-5xl leading-tight">
