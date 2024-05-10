@@ -85,7 +85,7 @@ function NavBar() {
                             color
                             className={"!text-slate-900"}
                         />
-                        <div className="hidden sm:block space-x-6 font-medium">
+                        <div className="hidden md:block space-x-6 font-medium">
                             <div className="flex space-x-8 items-center">
                                 {menuItems.map((item) => (
                                     <NavLink
