@@ -16,17 +16,18 @@ function UserProfile() {
     const { user } = useContext(UserContext);
     const [coverImage, setCoverImage] = useState("");
     const [loading, setLoading] = useState(true);
-    // const 
+    // const
 
     useEffect(() => {
         setLoading(true);
         if (user?.user_id) {
-            getUnsplashImage(`job ${user?.user_id}`).then((data) => {
+            getUnsplashImage(`wallpaper ${user?.user_id}`).then((data) => {
                 setCoverImage(data.urls.regular);
+                document.title = `${user?.name || "Profile"} | Direct Jobs`;
                 setLoading(false);
             });
         }
-    }, [user?.user_id]);
+    }, [user?.user_id, user?.name]);
 
     return (
         <div>
@@ -37,25 +38,24 @@ function UserProfile() {
                         style={{ backgroundImage: `url(${coverImage})` }}
                     ></div>
 
-                    <div className="rounded-lg -mt-16 md:-mt-24 lg:-mt-32 p-4 md:p-8">
-                        <div className="flex justify-center">
+                    <div className="rounded-lg -mt-16 p-4 md:p-8 flex flex-col md:flex-row items-center gap-0 md:gap-8 justify-center md:justify-start">
+                        <div className="flex justify-center md:justify-start">
                             <img
-                                className="h-24 w-24 md:h-32 md:w-32 lg:h-48 lg:w-48 rounded-full"
+                                className="h-24 w-24 md:h-32 md:w-32 lg:h-40 lg:w-40 rounded-full border-2 drop-shadow-md"
                                 src={user?.user_image}
                                 alt={user?.name}
                             />
                         </div>
-                    </div>
-                    <div className="mt-4 md:mt-8 lg:mt-12">
-                        <div className="text-center">
-                            <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold text-[color:var(--primary-color)]">
+                        <div className="text-center md:text-left mt-4">
+                            <h1 className="text-xl drop-shadow-2xl md:text-2xl lg:text-4xl font-semibold text-[color:var(--primary-color)]">
                                 {user?.name}
                             </h1>
-                            <p className="text-lg md:text-xl lg:text-2xl text-[color:var(--secondary-color)]">
+                            <p className="text-base md:text-lg lg:text-xl text-[color:var(--secondary-color)]">
                                 {user?.email}
                             </p>
                         </div>
-
+                    </div>
+                    <div className="mt-4 md:mt-8 lg:mt-12">
                         <div className="mt-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="bg-white rounded-lg p-4">
