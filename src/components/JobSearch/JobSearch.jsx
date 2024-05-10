@@ -9,7 +9,7 @@ import "semantic-ui-css/components/transition.min.css";
 import "semantic-ui-css/components/input.min.css";
 import checkIsMobile from "../../utils/checkIsMobile";
 
-function JobSearch() {
+function JobSearch({ compact = false, iconOnLeft = true }) {
     const [search, setSearch] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
     const [locationValue, setLocationValue] = useState("");
@@ -79,7 +79,11 @@ function JobSearch() {
                 onSubmit={handleSearch}
             >
                 <div className="flex items-center justify-between w-full rounded-md p-0.5 lg:p-[2.5px] overflow-clip">
-                    <div className="text-black min-w-6 justify-center flex items-center h-full">
+                    <div
+                        className={`text-black min-w-6 justify-center flex items-center h-full ${
+                            iconOnLeft ? "block" : "hidden"
+                        }`}
+                    >
                         <i className={`fas fa-search text-base mr-2`}></i>
                     </div>
 
@@ -88,6 +92,7 @@ function JobSearch() {
                             type="text"
                             placeholder="Type a job title or keyword"
                             value={search}
+                            compact={compact}
                             className="w-[100%]"
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -101,7 +106,11 @@ function JobSearch() {
                         )}
                     </div>
                 </div>
-                <div className="relative flex items-center justify-center w-full">
+                <div
+                    className={`relative flex items-center justify-center w-full ${
+                        compact ? "hidden" : ""
+                    }`}
+                >
                     <SearchableDropdown
                         placeholder={"Select Category"}
                         options={category}
@@ -110,7 +119,11 @@ function JobSearch() {
                         setValue={setCategoryValue}
                     />
                 </div>
-                <div className="relative flex items-center justify-center w-full">
+                <div
+                    className={`relative flex items-center justify-center w-full ${
+                        compact ? "hidden" : ""
+                    }`}
+                >
                     <SearchableDropdown
                         placeholder={"Select Location"}
                         options={location}
@@ -121,14 +134,12 @@ function JobSearch() {
                     />
                 </div>
                 <PrimaryButton
-                    className={"px-8 !py-1.5 text-base"}
+                    className={`text-base flex gap-2 ${compact ? "hidden !px-3":"!px-4 !py-1.5"}`}
                     onClick={handleSearch}
                 >
-                    <i className="fas fa-search mr-2 text-base hidden md:inline"></i>
-                    Find Jobs
-                    <span className="md:hidden">
-                        <i className="fas fa-angle-right ml-2"></i>
-                    </span>
+                    <i className="fas fa-search text-base hidden md:inline"></i>
+                    <span hidden={compact}>Find Jobs</span>
+                    <i className="md:hidden fas fa-angle-right"></i>
                 </PrimaryButton>
             </form>
             {error && (

@@ -13,6 +13,7 @@ import PopupModal from "../SharedComponents/PopupModal.jsx";
 import Login from "../../pages/Login";
 import UserContext from "../../context/userContext.js";
 import { login } from "../../db/login.js";
+import JobSearch from "../JobSearch/JobSearch.jsx";
 
 function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -78,14 +79,14 @@ function NavBar() {
                 }`}
             >
                 <div className="flex w-full justify-between items-center max-w-7xl mx-auto">
-                    <div className="flex items-center w-fit">
+                    <div className="flex items-center w-fit gap-8 mx-2 whitespace-nowrap">
                         <BrandLogo
                             noSocial
                             color
                             className={"!text-slate-900"}
                         />
                         <div className="hidden sm:block space-x-6 font-medium">
-                            <div className="ml-12 flex space-x-8 items-center">
+                            <div className="flex space-x-8 items-center">
                                 {menuItems.map((item) => (
                                     <NavLink
                                         key={item.label}
@@ -104,6 +105,9 @@ function NavBar() {
                                 ))}
                             </div>
                         </div>
+                        {/* <div className=" hidden lg:block">
+                            <JobSearch compact iconOnLeft={false} />
+                        </div> */}
                     </div>
                     <div className="gap-2 flex items-center text-xs lg:text-base">
                         {user?.user_id && (
@@ -155,7 +159,7 @@ function NavBar() {
                             </>
                         )}
 
-                        <div className="lg:hidden">
+                        <div className="md:hidden">
                             <Menu
                                 onClick={toggleMenu}
                                 className="h-7 w-7 cursor-pointer text-[color:var(--primary-color)]"
