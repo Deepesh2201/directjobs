@@ -2,11 +2,11 @@ import NavBar from "./components/NavBar/NavBar";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 
-function Layout() {
+function ComfortLayout() {
     return (
         <>
             <NavBar />
-            <div className="mt-[150px]">
+            <div className="">
                 <Outlet />
             </div>
             <Footer />
@@ -14,4 +14,4 @@ function Layout() {
     );
 }
 
-export default Layout;
+export default ComfortLayout;
