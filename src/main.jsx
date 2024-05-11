@@ -4,12 +4,10 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
-import NotFoundPage from "./pages/NotFoundPage.jsx";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
+import NotFoundPage from "./pages/NotFound.jsx";
 import Jobs from "./pages/Jobs.jsx";
 import Support from "./pages/Support.jsx";
-import ComfortLayout from "./ComfortLayout.jsx";
+import Layout from "./Layout.jsx";
 import FAQs from "./pages/FAQs.jsx";
 import Categories from "./pages/Categories.jsx";
 import Location from "./pages/Location.jsx";
@@ -18,15 +16,23 @@ import UserContextProvider from "./context/UserContextProvider.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import { Suspense } from "react";
 import Loader from "./components/SharedComponents/Loader.jsx";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
+import Protected from "./AuthLayout.jsx";
+import EditProfile from "./pages/EditProfile.jsx";
+import ApplyJobs from "./pages/ApplyJobs.jsx";
+import Login from "./pages/Login.jsx";
+import Company from "./pages/Company.jsx";
+import CompanyDetails from "./pages/CompanyDetails.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <ComfortLayout />,
+        element: <Layout />,
         errorElement: <NotFoundPage />,
         children: [
             {
-                path: "",
+                path: "/",
                 element: (
                     <Suspense fallback={<Loader />}>
                         <Home />
@@ -55,38 +61,66 @@ const router = createBrowserRouter([
             },
             {
                 path: "user/profile",
-                element: <UserProfile />,
-            },
-        ],
-    },
-    // jobs route
-    {
-        path: "jobs",
-        element: <ComfortLayout />,
-        errorElement: <NotFoundPage />,
-        children: [
-            {
-                path: "",
-                element: <Jobs />,
+                element: (
+                    <Protected authentication>
+                        <UserProfile />,
+                    </Protected>
+                ),
             },
             {
-                path: "details",
-                element: <JobDetails />,
+                path: "user/edit-profile",
+                element: (
+                    <Protected authentication>
+                        <EditProfile />,
+                    </Protected>
+                ),
             },
+            {
+                path: "login",
+                element: (
+                    <Protected authentication={false}>
+                        <Login />,
+                    </Protected>
+                ),
+            },
+            {
+                path: "jobs",
+                children: [
+                    {
+                        path: "",
+                        element: <Jobs />,
+                    },
+                    {
+                        path: "details",
+                        element: <JobDetails />,
+                    },
+                    {
+                        path: "apply/:id",
+                        element: (
+                            <Protected authentication>
+                                <ApplyJobs />,
+                            </Protected>
+                        ),
+                    },
+                ],
+            },
+            {
+                path: "company",
+                children: [
+                    {
+                        path: ":id",
+                        element: <CompanyDetails />,
+                    },
+                ],
+            }
         ],
     },
-    // {
-    //     path: "/login",
-    //     element: <Login />,
-    // },
-    // {
-    //     path: "/signup",
-    //     element: <Signup />,
-    // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <UserContextProvider>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </UserContextProvider>
 );
