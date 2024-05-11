@@ -14,8 +14,6 @@ import Login from "../../pages/Login";
 import UserContext from "../../context/userContext.js";
 import { login } from "../../db/login.js";
 import JobSearch from "../JobSearch/JobSearch.jsx";
-import CandidateLogin from "../../pages/CandidateLogin.jsx";
-import EmployeerLogin from "../../pages/EmployeerLogin.jsx";
 
 function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -23,7 +21,6 @@ function NavBar() {
     const [pageScrolled, setPageScrolled] = React.useState(false);
     const [loginPopup, setLoginPopup] = React.useState(false);
     const { user, setUser } = useContext(UserContext);
-    const [popupType, setPopupType] = React.useState("candidate");
 
     const mobileType = checkMobileType();
 
@@ -54,14 +51,8 @@ function NavBar() {
         }
     };
 
-    const toggleCandidateLogin = () => {
+    const toggleLogin = () => {
         setLoginPopup(true);
-        setPopupType("candidate");
-    };
-
-    const toggleEmployerLogin = () => {
-        setLoginPopup(true);
-        setPopupType("employer");
     };
 
     useEffect(() => {
@@ -137,7 +128,7 @@ function NavBar() {
                                             className="h-7 w-7 cursor-pointer text-[color:var(--primary-color)]"
                                         />
                                     </div> */}
-                                    <PrimaryButton onClick={toggleCandidateLogin}>
+                                    <PrimaryButton onClick={toggleLogin}>
                                         <span className="hidden md:block">
                                             Candidate Login
                                         </span>
@@ -145,7 +136,7 @@ function NavBar() {
                                             Login
                                         </span>
                                     </PrimaryButton>
-                                    <SecondaryButton onClick={toggleEmployerLogin}>
+                                    <SecondaryButton>
                                         <span className="hidden md:block">
                                             Employer Login
                                         </span>
@@ -230,13 +221,11 @@ function NavBar() {
                                         <div className="flex gap-2 text-xs">
                                             <PrimaryButton
                                                 className="w-full text-center h-fit"
-                                                onClick={toggleCandidateLogin}
+                                                onClick={toggleLogin}
                                             >
                                                 Candidate Login
                                             </PrimaryButton>
-                                            <SecondaryButton className="w-full text-center h-fit"
-                                                onClick={toggleEmployerLogin}
-                                            >
+                                            <SecondaryButton className="w-full text-center h-fit">
                                                 Employer Login
                                             </SecondaryButton>
                                         </div>
@@ -303,15 +292,9 @@ function NavBar() {
                 </div>
             </nav>
 
-            {loginPopup && popupType === "candidate" && (
+            {loginPopup && (
                 <PopupModal closePopup={() => setLoginPopup(false)}>
-                    <CandidateLogin closePopup={() => setLoginPopup(false)} />
-                </PopupModal>
-            )}
-
-            {loginPopup && popupType === "employer" && (
-                <PopupModal closePopup={() => setLoginPopup(false)}>
-                    <EmployeerLogin closePopup={() => setLoginPopup(false)} />
+                    <Login closePopup={() => setLoginPopup(false)} />
                 </PopupModal>
             )}
         </>

@@ -29,17 +29,4 @@ const getUnsplashImage = async (search) => {
     }
 };
 
-const getUnsplashRandomImage = async () => {
-    const apiEndpoint = `https://api.unsplash.com/photos/random?client_id=${
-        import.meta.env.VITE_UNSPLASH_ACCESS_KEY
-    }`;
-    try {
-        const response = await axios.get(apiEndpoint);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        return Error("An error occurred while fetching unsplash image");
-    }
-};
-
-export { getUnsplashImages, getUnsplashImage, getUnsplashRandomImage };
+export { getUnsplashImages, getUnsplashImage };
