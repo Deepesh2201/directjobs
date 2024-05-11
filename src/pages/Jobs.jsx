@@ -50,7 +50,6 @@ function Jobs() {
     useEffect(() => {
         window.scrollTo(0, 0);
         document.title = "Jobs | Direct Jobs";
-        console.log(dataInParams);
     }, []);
 
     useEffect(() => {
@@ -92,7 +91,7 @@ function Jobs() {
             comps: query.get("comp")?.split(",").map(Number),
             job_types: query.get("job_type"),
         });
-    }, [window.location.href]);
+    }, [query]);
 
     useEffect(() => {
         setLoadingLatestJobs(true);
@@ -114,7 +113,7 @@ function Jobs() {
                 document.body.style.overflow = "auto";
             }
         }
-    }, [openMobileFilter]);
+    }, [openMobileFilter, isMobile]);
 
     useEffect(() => {
         console.log("Data to send in params: ", dataToSendInParams);
@@ -135,7 +134,7 @@ function Jobs() {
             urlparams += `&search=${dataToSendInParams.search}`;
         }
         navigate(`/jobs?${urlparams}`);
-    }, [dataToSendInParams]);
+    }, [dataToSendInParams, navigate]);
 
     const [sortJobs, setSortJobs] = useState("popular");
 
