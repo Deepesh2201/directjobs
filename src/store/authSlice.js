@@ -6,22 +6,21 @@ const initialState = {
     userData: null,
 };
 
-
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         login: (state, action) => {
-            state.status = true,
-            state.userData = action.payload.userData
-            state.userType = action.payload.userType
+            state.status = true;
+            state.userData = action.payload.userData;
+            state.userType = action.payload.userType;
         },
         logout: (state) => {
-            state.status = false,
-            state.userData = null
-            state.userType = null
-        }
-    }
+            state.status = false;
+            state.userData = null;
+            state.userType = null;
+        },
+    },
 });
 
 export const { login, logout } = authSlice.actions;
