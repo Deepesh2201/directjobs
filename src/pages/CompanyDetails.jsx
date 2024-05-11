@@ -3,7 +3,6 @@ import { getCompanyDetails, getCompanyJobs } from "../db/company";
 import { Link, useParams } from "react-router-dom";
 import logo from "../assets/images/darkLogo.png";
 import { getUnsplashImage } from "../utils/UnsplashImage";
-import JobCard from "../components/JobListing/JobCard";
 import JobListingCard from "../components/JobListing/JobListingCard";
 
 function CompanyDetails() {
@@ -45,48 +44,55 @@ function CompanyDetails() {
 
     return (
         <div className="bg-white">
-            <div className="max-w-7xl md:pt-10 m-auto px-4 md:px-8">
-                <div className="relative flex gap-4 mb-4 bg-cover bg-bottom h-52 items-center justify-between p-10">
+            <div className="max-w-7xl pt-10 m-auto px-4 md:px-8">
+                <div className="relative md:flex gap-2 md:gap-4 mb-4 bg-cover bg-bottom md:h-52 items-center justify-between md:p-10">
                     <img
                         src={bannerImage?.urls?.regular}
-                        className="absolute object-cover h-full rounded-md w-full z-0 opacity-30 object-center -ml-10"
+                        className="hidden md:block absolute object-cover h-full rounded-md w-full z-0 opacity-30 object-center md:-ml-10"
                         alt=""
                     />
 
-                    <div className="z-10 flex gap-6 items-center">
-                        <span
-                            className="block w-28 h-28 bg-contain bg-center rounded-full bg-no-repeat overflow-hidden"
-                            style={{ backgroundImage: `url(${logo})` }}
-                        >
+                    <div className="z-10 flex gap-3 md:gap-6 items-center">
+                        <span className="relative block w-16 h-16 md:w-28 md:h-28 border-blue-500 border-2 rounded-md md:rounded-full overflow-hidden">
                             <img
-                                src={tempLogo?.urls?.small}
-                                className="object-cover w-full h-full"
+                                // src={tempLogo?.urls?.small}
+                                src={CompanyDetails?.company_logo}
+                                className="object-contain w-full h-full"
                                 alt=""
                             />
+                            <span className="h-full w-full absolute left-0 top-0 p-4 opacity-55">
+                                <img src={logo} className="h-full w-full object-contain" alt="" />
+                            </span>
                         </span>
-                        <span>
-                            <h1 className="text-4xl font-medium">
+                        <span className="leading-none">
+                            <h1 className="text-2xl md:text-4xl font-medium leading-none">
                                 {CompanyDetails?.company_name}
                             </h1>
-                            <p className="text-base font-medium text-zinc-800 flex gap-2 mt-1">
+                            <p className="text-sm font-medium text-zinc-800 flex md:items-center flex-col md:flex-row gap-2 md:mt-1 leading-none">
                                 <span>{CompanyDetails?.company_email}</span>
-                                <span>|</span>
+                                <span className="hidden md:block">|</span>
 
-                                <Link
-                                    to={CompanyDetails?.company_website}
+                                <a
+                                    href={
+                                        CompanyDetails?.company_website?.startsWith(
+                                            "http"
+                                        )
+                                            ? CompanyDetails?.company_website
+                                            : `https://${CompanyDetails?.company_website}`
+                                    }
                                     target="_blank"
-                                    className="bg-blue-500 px-3 flex items-center text-white rounded text-xs hover:bg-blue-600 transition duration-300 ease-in-out"
+                                    className="md:bg-blue-500 -my-2 md:my-0 text-blue-500 w-fit md:px-3 py-1 flex items-center md:text-white rounded text-xs md:hover:bg-blue-600 transition duration-300 ease-in-out"
                                 >
                                     visit website
-                                </Link>
+                                </a>
                             </p>
                         </span>
                     </div>
 
                     <div className="z-10">
-                        <div className="bg-white h-28 w-28 border shadow-sm px-4 py-2 rounded-md flex flex-col justify-center items-center">
+                        <div className="bg-white flex-row gap-2 text-xs md:h-28 md:w-28 w-fit border mt-5 md:mt-0 shadow-sm px-4 py-2 rounded-md flex md:flex-col justify-center items-center">
                             <span>
-                                <span className="text-4xl font-medium text-zinc-800">
+                                <span className="md:text-4xl font-medium text-zinc-800">
                                     {JobList.length}
                                 </span>
                             </span>
