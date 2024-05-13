@@ -14,19 +14,21 @@ import { login } from "../../db/login.js";
 // import JobSearch from "../JobSearch/JobSearch.jsx";
 import CandidateLogin from "../../pages/CandidateLogin.jsx";
 import EmployeerLogin from "../../pages/EmployeerLogin.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/authSlice.js";
 
 function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
     const [pageScrolled, setPageScrolled] = React.useState(false);
     const [loginPopup, setLoginPopup] = React.useState(false);
-    const user = useSelector((state) => state.auth.userData);
     const [popupType, setPopupType] = React.useState("candidate");
-
+    
     const mobileType = checkMobileType();
-
     const navigate = useNavigate();
+    
+    const user = useSelector((state) => state.auth.userData);
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         setIsMobile(checkIsMobile());
@@ -74,6 +76,7 @@ function NavBar() {
 
     const handleSignout = () => {
         console.log("User Logged Out");
+        dispatch(logout());
         login.logout();
         navigate("/");
     };
