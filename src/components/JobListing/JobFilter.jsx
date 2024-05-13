@@ -305,7 +305,7 @@ function JobFilter({
                                                             checked={
                                                                 category.selected
                                                             }
-                                                            onClick={
+                                                            onChange={
                                                                 handleCategoryFilter
                                                             }
                                                         />
@@ -597,7 +597,7 @@ function JobFilter({
                                             id={category.post_id}
                                             name={category.post_title}
                                             checked={category.selected}
-                                            onClick={handleCategoryFilter}
+                                            onChange={handleCategoryFilter}
                                         />
                                         <label
                                             className="line-clamp-1"

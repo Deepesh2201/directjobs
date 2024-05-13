@@ -8,6 +8,7 @@ import "semantic-ui-css/components/dropdown.min.css";
 import "semantic-ui-css/components/transition.min.css";
 import "semantic-ui-css/components/input.min.css";
 import checkIsMobile from "../../utils/checkIsMobile";
+import PropTypes from "prop-types";
 
 function JobSearch({ compact = false, iconOnLeft = true }) {
     const [search, setSearch] = useState("");
@@ -134,7 +135,9 @@ function JobSearch({ compact = false, iconOnLeft = true }) {
                     />
                 </div>
                 <PrimaryButton
-                    className={`text-base flex gap-2 ${compact ? "hidden !px-3":"!px-4 !py-1.5"}`}
+                    className={`text-base flex gap-2 ${
+                        compact ? "hidden !px-3" : "!px-4 !py-1.5"
+                    }`}
                     onClick={handleSearch}
                 >
                     <i className="fas fa-search text-base hidden md:inline"></i>
@@ -154,3 +157,8 @@ function JobSearch({ compact = false, iconOnLeft = true }) {
 }
 
 export default JobSearch;
+
+JobSearch.propTypes = {
+    compact: PropTypes.bool,
+    iconOnLeft: PropTypes.bool,
+};
