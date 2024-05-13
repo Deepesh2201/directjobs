@@ -12,7 +12,6 @@ import FAQs from "./pages/FAQs.jsx";
 import Categories from "./pages/Categories.jsx";
 import Location from "./pages/Location.jsx";
 import JobDetails from "./components/JobListing/JobDetails.jsx";
-import UserContextProvider from "./context/UserContextProvider.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import { Suspense } from "react";
 import Loader from "./components/SharedComponents/Loader.jsx";
@@ -112,15 +111,13 @@ const router = createBrowserRouter([
                         element: <CompanyDetails />,
                     },
                 ],
-            }
+            },
         ],
     },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <UserContextProvider>
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-    </UserContextProvider>
+    <Provider store={store}>
+        <RouterProvider router={router} />
+    </Provider>
 );

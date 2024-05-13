@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { menuItems, mobileMenuItems } from "./navLinks.js";
 import playStoreLogo from "../../assets/images/playstore.png";
 import appStoreLogo from "../../assets/images/appstore.png";
@@ -10,19 +10,18 @@ import UserProfileLabel from "../SharedComponents/UserProfileLabel.jsx";
 import BrandLogo from "../SharedComponents/BrandLogo.jsx";
 import checkIsMobile, { checkMobileType } from "../../utils/checkIsMobile.js";
 import PopupModal from "../SharedComponents/PopupModal.jsx";
-import Login from "../../pages/Login";
-import UserContext from "../../context/userContext.js";
 import { login } from "../../db/login.js";
-import JobSearch from "../JobSearch/JobSearch.jsx";
+// import JobSearch from "../JobSearch/JobSearch.jsx";
 import CandidateLogin from "../../pages/CandidateLogin.jsx";
 import EmployeerLogin from "../../pages/EmployeerLogin.jsx";
+import { useSelector } from "react-redux";
 
 function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isMobile, setIsMobile] = React.useState(false);
     const [pageScrolled, setPageScrolled] = React.useState(false);
     const [loginPopup, setLoginPopup] = React.useState(false);
-    const { user, setUser } = useContext(UserContext);
+    const user = useSelector((state) => state.auth.userData);
     const [popupType, setPopupType] = React.useState("candidate");
 
     const mobileType = checkMobileType();
@@ -74,7 +73,6 @@ function NavBar() {
     }, [loginPopup]);
 
     const handleSignout = () => {
-        setUser(null);
         console.log("User Logged Out");
         login.logout();
         navigate("/");
@@ -137,7 +135,9 @@ function NavBar() {
                                             className="h-7 w-7 cursor-pointer text-[color:var(--primary-color)]"
                                         />
                                     </div> */}
-                                    <PrimaryButton onClick={toggleCandidateLogin}>
+                                    <PrimaryButton
+                                        onClick={toggleCandidateLogin}
+                                    >
                                         <span className="hidden md:block">
                                             Candidate Login
                                         </span>
@@ -145,7 +145,9 @@ function NavBar() {
                                             Login
                                         </span>
                                     </PrimaryButton>
-                                    <SecondaryButton onClick={toggleEmployerLogin}>
+                                    <SecondaryButton
+                                        onClick={toggleEmployerLogin}
+                                    >
                                         <span className="hidden md:block">
                                             Employer Login
                                         </span>
@@ -234,7 +236,8 @@ function NavBar() {
                                             >
                                                 Candidate Login
                                             </PrimaryButton>
-                                            <SecondaryButton className="w-full text-center h-fit"
+                                            <SecondaryButton
+                                                className="w-full text-center h-fit"
                                                 onClick={toggleEmployerLogin}
                                             >
                                                 Employer Login

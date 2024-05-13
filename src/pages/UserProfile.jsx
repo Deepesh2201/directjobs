@@ -7,16 +7,15 @@
 //     usertype: "User";
 // }
 
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../context/userContext";
+import { useEffect, useState } from "react";
 import { getUnsplashImage } from "../utils/UnsplashImage";
 import Loader from "../components/SharedComponents/Loader";
+import { useSelector } from "react-redux";
 
 function UserProfile() {
-    const { user } = useContext(UserContext);
+    const user = useSelector((state) => state.auth.userData);
     const [coverImage, setCoverImage] = useState("");
     const [loading, setLoading] = useState(true);
-    // const
 
     useEffect(() => {
         setLoading(true);

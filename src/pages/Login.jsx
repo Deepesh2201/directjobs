@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import BrandLogo from "../components/SharedComponents/BrandLogo";
 import { login } from "../db/login";
-import UserContext from "../context/userContext";
 
 function Login({ closePopup }) {
     const [mobileNumbers, setMobileNumbers] = useState(Array(10).fill(""));

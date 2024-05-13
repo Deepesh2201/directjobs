@@ -5,7 +5,9 @@ import PrimaryButton from "../components/SharedComponents/PrimaryButton";
 import PropTypes from "prop-types";
 import ErrorBanner from "../components/SharedComponents/ErrorBanner";
 import { Link } from "react-router-dom";
-import { login } from "../db/login";
+import { login as dblogin } from "../db/login";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../store/authSlice";
 
 function CandidateLogin({ closePopup }) {
     const [bgImage, setBgImage] = useState(null);
@@ -14,6 +16,10 @@ function CandidateLogin({ closePopup }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isOTPSent, setIsOTPSent] = useState(false);
+
+    const dispatch = useDispatch();
+
+    console.log(useSelector((state) => state.auth.userData));
 
     useEffect(() => {
         getUnsplashImage("hill top").then((image) => {
@@ -31,20 +37,18 @@ function CandidateLogin({ closePopup }) {
         }
 
         const mobile = mobileNumber.join("");
-        login
+        dblogin
             .sendOtp(mobile, "User")
             .then((response) => {
                 if (response) {
                     setIsOTPSent(true);
+                    setError(null);
                     setLoading(false);
                 }
             })
             .catch((error) => {
                 setLoading(false);
                 setError(error.message);
-                setTimeout(() => {
-                    setError(null);
-                }, 5000);
             });
     };
 
@@ -53,21 +57,24 @@ function CandidateLogin({ closePopup }) {
         setLoading(true);
         const mobile = mobileNumber.join("");
         const verificationOtp = OTP.join("");
-        login
+        dblogin
             .verifyOtp(verificationOtp, mobile, "User")
             .then((response) => {
                 setLoading(false);
                 console.log(response);
-                // setUser(response);
 
+                dispatch(
+                    login({
+                        userData: response,
+                        userType: "User",
+                    })
+                );
+                setError(null);
                 closePopup();
             })
             .catch((error) => {
                 setLoading(false);
                 setError(error.message);
-                setTimeout(() => {
-                    setError(null);
-                }, 5000);
             });
     };
 
@@ -116,7 +123,7 @@ function CandidateLogin({ closePopup }) {
                     )}
                     <ErrorBanner
                         error={error}
-                        timeout={5000}
+                        timeout={0}
                         setError={setError}
                     />
                 </div>
@@ -252,7 +259,7 @@ function OTPForm({
 }
 
 OTPForm.propTypes = {
-    OTP: PropTypes.string.isRequired,
+    OTP: PropTypes.array.isRequired,
     setOTP: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     handleSubmitOTP: PropTypes.func.isRequired,
