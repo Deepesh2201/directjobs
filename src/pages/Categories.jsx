@@ -3,7 +3,6 @@ import CenterTitle from "../components/SharedComponents/CenterTitle";
 import { getCategories } from "../db/categories";
 import CategoryCard from "../components/CategoryList/CategoryCard";
 import { Dropdown, Input } from "semantic-ui-react";
-import PrimaryButton from "../components/SharedComponents/PrimaryButton";
 import { CategoriesLoader } from "../components/SharedComponents/Loader";
 import abstract from "../assets/images/category.png";
 

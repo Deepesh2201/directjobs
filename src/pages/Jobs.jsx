@@ -52,6 +52,37 @@ function Jobs() {
         document.title = "Jobs | Direct Jobs";
     }, []);
 
+    // FIX - Show the selected filters in the filter popup when redirected from other page
+    useEffect(() => {
+        if (query.get("search")) {
+            setDataToSendInParams({ ...dataToSendInParams, search: query.get("search") });
+        }
+        if (query.get("cat")) {
+            setDataToSendInParams({
+                ...dataToSendInParams,
+                cats: query.get("cat")?.split(",").map(Number),
+            });
+        }
+        if (query.get("loc")) {
+            setDataToSendInParams({
+                ...dataToSendInParams,
+                locs: query.get("loc")?.split(",").map(Number),
+            });
+        }
+        if (query.get("comp")) {
+            setDataToSendInParams({
+                ...dataToSendInParams,
+                comps: query.get("comp")?.split(",").map(Number),
+            });
+        }
+        if (query.get("job_type")) {
+            setDataToSendInParams({
+                ...dataToSendInParams,
+                job_types: query.get("job_type"),
+            });
+        }
+    }, []);
+
     useEffect(() => {
         setLoadingSearchedJobs(true);
         const fetchJobs = async () => {
@@ -91,7 +122,7 @@ function Jobs() {
             comps: query.get("comp")?.split(",").map(Number),
             job_types: query.get("job_type"),
         });
-    }, [query]);
+    }, [query, query.get("search"), query.get("cat"), query.get("loc"), query.get("comp"), query.get("job_type")]);
 
     useEffect(() => {
         setLoadingLatestJobs(true);

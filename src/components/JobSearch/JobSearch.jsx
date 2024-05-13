@@ -75,10 +75,7 @@ function JobSearch({ compact = false, iconOnLeft = true }) {
 
     return (
         <>
-            <form
-                className="flex flex-col md:flex-row justify-center items-center gap-2 my-4"
-                onSubmit={handleSearch}
-            >
+            <form className="flex flex-col md:flex-row justify-center items-center gap-2 my-4">
                 <div className="flex items-center justify-between w-full rounded-md p-0.5 lg:p-[2.5px] overflow-clip">
                     <div
                         className={`text-black min-w-6 justify-center flex items-center h-full ${
@@ -96,6 +93,11 @@ function JobSearch({ compact = false, iconOnLeft = true }) {
                             compact={compact}
                             className="w-[100%]"
                             onChange={(e) => setSearch(e.target.value)}
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                    handleSearch(e);
+                                }
+                            }}
                         />
                         {search && (
                             <button
@@ -134,16 +136,17 @@ function JobSearch({ compact = false, iconOnLeft = true }) {
                         compact={isMobile ? true : false}
                     />
                 </div>
-                <PrimaryButton
-                    className={`text-base flex gap-2 ${
-                        compact ? "hidden !px-3" : "!px-4 !py-1.5"
-                    }`}
-                    onClick={handleSearch}
-                >
-                    <i className="fas fa-search text-base hidden md:inline"></i>
-                    <span hidden={compact}>Find Jobs</span>
-                    <i className="md:hidden fas fa-angle-right"></i>
-                </PrimaryButton>
+                <button onClick={handleSearch} type="submit">
+                    <PrimaryButton
+                        className={`text-base flex gap-2 ${
+                            compact ? "hidden !px-3" : "!px-4 !py-1.5"
+                        }`}
+                    >
+                        <i className="fas fa-search text-base hidden md:inline"></i>
+                        <span hidden={compact}>Find Jobs</span>
+                        <i className="md:hidden fas fa-angle-right"></i>
+                    </PrimaryButton>
+                </button>
             </form>
             {error && (
                 <div className="w-full mb-4">
