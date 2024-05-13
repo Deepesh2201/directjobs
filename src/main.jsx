@@ -21,7 +21,7 @@ import Protected from "./AuthLayout.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
 import ApplyJobs from "./pages/ApplyJobs.jsx";
 import Login from "./pages/Login.jsx";
-import Company from "./pages/Company.jsx";
+// import Company from "./pages/Company.jsx";
 import CompanyDetails from "./pages/CompanyDetails.jsx";
 
 const router = createBrowserRouter([
